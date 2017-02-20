@@ -1,0 +1,332 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+@{
+    ViewBag.Title = "Ledgers";
+}
+
+@{
+    
+    var sesion = Session["name"].ToString();
+    int result1;
+    int result2;
+    var balance = ViewBag.openingBalance;
+    var totalDebit = 0;
+    var totalCredit = 0;
+    var totalBalance = 0;
+    string values = null;
+    string debCommas = null;
+    string crCommas = null;
+    string totalBalanceCommas = null;
+    string totalCreditCommas = null;
+    string totaldebitCommas = null;
+    int allReportsEdit = Convert.ToInt32(Session["all_reports_edit"]);
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+    <style>
+        li {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .firstTwoli {
+            border-bottom: 1px solid grey;
+        }
+
+        .rightUl {
+            text-align: right;
+        }
+
+        .leftUl {
+            text-align: left;
+        }
+    </style>
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+
+
+
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+
+
+                        <div class="page-title mid_center">
+                            <h3 style="background-color:#34495e; color:#ECF0F1">
+                                Ledger Accounts
+                            </h3>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <div class="pull-left">
+                            <ul class="rightUl">
+                                <li class="firstTwoli">
+                                    <strong>Main Code: </strong>
+                                </li>
+                                <li class="firstTwoli">
+                                    <strong> Main Title: </strong>
+                                </li>
+                                <li>
+                                    Account Code:
+                                </li>
+                                <li>
+                                    Account Title:
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="pull-left">
+                            <ul class="leftUl">
+                                <li class="firstTwoli">
+                                    <strong>@ViewBag.MainAccountCode</strong>
+                                </li>
+                                <li class="firstTwoli">
+                                    <strong>@ViewBag.MainTitle</strong>
+                                </li>
+                                <li>
+                                    @ViewBag.AccountCode
+                                </li>
+                                <li>
+                                    @ViewBag.search
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="pull-right" style="margin-right:20px">
+                           <div class="pull-left">
+                                <ul class="leftUl">
+                                    <li class="rightUl">
+                                        <strong>From :</strong>
+                                    </li>
+                                    <li class="rightUl">
+                                        <strong>To :</strong>
+                                </li>
+
+                            </ul>
+                          </div>
+                            <div class="pull-right">
+                                <ul class="leftUl">
+                                    <li class="leftUl">
+                                       @ViewBag.FromDate
+                                    </li>
+                                    <li class="leftUl">
+                                        @ViewBag.ToDate
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                       
+                        <div class="clearfix"></div>
+                        <div class="pull-right" style="margin-right:60px">
+                            <p><a onclick="window.print();"><strong>Print</strong></a></p>  
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+
+
+
+                            <form action="@Url.Action("ExportData","Transactions")" method="get">
+
+                        
+                                
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr id="notShowHeading" class="headings">
+
+
+
+                                                <th>Date </th>
+                                                <th>Type </th>
+                                                <th>Code </th>
+                                                <th>Description </th>
+                                                <th>Dr </th>
+                                                <th>Cr </th>
+                                                <th>Balance </th>
+
+
+                                            </tr>
+                                        </thead>
+
+                                @foreach(var v in Model.OrderBy(x=>x.id))
+                                           
+                                {
+                                    
+                                    foreach(var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
+                                    {
+
+                                        result1 = DateTime.Compare(ViewBag.start, t.created_at);
+                                        result2 = DateTime.Compare(ViewBag.end, t.created_at);
+                                        debCommas = (String.Format("{0:0,0}", t.dr));
+                                        crCommas = (String.Format("{0:0,0}", t.cr));
+                                        
+                                        if (t.extra == "Sale" && v.main_id != 12)
+                                        {
+                                            continue;
+                                        }
+                                        if (t.cr == 0 && t.dr == 0)
+                                        {
+                                            continue;
+                                        }
+                                        if (t.is_active != "Y")
+                                        {
+                                            continue;
+                                        }
+                                        if (result1 < 0 || result1 == 0)
+                                        { 
+                                        <tbody>
+                                            @if (result2 != -1)
+                                            {
+                                                
+                                                balance = balance + t.cr;
+                                                balance = balance - t.dr;
+                                                totalCredit = totalCredit + t.cr;
+                                                totalDebit = totalDebit + t.dr;
+                                                
+                                                values = (String.Format("{0:0,0}", balance)); 
+                                                
+                                            <tr>
+
+                                                <td>@t.created_at.ToShortDateString()</td>
+                                                <td>@t.voucher_type</td>
+                                                <td>@t.voucher_code</td>
+                                                <td>@t.description </td>
+                                                <td>@t.cr</td>
+                                                <td>@t.dr</td>
+                                                <td>@values</td>
+
+                                            </tr>
+                                            }
+
+
+
+                                        </tbody>
+                                      }
+                                    }
+
+                                }
+                                    </table>
+
+
+                                 
+
+
+                                </div>
+
+                            </form>
+
+                            @{
+                                totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                            }
+
+                            <p><strong>Total Debit:&nbsp;&nbsp;&nbsp;</strong>@totalCreditCommas</p>
+                            <p><strong>Total Credit:&nbsp;&nbsp;&nbsp;</strong>@totaldebitCommas</p>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+
+
+
+
+
+
+</body>
+
+</html>

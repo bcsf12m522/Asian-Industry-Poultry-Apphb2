@@ -1,0 +1,569 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+@{
+
+    ViewBag.Title = "User Creation";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create New User Account</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Create User Account</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>New User Account <small></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("createPost", "USER_CRUD")" method="post" data-parsley-validate class="form-horizontal form-label-left" new { enctype="multipart/form-data" }>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="first-name" name="name" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            User Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="last-name" name="username" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Password </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="password" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">CNIC </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="cnic" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Email </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="city" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Phone # </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Address </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="address" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Amount Limit </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="number" name="amountLimit" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file" class="control-label col-md-3 col-sm-3 col-xs-12">Upload Image </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="file" name="image" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">User Module Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="view" value="view"> &nbsp; View &nbsp;
+
+
+                                                <input type="checkbox" name="create" value="create"> &nbsp; Create  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="delete" value="delete">&nbsp; Delete &nbsp;
+
+                                                <input type="checkbox" name="edit" value="edit"> &nbsp; Edit &nbsp;
+
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Main Accounts Module Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="accView" value="accView"> &nbsp; View &nbsp;
+
+
+                                                <input type="checkbox" name="accCreate" value="accCreate"> &nbsp; Create  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="accDelete" value="accDelete">&nbsp; Delete &nbsp;
+
+                                                <input type="checkbox" name="accUpdate" value="accUpdate"> &nbsp; Edit &nbsp;
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Employee Module Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="empView" value="empView"> &nbsp; View &nbsp;
+
+
+                                                <input type="checkbox" name="empCreate" value="empCreate"> &nbsp; Create  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="empDelete" value="empDelete">&nbsp; Delete &nbsp;
+
+                                                <input type="checkbox" name="empUpdate" value="empUpdate"> &nbsp; Edit &nbsp;
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Reports View Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="viewAll" value="viewAll"> &nbsp;Ledgers &nbsp;
+
+
+                                                <input type="checkbox" name="viewSale" value="viewSale"> &nbsp;View Sale  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="viewExpense" value="viewExpense">&nbsp; View Expense &nbsp;
+
+                                                <input type="checkbox" name="viewBankPayment" value="viewBankPayment">&nbsp; View BankPayment &nbsp;
+
+                                                <input type="checkbox" name="viewPurchase" value="viewPurchase">&nbsp; View Purchase &nbsp;
+
+                                                <input type="checkbox" name="trialBalance" value="trialBalance"> &nbsp;Trial Balance &nbsp;
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Reports Edit Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+                                                <input type="checkbox" name="editAll" value="editAll"> &nbsp; Edit All &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="editSale" value="editSale"> &nbsp; Edit Sale &nbsp;
+
+
+                                                <input type="checkbox" name="editExpense" value="editExpense"> &nbsp;Edit Expense  &nbsp;
+
+                                                <input type="checkbox" name="editPurchase" value="editPurchase"> &nbsp;Edit Purchase  &nbsp;
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Vouchers Module Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="jv" value="jv"> &nbsp; Journal &nbsp;
+
+
+                                                <input type="checkbox" name="br" value="br"> &nbsp;Bank Received  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="bp" value="bp">&nbsp; Bank Payment &nbsp;
+
+                                                <input type="checkbox" name="cr" value="cr"> &nbsp; Cash Received &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="cp" value="cp"> &nbsp; Cash Payment &nbsp;
+
+
+                                                <input type="checkbox" name="sv" value="sv"> &nbsp;Sale  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="pv" value="pv">&nbsp; Purchase &nbsp;
+
+                                                <input type="checkbox" name="upsv" value="upsv"> &nbsp; Unit Price Sale &nbsp;
+
+
+                                                <input type="checkbox" name="uppv" value="uppv"> &nbsp;Unit Price Purchase &nbsp;
+
+
+                                                <input type="checkbox" name="ev" value="ev"> &nbsp;Expense  &nbsp;
+
+
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">SuperVision Permission</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+                                                <input type="checkbox" name="supervision" value="supervision"> &nbsp; Allow &nbsp;
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">HomeScreen Permission</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+                                                <input type="checkbox" name="homeScreen" value="homeScreen"> &nbsp; Allow &nbsp;
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Production Permission</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+                                                <input type="checkbox" name="productionReports" value="productionReports"> &nbsp; Production Reports &nbsp;
+
+                                                <input type="checkbox" name="productionProtien" value="productionProtien"> &nbsp; Production Protien &nbsp;
+
+                                                <input type="checkbox" name="productionCarbon" value="productionCarbon"> &nbsp; Production Carbon &nbsp;
+
+                                                <input type="checkbox" name="productionBleachOil" value="productionBleachOil"> &nbsp; Production Bleach Oil &nbsp;
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Goods Management Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="viewGoods" value="viewGoods">&nbsp; View Goods &nbsp;
+
+
+                                                <input type="checkbox" name="addGood" value="addGood"> &nbsp; Add Good &nbsp;
+
+
+                                                <input type="checkbox" name="editGood" value="editGood"> &nbsp;Edit Good  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="deleteGood" value="deleteGood"> &nbsp; Delete Goods &nbsp;
+
+
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Goods Types Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+                                                <input type="checkbox" name="addType" value="addType"> &nbsp;Add  &nbsp;
+
+
+                                                <input type="checkbox" name="editType" value="editType"> &nbsp;Edit  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="deleteType" value="deleteType">&nbsp;Delete &nbsp;
+
+                                                <input type="checkbox" name="viewType" value="viewType"> &nbsp;View  &nbsp;
+
+
+                                                <input type="checkbox" name="unitRate" value="unitRate"> &nbsp;Add Unit Rate &nbsp;
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Attendence Permissions</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+                                                <input type="checkbox" name="atdReports" value="atdReports">&nbsp; Reports &nbsp;
+
+
+                                                <input type="checkbox" name="atdView" value="atdView"> &nbsp; View  &nbsp;
+
+
+                                                <input type="checkbox" name="atdEdit" value="atdEdit"> &nbsp;Edit  &nbsp;
+
+
+
+
+                                                <input type="checkbox" name="atdAdd" value="atdAdd"> &nbsp; Add &nbsp;
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="clearfix"></div>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Accounts Permissions</label>
+                                        <div class="col-md-3 col-sm-6 col-xs-12"></div>
+                                            <div class="col-md-9 col-sm-6 col-xs-12">
+
+                                                <div id="gender" class="btn-group" style="margin-top:8px;">
+
+
+
+
+                                                    @foreach (var name in Model.OrderBy(x=>x.MainAccount.main_id))
+                                                    {
+
+
+                                                        <input type="checkbox" name="@name.name" value="@name.id"><label> <strong>@name.MainAccount.name</strong>->@name.HeadAccount.name ->@name.SubHeadAccount.name -> @name.name</label>
+                                                        <br />
+
+
+                                                    }
+
+
+
+
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    <div class="form-group">
+
+
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                            <input type="submit" value="Create" class="btn btn-success" />
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                <!-- top tiles -->
+                <!-- /top tiles -->
+
+                <br />
+                <!-- /footer content -->
+            </div>
+            <!-- /page content -->
+
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+  </body>
+
+</html>

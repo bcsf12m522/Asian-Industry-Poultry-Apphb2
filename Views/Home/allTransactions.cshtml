@@ -1,0 +1,249 @@
+﻿@model IEnumerable<ranglerz_project.Models.Transaction>
+
+@{
+    ViewBag.Title = "allTransactions";
+}
+
+<h2>allTransactions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.created_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updated_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.from_account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.to_account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voucher_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.voucher_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.trans_acc_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cheque_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cross)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.admin_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unique_key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.good_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.truck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.builty_no_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.weight_empty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.weight_load)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.net_weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bags)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unit_price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client_s_weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.extra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tax_orignal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.supervisor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cheque_number)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_at)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updated_at)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.from_account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.to_account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.voucher_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.voucher_code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trans_acc_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cheque_no)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cross)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.admin_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unique_key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.good_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.truck)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.builty_no_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.weight_empty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.weight_load)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.net_weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bags)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unit_price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deduction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.client_s_weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.extra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tax_orignal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.supervisor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cheque_number)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

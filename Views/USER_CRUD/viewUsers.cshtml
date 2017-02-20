@@ -1,0 +1,174 @@
+﻿@model List<ranglerz_project.ModelsBO.UserBO>
+
+
+@{
+    ViewBag.Title = "ViewUsers";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+  
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                               All Users
+                            </h3>
+                        </div>
+
+                    
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>View Users list</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+
+                                                <th>Name </th>
+                                                <th>Username </th>
+                                                <th>Password </th>
+                                                <th>Email</th>
+                                                <th>CNIC</th>
+                                           
+                                           
+                                                <th>Phone #</th>
+                                                <th>Image</th>
+                                           
+                                                <th>Status </th>
+                                                <th>Action </th>
+                                               
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                           
+                                                @foreach(var v in Model)
+                                                {
+                                                    <tr class="even pointer">
+                                                     
+                                                        <td class=" ">@v.name</td>
+                                                        <td class=" ">@v.username </td>
+                                                        <td class=" ">
+                                                            @v.password 
+                                                        </td>
+                                                       <td>@v.email</td>
+                                                        <td>@v.cnic</td>
+                                                  
+                                                  
+                                                        <td>@v.phone</td>
+                                                        <td class=" ">
+                                                            @{
+                                                    var Base64 = Convert.ToBase64String(v.image);
+                                                    var imgsrc = string.Format("data:img/gif;base64,{0}", Base64);
+                                                            }
+                                                            <img src="@imgsrc" style="max-height:100px; max-width:100px;" />
+                                                        </td>
+                                                        
+                                                        @if(@v.is_active=="Y")
+                                                        { 
+                                                        <td class=" ">Active</td>
+                                                        }
+                                                        @if (@v.is_active == "N")
+                                                        {
+                                                            <td class=" ">Deactive</td>
+                                                        } 
+                                                        <td>
+                                                            <a href="~/USER_CRUD/Edit/@v.id/">Update</a> &nbsp;&nbsp;&nbsp;
+                                                            <a href="~/USER_CRUD/Delete/@v.id/" onclick="return confirm('Are you sure you want to Deactive?')">Deactive</a>
+                                                            <a href="~/USER_CRUD/Active/@v.id/" onclick="return confirm('Are you sure you want to Active?')">Active</a>
+                                                        </td>
+                                                       
+                                                        
+                                                    </tr>
+                                                }
+                                           
+                                           
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+             
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+﻿@model ranglerz_project.Models.Good
+@{
+    ViewBag.Title = "EditGOODs";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create New User Account</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Edit Good</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                        
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("editGoodPost", "SaleVoucher", new {id=@Model.Id })" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                  
+
+                                        <div class="form-group">
+
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Name </label>
+
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                
+                                                <input class="form-control col-md-7 col-xs-12" type="text" name="name" value="@Model.good_Name" >
+                                                
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select name="goodType" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                    <option value="">Please select any </option>
+                                                    @foreach (var tr in ViewBag.typeList)
+                                                    {
+                                                        <option value="@tr.type">@tr.type </option>
+                                                    }
+
+                                                </select>
+                                            </div>
+
+                                            <input type="submit" value="Update" class="btn btn-success" />  
+                                        </div>
+                                     
+
+                                       
+                                       
+                            
+
+
+
+
+                            </div>
+
+                            
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- top navigation -->
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <!-- top tiles -->
+            <!-- /top tiles -->
+
+            <br />
+            <!-- /footer content -->
+        </div>
+        <!-- /page content -->
+
+    </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+</body>
+
+</html>
+

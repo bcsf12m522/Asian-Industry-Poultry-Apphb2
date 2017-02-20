@@ -1,0 +1,246 @@
+﻿@model ranglerz_project.Models.TransactionAccount
+@{
+    ViewBag.Title = "EditTransactionAccount";
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Transaction Account</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Update Transaction Account <strong>@ViewBag.Code</strong></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form action="@Url.Action("EditTransactionAccount", "Account_CRUD", new {id=Model.id })" method="post" class="form-horizontal form-label-left">
+
+                                    @*<div class="form-group">
+
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                     Code <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" readonly name="code" value="@transactionID" class="form-control col-md-7 col-xs-12">
+                </div>
+            </div>*@
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="name" value="@Model.name" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            OB <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <select name="OB">
+                                               @if(@Model.balance < 0)
+                                               { 
+                                                <option value="Cr.">Cr.</option>
+                                                <option value="Deb.">Deb.</option>
+                                               }
+                                               else
+                                               {
+                                                   
+                                                <option value="Deb.">Deb.</option>
+                                                <option value="Cr.">Cr.</option>
+                                            
+                                               }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Amount <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="amount" value="@Model.parent" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Type <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="Type">
+                                                <option value="@Model.type_">@Model.type_</option>
+                                                <option value="Vendor">Vendor</option>
+                                                <option value="Client">Client</option>
+                                                <option value="Bank">Bank</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Liability">Liability</option>
+                                                <option value="Asset">Asset</option>
+                                                <option value="Expense">Expense</option>
+                                                <option value="Capital">Capital</option>
+                                                <option value="Transit">Transit</option>
+                                                <option value="Sundry">Sundry</option>
+                                                <option value="Income">Income</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Created Date <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text"  readonly value="@Model.created_at_.ToShortDateString()" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Last Updated <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" value="@Model.updated_at_.ToShortDateString()" readonly class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Date <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="date" name="date" required  class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Weight(KG) <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="weight" value="@Model.opening_weight" required class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                   
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- top navigation -->
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <!-- top tiles -->
+            <!-- /top tiles -->
+
+            <br />
+            <!-- /footer content -->
+        </div>
+        <!-- /page content -->
+
+    </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+</body>
+
+</html>
+
+
+
+

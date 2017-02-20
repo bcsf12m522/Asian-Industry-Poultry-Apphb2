@@ -1,0 +1,347 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+
+@{
+
+    ViewBag.Title = "Reports";
+    var sesion = Session["name"].ToString();
+    int result1;
+    var totalDebit = 0;
+    var totalCredit = 0;
+    var totalBalance = 0;
+    string values = null;
+  
+    string totalBalanceCommas = null;
+    string totalCreditCommas = null;
+    string totaldebitCommas = null;
+
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                Trial Balance Report
+                            </h3>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                    @*<div class="row">
+                        <div class="x_content">
+                            <br />
+                            <form id="demo-form2" action="@Url.Action("historyPost", "Transactions")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+                                            @foreach (var tr in ViewBag.Mylist)
+                                            {
+                                                <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                            }
+
+
+
+                                        </select>
+                                        <input type="date" id="dateDefault" name="dateStart" required />
+                                        <input type="date" id="dateDefault2" name="dateEnd" required />
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                        <input type="submit" value="Search" class="btn btn-success" />
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+
+
+                            </form>
+
+
+
+
+                        </div>
+
+                    </div>*@
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                               
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+
+
+
+                                              
+                                            
+                                           
+                                                <th>Account Name</th>
+                                                <th>Total Debit </th>
+                                                <th>Total Credit </th>
+                                                <th>Balance </th>
+                                           
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            @foreach (var v in Model.OrderBy(x => x.id))
+                                            {
+                                              var balance = Convert.ToInt32(v.parent);
+                                              totalCredit = v.dr_;
+                                              totalDebit = v.cr_;
+                                              totalBalance = 0;
+                                                
+                                              
+                        
+                                                foreach (var t in v.Transactions.Where(x => x.is_active=="Y" & x.updated_at <= ViewBag.date).OrderBy(x => x.created_at).ToList())
+                                                {
+
+
+
+                                                    if (t.extra == "Sale" && v.main_id != 12)
+                                                    {
+                                                        continue;
+                                                    }
+                                                    
+                                                    if (t.is_active != "Y")
+                                                    {
+                                                        continue;
+                                                    }
+                                                    
+                                                     
+                                                   
+
+                                                            if (t.cr > 0)
+                                                            {
+                                                                balance = balance + t.cr;
+                                                            }
+                                                            else
+                                                            {
+                                                                balance = balance - t.dr;
+                                                            }
+
+                                                                
+
+                                                               
+                                                              
+                                                           
+                                                            totalCredit = totalCredit + t.cr;
+                                                            totalDebit = totalDebit + t.dr;
+
+
+                                                                
+
+
+
+
+
+
+
+
+
+
+                                                }
+
+                                                <tr class="even pointer">
+                                                    <td>@v.name</td>
+                                                    <td>@totalCredit</td>
+                                                    <td>@totalDebit</td>
+                                                    <td>@balance</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                    @{
+                                        totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                        totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                        totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                    }
+                                    @*<p><strong>Total Balance:&nbsp;&nbsp;</strong>@totalBalanceCommas</p>*@
+                                    @*<p><strong>Total Debit:&nbsp;&nbsp;&nbsp;</strong>@totalCreditCommas</p>
+                                    <p><strong>Total Credit:&nbsp;&nbsp;&nbsp;</strong>@totaldebitCommas</p>*@
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault2");
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

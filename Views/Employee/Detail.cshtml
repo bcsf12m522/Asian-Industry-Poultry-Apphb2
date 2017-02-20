@@ -1,0 +1,169 @@
+﻿@model ranglerz_project.Models.Employee
+
+
+@{
+    ViewBag.Title = "Employee Detail";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                All Employees
+                            </h3>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>View Employee list</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+
+                                                <th>Name </th>
+                                             
+                                             
+                                          
+                                             
+                                           
+                                              
+                                                <th>Email</th>
+                                                <th>Department</th>
+                                                <th>Designation</th>
+                                                <th>Joining Date</th>
+                                                <th>Employee Status</th>
+                                                <th>Action</th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                          
+                                            
+                                                <tr class="even pointer">
+
+
+                                                    <td class=" ">@Model.Name</td>
+                                           
+                                                  
+                                             
+                                             
+                                                
+                                                    <td>@Model.email</td>
+                                                    <td>@Model.department</td>
+                                                    <td>@Model.designation</td>
+                                                    <td>@Model.joining_date</td>
+                                                    <td>@Model.status</td>
+
+
+
+                                                    <td>
+                                                        <a href="~/Employee/Edit/@Model.Id/">Update</a> 
+                                                        <a href="~/Employee/Delete/@Model.Id/" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
+                                                    </td>
+
+
+                                                </tr>
+                                            
+
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                    <br />
+                    <br />
+                    <a class="btn-success  actionBar" href="~/Employee/Create/">Create Employee</a>
+                </div>
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+        function confirm_delete() {
+            return confirm('are you sure?');
+        }
+    </script>
+</body>
+
+</html>

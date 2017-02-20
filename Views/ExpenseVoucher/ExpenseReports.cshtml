@@ -1,0 +1,423 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+@{
+    ViewBag.Title = "ExpenseReports";
+    var sesion = Session["name"].ToString();
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create New User Account</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Expense Reports</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Search By Transaction Account <small></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("ExpenseReportsPost", "ExpenseVoucher")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Please select any </option>
+                                                @foreach (var tr in Model)
+                                                {
+
+
+                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.HeadAccount.name -> @tr.SubHeadAccount.name -> @tr.name </option>
+
+                                                }
+
+
+                                            </select>
+                                            <input type="date" id="dateDefault" name="dateStart" required />
+                                            <input type="date" id="dateDefault2" name="dateEnd" required />
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <input type="submit" value="Search" class="btn btn-success" />
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+
+                          
+
+
+
+
+
+
+
+
+                            <div class="x_title">
+                                <h2>Search By HeadAccounts <small></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("ExpenseReportsPostHead","ExpenseVoucher")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Please select any </option>
+                                                @foreach (var tr in ViewBag.headAccounts)
+                                                {
+
+
+                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.name  </option>
+
+                                                }
+
+
+                                            </select>
+                                            <input type="date" id="dateDefault3" name="dateStart" required />
+                                            <input type="date" id="dateDefault4" name="dateEnd" required />
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <input type="submit" value="Search" class="btn btn-success" />
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <div class="x_title">
+                                <h2>Search By SubHead <small></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+
+
+
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("ExpenseReportsPostSub", "ExpenseVoucher")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Please select any </option>
+                                                @foreach (var tr in ViewBag.subHeadAccounts)
+                                                {
+
+
+                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.HeadAccount.name ->  @tr.name </option>
+
+                                                }
+
+
+                                            </select>
+                                            <input type="date" id="dateDefault5" name="dateStart" required />
+                                            <input type="date" id="dateDefault6" name="dateEnd" required />
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <input type="submit" value="Search" class="btn btn-success" />
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+
+                            
+
+
+                            <div class="ln_solid"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- top navigation -->
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <!-- top tiles -->
+            <!-- /top tiles -->
+
+            <br />
+            <!-- /footer content -->
+        </div>
+        <!-- /page content -->
+
+    </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault2");
+    </script>
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault3");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault4");
+
+
+    </script>
+
+
+
+
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault5");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault6");
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+

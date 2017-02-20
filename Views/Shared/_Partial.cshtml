@@ -1,0 +1,447 @@
+﻿@{
+    var view = Session["view"].ToString();
+    var create = Session["create"].ToString();
+    var accView = Session["accView"].ToString();
+    var name = Session["name"].ToString();
+    int jv = Convert.ToInt32(Session["JV"]);
+    int br = Convert.ToInt32(Session["BR"]);
+    int bp = Convert.ToInt32(Session["BP"]);
+    int cr = Convert.ToInt32(Session["CR"]);
+    int cp = Convert.ToInt32(Session["CP"]);
+    int sv = Convert.ToInt32(Session["SV"]);
+    int pv = Convert.ToInt32(Session["PV"]);
+    int upsv = Convert.ToInt32(Session["UPSV"]);
+    int uppv = Convert.ToInt32(Session["UPPV"]);
+    int ev = Convert.ToInt32(Session["EV"]);
+    int homeScreen = Convert.ToInt32(Session["homeScreen"]);
+    int allReports = Convert.ToInt32(Session["all_reports"]);
+    int saleReports = Convert.ToInt32(Session["sale_reports"]);
+    int expenseReports = Convert.ToInt32(Session["expense_reports"]);
+    int viewGoods = Convert.ToInt32(Session["view_goods"]);
+    int supervision = Convert.ToInt32(Session["supervision"]);
+    int viewEmployee = Convert.ToInt32(Session["emplyee_view"]);
+    int viewAttendence = Convert.ToInt32(Session["view_attendence"]);
+    int viewGoodTypes = Convert.ToInt32(Session["view_goodTypes"]);
+    int attendenceReports = Convert.ToInt32(Session["attendence_reports"]);
+    int addAttendence = Convert.ToInt32(Session["add_attedence"]);
+
+
+    int addProduction = Convert.ToInt32(Session["addProduction"]);
+    int bankPamyenetReports = Convert.ToInt32(Session["bankPaymentReports"]);
+
+    int purchaseReports = Convert.ToInt32(Session["purchase_reports"]);
+
+
+    int ID = Convert.ToInt32(Session["ID"]);
+
+    int trialBalanceReport = Convert.ToInt32(Session["trialBalance"]);
+    
+}
+
+
+
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+
+        <div class="navbar nav_title" style="border: 0;">
+            @if (name == "Admin")
+            {
+                <a href="~/Admin/index/@ID" target="_blank" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
+            }
+            else
+            {
+                <a href="~/Users/index/@ID" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
+            }
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- menu prile quick info -->
+        <div class="profile">
+            <div class="profile_pic">
+                <img src="@Session["image"]"  alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>@Session["username"]</h2>
+            </div>
+        </div>
+        <!-- /menu prile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <li>
+                        <a><i class="fa fa-bar-chart-o"></i> Users <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            @if (create == "Y")
+                            {
+                                <li>
+                                    <a target="_blank" href="~/USER_CRUD/Create/">Add User</a>
+                                </li>
+                            }
+                            @if (view == "Y")
+                            {
+                                <li>
+                                    <a target="_blank" href="~/User_CRUD/viewUsers/">View Users</a>
+                                </li>
+                            }
+                            @if (create == "Y")
+                            {
+                                 
+                            <li>
+                                <a href="~/USER_CRUD/ReportsPermissions/">Add Permissions</a>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                    @if (accView == "Y")
+                    {
+                        <li>
+                            <a target="_blank" href="~/Account_CRUD/Index/"><i class="fa fa-bar-chart-o"></i>Accounts</a>
+
+                        </li>
+                    }
+
+                    <li>
+                        <a><i class="fa fa-bar-chart-o"></i> Vouchers <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+
+
+                            @if (jv == 1)
+                            {
+
+                                <li>
+                                    <a target="_blank" href="~/Transactions/journal/">Journal Voucher</a>
+                                </li>
+
+                            }
+
+                            @if (br == 1)
+                            {
+
+                                <li>
+                                    <a href="~/Transactions/bank/">Bank Recieved</a>
+                                </li>
+
+                            }
+
+                            @if (bp == 1)
+                            {
+
+                                <li>
+                                    <a href="~/Transactions/bankPayment/">Bank Payment</a>
+                                </li>
+
+                            }
+
+                            @if (cp == 1)
+                            {
+
+                                <li>
+                                    <a href="~/Transactions/cashPayment/">Cash Payment</a>
+                                </li>
+
+                            }
+
+                            @if (cr == 1)
+                            {
+                                <li>
+                                    <a href="~/Transactions/cashReceive/">Cash Receive</a>
+                                </li>
+
+                            }
+                            @if (sv == 1)
+                            {
+                                <li>
+                                    <a href="~/SaleVoucher/">Sale Voucher</a>
+                                </li>
+
+                            }
+
+
+
+                            @if (pv == 1)
+                            {
+
+                                <li>
+                                    <a href="~/SaleVoucher/purchaseVoucher/">Purchase Voucher</a>
+                                </li>
+
+                            }
+
+                            @if (upsv == 1)
+                            {
+
+                                <li>
+                                    <a href="~/SaleVoucher/unitPriceSV/">UnitPriceSV</a>
+                                </li>
+
+                            }
+
+                            @if (uppv == 1)
+                            {
+
+                                <li>
+                                    <a href="~/SaleVoucher/unitPricePV/">UnitPricePV</a>
+                                </li>
+
+                            }
+
+                            @if (ev == 1)
+                            {
+
+                                <li>
+                                    <a target="_blank" href="~/ExpenseVoucher/index/">Expense Voucher</a>
+                                </li>
+
+                            }
+                            
+                            <li>
+                                <a target="_blank" href="~/Transactions/weightExpense/">Weight Expense Voucher</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+
+
+                    <li>
+
+                        <a><i class="fa fa-bar-chart-o"></i> Multi Voucher <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+
+
+                            <li>
+                                <a target="_blank" href="~/Transactions/MultiVoucher/"><i class="fa fa-bar-chart-o"></i>Multi Debit</a>
+                            </li>
+
+                            <li>
+                                <a target="_blank" href="~/Transactions/MultiVoucher2/"><i class="fa fa-bar-chart-o"></i>Multi Credit</a>
+                            </li>
+
+
+
+
+                        </ul>
+
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <li>
+
+                        <a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+
+
+
+                            @if (allReports == 1)
+                            {
+
+                                <li>
+                                    <a target="_blank" href="~/Transactions/history/"><i class="fa fa-bar-chart-o"></i>Ledgers</a>
+
+                                </li>
+
+                            }
+                            
+
+                            <li>
+                                <a target="_blank" href="~/Transactions/mainReports/"><i class="fa fa-bar-chart-o"></i>Main Reports</a>
+
+                            </li>
+
+                            @if (saleReports == 1)
+                            {
+
+                                <li>
+
+                                    <a target="_blank" href="~/SaleVoucher/salesReport/"><i class="fa fa-bar-chart-o"></i>Sales Report</a>
+
+                                </li>
+
+                            }
+
+                            @if (saleReports == 1)
+                            {
+
+
+                                <li style="">
+
+                                    <a target="_blank" href="~/SaleVoucher/salesReportByItem/"><i class="fa fa-bar-chart-o"></i> Sales Report By Item</a>
+
+                                </li>
+
+                            }
+
+                            @if (expenseReports == 1)
+                            {
+
+
+                                <li>
+                                    <a target="_blank" href="~/ExpenseVoucher/ExpenseReports/"><i class="fa fa-bar-chart-o"></i>Expense Reports</a>
+                                </li>
+
+                            }
+                            
+                            @if (bankPamyenetReports == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Transactions/BankPaymentReport/"><i class="fa fa-bar-chart-o"></i>Bank Payment Reports</a>
+                                </li>
+                            }
+                            
+                            @if (purchaseReports == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/SaleVoucher/purchaseReport/"><i class="fa fa-bar-chart-o"></i>Purchase Reports</a>
+                                </li>
+                            }
+                            
+                            @if (addProduction == 1)
+                            {
+
+
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/history/"><i class="fa fa-bar-chart-o"></i>Production Reports</a>
+                                </li>
+                            }
+                            
+                            @if (trialBalanceReport ==1)
+                            {
+                                 
+                            <li>
+                                <a href="~/Transactions/TrialBalanceReport/"><i class="fa fa-bar-chart-o"></i> Trial Balance Report</a>
+                            </li>
+                            }
+                        </ul>
+
+                    </li>
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                    <li>
+
+                        <a><i class="fa fa-bar-chart-o"></i> Employees <span class="fa fa-chevron-down"></span></a>
+
+                        <ul class="nav child_menu" style="display: none">
+
+                            @if (viewEmployee == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Employee/Index/"><i class="fa fa-bar-chart-o"></i> ALL Employees</a>
+                                </li>
+                            }
+
+                            @if (addAttendence == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Employee/AttendenceSearch/1"><i class="fa fa-bar-chart-o"></i>Employees Attendence</a>
+                                </li>
+                            }
+                            @if (viewAttendence == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Employee/AttendenceSearch/2"><i class="fa fa-bar-chart-o"></i>View Attendence</a>
+                                </li>
+                            }
+
+
+                            @if (attendenceReports == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Employee/AttendenceReports/"><i class="fa fa-bar-chart-o"></i>View Attendence Reports</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                    @if (supervision == 1)
+                    {
+                        <li>
+                            <a target="_blank" href="~/TemporaryReports/ViewTempReports/"><i class="fa fa-bar-chart-o"></i>Super Vision</a>
+                        </li>
+
+
+                        <li>
+                            <a target="_blank" href="~/USER_CRUD/Supervision/"><i class="fa fa-bar-chart-o"></i>SuperVision User's Wise</a>
+                        </li>
+
+                    }
+
+                    @if (viewGoodTypes == 1)
+                    {
+
+                        <li>
+                            <a target="_blank" href="~/GoodsManagement/listGoodTypes/"><i class="fa fa-bar-chart-o"></i>Good Types</a>
+                        </li>
+
+                    }
+
+                    @if (viewGoods == 1)
+                    {
+                        <li>
+                            <a target="_blank" href="~/GoodsManagement/listOfGoods/"><i class="fa fa-bar-chart-o"></i>Goods Management</a>
+                        </li>
+                    }
+
+
+                    <li>
+                        <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>View Unit Rates </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Summary</a>
+
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
+
+                    </li>
+          
+                <li style="">
+                    <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
+                </li>
+
+</div>
+
+
+            
+
+        </div>
+        <!-- /sidebar menu -->
+
+    </div>
+</div>

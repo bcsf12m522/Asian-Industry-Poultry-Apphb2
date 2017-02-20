@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ranglerz_project.Models.TemporaryReport>
+
+@{
+    ViewBag.Title = "allTemporaryReports";
+}
+
+<h2>allTemporaryReports</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.created_at)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updated_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.from_account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.to_account)
+        </th>
+     
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_at)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updated_at)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.from_account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.to_account)
+        </td>
+      
+
+    </tr>
+}
+
+</table>

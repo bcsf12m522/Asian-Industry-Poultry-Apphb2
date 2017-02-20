@@ -1,0 +1,169 @@
+﻿@model IEnumerable<ranglerz_project.Models.Transaction>
+
+
+
+@{
+
+    ViewBag.Title = "All Trasactions";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                All transactions
+                            </h3>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                  
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>View transaction List</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th>Main Account</th>
+                                                <th>Date </th>
+                                                <th>Type </th>
+                                                <th>Code </th>
+                                                <th>Description </th>
+                                                <th>From  </th>
+                                                <th>To </th>
+                                                <th>Cr </th>
+                                                <th>Dr </th>
+                                                <th>Balance </th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            @foreach (var t in Model)
+                                            {
+                                                
+                                                
+                                                    <tr class="even pointer">
+                                                        <td>@t.TransactionAccount.name</td>
+                                                        <td>@t.created_at</td>
+
+
+
+
+                                                        <td>@t.voucher_type</td>
+                                                        <td>@t.voucher_code</td>
+                                                        <td>@t.description</td>
+                                                        <td>@t.from_account</td>
+                                                        <td>@t.to_account</td>
+                                                        <td>@t.cr</td>
+                                                        <td>@t.dr</td>
+                                                        <td>@t.balance</td>
+
+
+
+
+
+
+
+                                                    </tr>
+                                                }
+
+                                            
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+

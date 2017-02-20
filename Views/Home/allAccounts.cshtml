@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ranglerz_project.Models.TransactionAccount>
+
+@{
+    ViewBag.Title = "allAccounts";
+}
+
+<h2>allAccounts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cr_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dr_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type_)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.is_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.main_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.head_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sub_head_id)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.WEIGHT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sale_account_id)
+        </th>
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cr_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dr_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type_)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.is_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.main_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.head_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sub_head_id)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.WEIGHT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sale_account_id)
+        </td>
+      
+    </tr>
+}
+
+</table>

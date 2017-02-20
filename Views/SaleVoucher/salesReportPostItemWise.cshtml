@@ -1,0 +1,493 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+@{
+    ViewBag.Title = "salesReportPost";
+    var sesion = Session["name"].ToString();
+    int result1;
+    int result2;
+    float clientWeight = 0;
+    float originalweight = 0;
+    float difference = 0;
+    var balance = ViewBag.openingBalance;
+
+    int salesReportsEdit = Convert.ToInt32(Session["sale_reports_edit"]);
+
+
+
+}
+
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+    <style>
+        tr td {
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>
+                            Sale Reports
+                        </h3>
+                    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" action="@Url.Action("salesReportPostItemWise", "SaleVoucher")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Client <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="to" name="id" required onchange="GetVendors(this.value)" class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Please select any </option>
+                                              @foreach (var tr in ViewBag.Mylist)
+                                              {
+                                                <option value="@tr.id">@tr.MainAccount.name -> @tr.name </option>
+                                              }
+
+
+                                            </select>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Good <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="from" id="VendorsDD" class="form-control  col-md-7 col-xs-12">
+                                                <option>Select any </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Date Range <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                            <input type="date" id="dateDefault" name="dateStart" required />
+                                            <input type="date" id="dateDefault2" name="dateEnd" required />
+                                            <br />
+                                            <br />
+
+                                            <input type="submit" value="Search" class="btn btn-success" />
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+                            <div class="ln_solid"></div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><strong>View Reports:</strong>@ViewBag.search &nbsp;&nbsp;&nbsp;<strong>Opening Balance(Rs.):</strong>@ViewBag.openingBalance</h2>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <table id="" class="table table-striped responsive-utilities jambo_table">
+                                    <thead>
+                                        <tr class="headings">
+
+                                            @if (sesion == "Admin")
+                                            {
+                                                <th>User Name</th>
+                                            }
+
+                                            <th>Date </th>
+                                            <th>Type </th>
+                                            <th>Code </th>
+                                            <th>Description </th>
+
+                                            <th>Bags </th>
+                                            <th>Truck </th>
+                                            <th>Builty </th>
+                                            <th>Item</th>
+                                            <th>Client's Weight</th>
+                                            <th>Factory Weight</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach (var v in Model)
+                                        {
+                                            foreach (var t in v.Transactions.Where(x => x.voucher_type == "SV" || x.voucher_type == "UPSV" & x.is_active == "Y").OrderBy(x => x.created_at).ToList())
+                                            {
+                                                //if (t.voucher_type == "JV" || t.voucher_type == "BV" || t.voucher_type == "BP" || t.voucher_type == "CP" || t.voucher_type == "CR")
+                                                //{
+                                                //    continue;
+                                                //}
+
+                                                result1 = DateTime.Compare(ViewBag.start, t.created_at);
+                                                result2 = DateTime.Compare(ViewBag.end, t.created_at);
+
+
+                                                if (t.extra == "Sale" & v.main_id != 12)
+                                                {
+                                                    continue;
+                                                }
+                                                if (t.is_active != "Y")
+                                                {
+                                                    continue;
+                                                }
+                                                if(t.good_ !=@ViewBag.item)
+                                                {
+                                                    continue;
+                                                }
+
+                                                if (result1 < 0 || result1 == 0)
+                                                {
+
+                                                    if (result2 != -1)
+                                                    {
+                                                        <tr class="even pointer">
+
+                                                            @if (sesion == "Admin")
+                                                            {
+                                                                if (t.User != null)
+                                                                {
+                                                                    <td>@t.User.name</td>
+                                                                }
+                                                                else if (@t.Admin != null)
+                                                                {
+                                                                    <td>@t.Admin.username</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>N/A</td>
+                                                                }
+                                                            }
+                                                            <td>@t.created_at.ToShortDateString()</td>
+
+
+
+
+                                                            <td>@t.voucher_type</td>
+                                                            <td>@t.voucher_code</td>
+                                                            <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
+
+
+                                                            <td>@t.bags</td>
+                                                            <td>@t.truck</td>
+                                                            @{
+
+                                                            if (t.cr > 0)
+                                                            {
+                                                                balance = balance + t.cr;
+                                                            }
+
+                                                            else
+                                                            {
+                                                                balance = balance - t.dr;
+                                                            }
+
+
+
+                                                            //   var tt = Convert.ToInt64(t.balance);
+                                                            //var balance = String.Format("{0:#,##0.00}", tt);
+                                                            }
+                                                            <td> @t.builty_no_</td>
+                                                            <td> @t.good_</td>
+                                                            <td>@t.client_s_weight</td>
+                                                            <td>@t.quantity</td>
+                                                            @{
+                                                            if (t.client_s_weight != null)
+                                                            {
+                                                                clientWeight = (float)(clientWeight + t.client_s_weight);
+                                                            }
+                                                            originalweight = (float)(originalweight + t.net_weight);
+                                                            }
+
+                                                            <td>
+
+                                                                @if (salesReportsEdit == 1)
+                                                                {
+
+                                                                    <a href="@Url.Action("Edit","SaleVoucher" , new {id= @t.Id} )">Edit</a>
+
+                                                                }
+                                                            </td>
+
+
+
+
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+
+                                        }
+
+
+                                    </tbody>
+
+                                </table>
+
+                                @{
+                                    difference = originalweight - clientWeight;
+                                }
+                                <p><strong>Client Weight :</strong>  @clientWeight</p>
+                                <p><strong>Total Factory Weight :</strong> @originalweight</p>
+                                <p><strong>Difference :</strong> @difference</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /page content -->
+    </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault2");
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function GetVendors(_routeId) {
+
+        var url = "/SaleVoucher/AjaxCall/";
+        var vendorslist = "#VendorsDD";
+
+        $.ajax({
+            url: url,
+            data: { RouteID: _routeId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#VendorsDD").html(data);
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+

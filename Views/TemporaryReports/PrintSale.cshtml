@@ -1,0 +1,159 @@
+﻿@model ranglerz_project.Models.TemporaryReport
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Table Print</title>
+    <style type="text/css">
+        .main {
+            width: 700px;
+            margin: 30px auto;
+        }
+
+            .main table {
+                width: 100%;
+            }
+
+        .foot-table {
+            border-top: 0px;
+        }
+
+        .foot {
+            width: 25%;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        a {
+            color: red;
+        }
+    </style>
+
+    <script src="js/jquery.min.js"></script>
+
+
+</head>
+<body>
+    <div class="main">
+        <table border="2" cellpadding="10" cellspacing="0">
+            <thead>
+                @{
+                    string values = null;
+                    values = (String.Format("{0:0,0}", Model.amount));
+                    string Credit = (String.Format("{0:0,0}", Model.cr));
+                    string Debit = (String.Format("{0:0,0}", Model.dr));
+                }
+                <tr>
+                    @if (Model.voucher_type == "SV")
+                    {
+                        <th colspan="4">[Sale Voucher]</th>
+                    }
+                    else if (Model.voucher_type == "PV")
+                    {
+                        <th colspan="4">[Purchase Voucher]</th>
+                    }
+                    else if (Model.voucher_type == "UPSV")
+                    {
+                        <th colspan="4">[Unit Price Sale Voucher]</th>
+                    }
+                    else if (Model.voucher_type == "UPPV")
+                    {
+                        <th colspan="4">[Unit Price Purchase Voucher]</th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3"><strong>Voucher Code:</strong>@Model.voucher_code</td>
+                    <td align="right"><strong>Date:</strong> @Model.created_at.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Particular</strong>: @Model.description</td>
+                    @if(@Model.cheque_no != null)
+                    {
+                    <td align="right">Chq # @Model.cheque_no</td>
+                    }
+                    else
+                    {
+                        <td align="right">Chq # NULL</td>
+                    }
+                </tr>
+                <tr>
+                    <td><strong>Code</strong>
+                    <td><strong>Account Title</strong></td>
+                    <td align="center"><strong>Dr (KG) </strong></td>
+                    <td align="center"><strong>Cr (KG)</strong></td>
+                </tr>
+                <tr>
+                    <td>1123456664</td>
+                    <td>@Model.from_account</td>
+                    <td align="center">@Model.net_weight</td>
+                    <td align="center">@Credit</td>
+                </tr>
+                <tr>
+                    <td>0333444441</td>
+                    <td>@Model.to_account</td>
+                    <td align="center">@Credit</td>
+                    <td align="center">@Model.net_weight</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right"><strong>Total:</strong></td>
+                    <td align="center">@Model.net_weight</td>
+                    <td align="center">@Model.net_weight</td>
+                </tr>
+                <tr>
+                    @if (@Model.voucher_type == "BP")
+                    {
+                        <td colspan="2"><strong>In Words:</strong> @ViewBag.amount</td>
+                        <td colspan="2"><strong>Tax (Rs.):</strong>  @Model.tax</td>
+                    }
+                    else
+                    {
+                        <td colspan="4"><strong>In Words:</strong>@ViewBag.amount</td>
+                    }
+                </tr>
+                <tr>
+                 
+                    
+                        <td colspan="2"><strong>Net Weight:</strong>  @Model.net_weight</td>
+                        <td colspan="2"><strong>Truck #</strong>  @Model.truck</td>
+                        
+                    
+                   
+                </tr>
+                <tr>
+
+                    @if(@Model.voucher_type =="SV" || @Model.voucher_type=="UPSV")
+                    {
+                         
+                    <td colspan="2"><strong>Total Bags:</strong>  @Model.bags</td>
+                    <td colspan="2"><strong>Builty #</strong>  @Model.builty_no_</td>
+                    }
+                    else
+                    {
+                        <td colspan="2"><strong>GRN:</strong>  @Model.grn</td>
+                        <td colspan="2"><strong>Deduction</strong>  @Model.deduction</td>
+                    }
+
+                </tr>
+            </tbody>
+        </table>
+        <table border="2" cellpadding="10" cellspacing="0" class="foot-table">
+            <tbody>
+                <tr height="150">
+                    <td class="foot">Prepared By: @Session["name"]</td>
+                    <td class="foot">Checked By</td>
+                    <td class="foot">Approved By</td>
+                    <td class="foot">Received By</td>
+                </tr>
+            </tbody>
+            <tr>
+                <td><a target="_blank" href="" onclick="window.print();">Print</a></td>
+            </tr>
+
+        </table>
+
+    </div>
+</body>
+</html>

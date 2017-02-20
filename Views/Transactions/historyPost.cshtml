@@ -1,0 +1,517 @@
+﻿@model List<ranglerz_project.Models.TransactionAccount>
+
+@{
+    
+    ViewBag.Title = "Reports";
+    var sesion = Session["name"].ToString();
+    int result1;
+    int result2;
+    var balance = ViewBag.openingBalance;
+    var totalDebit = 0;
+    var totalCredit = 0;
+    var totalBalance = 0;
+    string values =null;
+    string debCommas = null;
+    string crCommas = null;
+    string totalBalanceCommas = null;
+    string totalCreditCommas = null;
+    string totaldebitCommas = null;
+    int allReportsEdit = Convert.ToInt32 (Session["all_reports_edit"]);
+
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                Reports
+                            </h3>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="notShowSearchDiv" class="row">
+                        <div class="x_content">
+                            <br />
+                            <form id="demo-form2" action="@Url.Action("historyPost","Transactions")" method="get" data-parsley-validate class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="@ViewBag.search">@ViewBag.search </option>
+                                            @foreach (var tr in ViewBag.Mylist)
+                                            {
+                                                if(tr.name == ViewBag.search )
+                                                {
+                                                    continue;
+                                                }
+                                                <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                            }
+
+                                            
+
+                                        </select>
+                                        <input type="date" id="dateDefault" name="dateStart" required />
+                                        <input type="date" id="dateDefault2" name="dateEnd" required />
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                        <input type="submit" value="Search" name="submitValue" class="btn btn-success" />
+                                        <input type="submit" value="Search And Print" name="submitValue" class="btn btn-success" />
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                        
+
+                            </form>
+
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <div>
+                                        <h2 style="margin:4px 350px 4px 350px "><strong>@ViewBag.search</strong></h2>
+                                    </div>
+                                          <div class="clearfix"></div> 
+                                     
+                                    <div>
+                                        <h2> <strong> First Opening Balance(Rs.)&nbsp;:&nbsp;&nbsp;&nbsp;</strong>@ViewBag.firstOpeningbalance</h2>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div>
+                                        <h2><strong>Opening Balance(Rs.)&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>@ViewBag.openingBalance</h2>
+                                    </div>
+                                    <div class="clearfix"></div>  
+                                </div>
+
+                               
+                                @*<table id="example" class="table table-striped responsive-utilities jambo_table">
+                                    <thead>
+                                        <tr id="ShowHeading" class="headings" style="display:none">
+
+
+
+                                            <th>Date </th>
+                                            <th>Type </th>
+                                            <th>Code </th>
+                                            <th>Description </th>
+                                            <th>Dr </th>
+                                            <th>Cr </th>
+
+                                            <th>Balance </th>
+                                            <th id="notShowAction">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                </table>*@
+
+                                <form action="@Url.Action("ExportData","Transactions")" method="get">
+                                    <div class="x_content">
+                                        <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                            <thead>
+                                                <tr id="notShowHeading" class="headings">
+
+
+                                                   
+                                                    <th>Date </th>
+                                                    <th>Type </th>
+                                                    <th>Code </th>
+                                                    <th>Description </th>
+                                                    <th>Dr </th>
+                                                    <th>Cr </th>
+
+                                                    <th>Balance </th>
+                                                    <th id="notShowAction">Action</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="loadedID">
+                                                @{
+                                                int count = 0;
+                                                
+                                                int counter = 0;
+                                                }
+                                                @foreach (var v in Model.OrderBy(x => x.id))
+                                                {
+                                                  
+                                                    
+                                                    foreach (var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
+                                                    {
+                                                        result1 = DateTime.Compare(ViewBag.start, t.created_at);
+                                                        result2 = DateTime.Compare(ViewBag.end, t.created_at);
+                                                        debCommas = (String.Format("{0:0,0}", t.dr));
+                                                        crCommas = (String.Format("{0:0,0}", t.cr));
+
+                                                        if (t.extra == "Sale" && v.main_id != 12)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        if (t.cr == 0 && t.dr == 0)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        if (t.is_active != "Y")
+                                                        {
+                                                            continue;
+                                                        }
+                                                        if (result1 < 0 || result1 == 0)
+                                                        {
+                                                            if (result2 != -1)
+                                                            {
+                                                                counter = counter + 1;
+
+                                                                <tr class="even pointer">
+
+                                                                 
+                                                                    <td>@t.created_at.ToShortDateString()</td>
+
+
+
+
+                                                                    <td>@t.voucher_type</td>
+                                                                    <td>@t.voucher_code</td>
+                                                                    <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
+
+                                                                    <td>@crCommas</td>
+                                                                    <td>@debCommas</td>
+
+                                                                    @{
+
+
+                                                                if (t.cr > 0)
+                                                                {
+                                                                    balance = balance + t.cr;
+                                                                }
+                                                                else
+                                                                {
+                                                                    balance = balance - t.dr;
+                                                                }
+
+                                                                //   var tt = Convert.ToInt64(t.balance);
+                                                                //   var balanceTotal = String.Format("{0:#,##0.00}",tt);
+                                                                values = (String.Format("{0:0,0}", balance));
+                                                                    }
+
+                                                                    <td>@values</td>
+
+                                                                    @{
+                                                                totalBalance = totalBalance + balance;
+                                                                totalCredit = totalCredit + t.cr;
+                                                                totalDebit = totalDebit + t.dr;
+
+
+                                                                    }
+
+                                                                    <td id="@("notShow"+@counter)">
+                                                                        @if (t.description != "WHT" && allReportsEdit == 1)
+                                                                        {
+
+
+                                                                            <a href="~/Transactions/Edit/@t.Id">Edit</a>
+                                                                            <a href="~/Transactions/Detail/@t.Id">Detail</a>
+                                                                            <a href="javascript:;" onclick="DeleteFunctionCall(@t.Id);">Delete</a>
+
+
+
+                                                                        }
+                                                                    </td>
+
+
+
+
+
+                                                                </tr>
+                                                            }
+                                                        }
+                                                        count = count + 1;
+                                                        }
+                                                }
+
+                                                @*Export to Excel : @Html.ActionLink("Export to Excel", "ExportData", "Transactions")*@
+
+
+
+
+
+                                            </tbody>
+
+                                        </table>
+                                        <input type="hidden" name="search" id="searchingValue" value="@ViewBag.search" />
+                                        <input type="hidden" name="dateStart" id="dateStart" value="@ViewBag.start" />
+                                        <input type="hidden" name="dateEnd" id="dateEnd" value="@ViewBag.end" />
+                                     
+                                        @{
+                                            totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                            totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                            totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                        }
+                                       
+                                        <p><strong>Total Debit:&nbsp;&nbsp;&nbsp;</strong>@totalCreditCommas</p>
+                                        <p><strong>Total Credit:&nbsp;&nbsp;&nbsp;</strong>@totaldebitCommas</p>
+                                       
+                                        <p id="notShowPrint">
+                                            <a target="_blank" href="" onclick="printingsomething(@counter);"><strong>PRINT</strong></a>
+                                        </p>
+
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault2");
+    </script>
+
+
+    <script>
+
+
+
+
+    function DeleteFunctionCall(id, name) {
+
+        $("body").css("cursor", "progress");
+        var search = document.getElementById('searchingValue');
+        var strt = document.getElementById('dateStart').value;
+        var end = document.getElementById('dateEnd').value;
+        var name = search.value;
+
+        var url = "/Transactions/Delete/";
+        var vendorslist = "#VendorsDD";
+
+        $.ajax({
+            url: url,
+            data: { ID: id, SEARCH: name, START: strt, END: end },
+            cache: false,
+            type: "GET",
+            success: function (data) {
+                location.reload;
+                //alert("ok")
+                //$('#loadedID').load();
+              
+                $("body").css("cursor", "default");
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+
+        });
+
+      
+    }
+
+    function printingsomething(counter)
+    {
+       
+        for(i=1; i<=counter; i++)
+        {
+            document.getElementById("notShow"+i).style.display = "none";
+        }
+        
+        document.getElementById("notShowAction").style.display = "none";
+        document.getElementById("notShowPrint").style.display = "none";
+        document.getElementById("notShowSearchDiv").style.display = "none";
+        //document.getElementById("notShowHeading").style.display = "none";
+        //document.getElementById("ShowHeading").style.display = "block";
+        
+        
+        
+        
+        window.print();
+    }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

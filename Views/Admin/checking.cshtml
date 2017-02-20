@@ -1,0 +1,15 @@
+﻿@model List<ranglerz_project.Models.Pin_Accounts>
+@{
+    ViewBag.Title = "checking";
+}
+
+@foreach(var acc in Model)
+{
+    <li>Name : @acc.TransactionAccount.name</li>
+    <li>Balance : @acc.TransactionAccount.balance</li>
+    <br />
+    <br />
+}
+
+
+

@@ -1,0 +1,871 @@
+﻿@model List<ranglerz_project.Models.Pin_Accounts>
+
+@{
+    ViewBag.Title = "Admin Panel";
+    string value = "0";
+    int id = Convert.ToInt32(Session["adminId"]);
+}           
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+
+    
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="" class="site_title"><i class="fa fa-paw"></i> <span>Asians Industry</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <!-- menu prile quick info -->
+                    <div class="profile">
+                        <div class="profile_pic">
+                            <img src="@Session["image"]" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            @*<h2>@Session["username"]</h2>*@
+
+                        </div>
+                    </div>
+                    <!-- /menu prile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+                        <div class="menu_section">
+                         
+                            <h3>@Session["username"]</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i> Users <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+                                        <li>
+                                            <a target="_blank" href="~/USER_CRUD/Create/">Add User</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/User_CRUD/viewUsers/">View Users</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="~/USER_CRUD/ReportsPermissions/@id">Add Permissions</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="~/Account_CRUD/Index/"><i class="fa fa-bar-chart-o"></i>Accounts</a>
+
+                                </li>
+
+
+
+
+
+
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i> Vouchers <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/journal/">Journal Voucher</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/bank/">Bank Recieved</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/bankPayment/">Bank Payment</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/cashPayment/">Cash Payment</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/cashReceive/">Cash Receive</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/SaleVoucher/">Sale Voucher</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/SaleVoucher/purchaseVoucher/">Purchase Voucher</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/SaleVoucher/UnitPriceSV/">UnitPriceSV</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/SaleVoucher/UnitPricePV/">UnitPricePV</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/ExpenseVoucher/index/">Expense Voucher</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/weightExpense/">Weight Expense Voucher</a>
+                                        </li>
+                                        @*<li>
+                                            <a target="_blank" href="~/Transactions/salary/">Salary Voucher</a>
+                                        </li>*@
+
+                                    </ul>
+                                </li>
+
+
+                                <li>
+
+                                    <a><i class="fa fa-bar-chart-o"></i> Multi Voucher <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/MultiVoucher/"><i class="fa fa-bar-chart-o"></i>Multi Debit</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/MultiVoucher2/"><i class="fa fa-bar-chart-o"></i>Multi Credit</a>
+                                        </li>
+
+
+
+
+                                    </ul>
+
+                                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <li>
+
+                                    <a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style="display: none">
+
+
+
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/history/"><i class="fa fa-bar-chart-o"></i> Ledgers</a>
+
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/mainReports/"><i class="fa fa-bar-chart-o"></i>Main Reports</a>
+
+                                        </li>
+
+                                        <li>
+
+                                            <a target="_blank" href="~/SaleVoucher/salesReport/"><i class="fa fa-bar-chart-o"></i>Sales Report</a>
+
+                                        </li>
+
+                                        <li style="">
+                                            <a target="_blank" href="~/SaleVoucher/salesReportByItem/"><i class="fa fa-bar-chart-o"></i> Sales Report By Item</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/ExpenseVoucher/ExpenseReports/"><i class="fa fa-bar-chart-o"></i>Expense Reports</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Transactions/BankPaymentReport/"><i class="fa fa-bar-chart-o"></i>Bank Payment Reports</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/SaleVoucher/purchaseReport/"><i class="fa fa-bar-chart-o"></i>Purchase Reports</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/GoodsManagement/history/"><i class="fa fa-bar-chart-o"></i>Production Reports</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="~/Transactions/TrialBalanceReport/"><i class="fa fa-bar-chart-o"></i> Trial Balance Report</a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+
+
+                                <li>
+
+                                    <a><i class="fa fa-bar-chart-o"></i> Employees <span class="fa fa-chevron-down"></span></a>
+
+                                    <ul class="nav child_menu" style="display: none">
+
+
+                                        <li>
+                                            <a target="_blank" href="~/Employee/Index/"><i class="fa fa-bar-chart-o"></i> ALL Employees</a>
+                                        </li>
+
+                                        <li>
+                                            <a target="_blank" href="~/Employee/AttendenceSearch/1"><i class="fa fa-bar-chart-o"></i>Employees Attendence</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="~/Employee/AttendenceSearch/2"><i class="fa fa-bar-chart-o"></i>View Attendence</a>
+                                        </li>
+
+
+
+
+                                        <li>
+                                            <a target="_blank" href="~/Employee/AttendenceReports/"><i class="fa fa-bar-chart-o"></i>View Attendence Reports</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/TemporaryReports/ViewTempReports/"><i class="fa fa-bar-chart-o"></i>Super Vision</a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/USER_CRUD/Supervision/"><i class="fa fa-bar-chart-o"></i>SuperVision User's Wise</a>
+                                </li>
+
+
+
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/listGoodTypes/"><i class="fa fa-bar-chart-o"></i>Good Types</a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/listOfGoods/"><i class="fa fa-bar-chart-o"></i>Goods Management</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>View Unit Rates </a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/Home/ChangePasswordAdmin/@id"><i class="fa fa-bar-chart-o"></i>Change Password</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="~/USER_CRUD/ReportsPermissions/@id"><i class="fa fa-bar-chart-o"></i>Add Permissions</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="~/Home/PinAccounts/@id"><i class="fa fa-bar-chart-o"></i>Pin Accounts</a>
+                                </li>
+                               
+
+
+                                <li>
+                                    <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Summary</a>
+
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
+
+                                </li>
+
+                                  <li>
+
+                                    <a target="_blank" href="~/Stock/Routes/"><i class="fa fa-bar-chart-o"></i> Routes Report</a>
+
+                                </li>
+                             
+                                <li style="">
+                                    <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
+                                </li>
+
+                               
+
+
+
+
+
+                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </ul>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" style="" role="main">
+
+               <!--------------------------------------------------------------------------------------------->
+
+
+
+               
+
+                
+
+                <div class="row tile_count">
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Total Accounts</span>
+                            <div class="count green">@ViewBag.totalAccounts</div>
+                            @*<span class="count_bottom"><i class="green">4% </i> From last Week</span>*@
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Total Employees</span>
+                            <div class="count green">@ViewBag.totalEmployees</div>
+                            @*<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>*@
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-clock-o"></i> Pending Transactions</span>
+                            <div class="count green">@ViewBag.totaltemporaryReports</div>
+                            @*<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>*@
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-user"></i> Total Vouchers</span>
+                            <div class="count green">12</div>
+                            @*<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>*@
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+
+                
+
+              
+
+
+
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               <!-------------------------------------------------------------------------------------------->
+
+                <!-- top tiles -->
+                 
+
+               
+
+                <div class="col-md-6">
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Receivable</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                   @foreach (var name in Model)
+                                   {
+                                       if (name.TransactionAccount.head_id != 20)
+                                       {
+                                           continue;
+                                       }
+
+
+                                       value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li style="position:relative;">
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong></span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                            @*<a href="~/Admin/UnpinAccount/@name.pinAccTableID" title="UnPin Account"><span class="fa fa-tag" style="position:absolute; right:10px; top:10px;"></span></a>*@
+                                        </li>
+                                }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <!----------------------------------------------->
+
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Banks</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                   @foreach (var name in Model)
+                                   {
+                                       if (name.TransactionAccount.sub_head_id != 33)
+                                       {
+                                           continue;
+                                       }
+
+
+                                       value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                        </li>
+                                }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <!----------------------------------------------->
+
+
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Cash</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                 @foreach (var name in Model)
+                                 {
+                                     if (name.TransactionAccount.sub_head_id != 10)
+                                     {
+                                         continue;
+                                     }
+
+
+                                     value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                    <!------------------------------------------------->
+
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Income And Sale</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                    @foreach (var name in Model)
+                                    {
+                                        if (name.TransactionAccount.main_id != 12)
+                                        {
+                                            continue;
+                                        }
+
+                                        value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <!----------------------------------------------->
+
+                
+                </div>
+
+                <!----------------------------------------------->
+                
+                <div class="col-md-6">
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Payable</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                    @foreach (var name in Model)
+                                    {
+                                        if (name.TransactionAccount.main_id != 2)
+                                        {
+                                            continue;
+                                        }
+
+                                        value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+
+                    <!-------------------------------------------------->
+
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Transit And Sundry</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                    @foreach (var name in Model)
+                                    {
+                                        if (name.TransactionAccount.main_id != 13)
+                                        {
+                                            continue;
+                                        }
+
+
+                                        value = (String.Format("{0:0,0}", @name.TransactionAccount.balance));
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Balance : @value </span>
+                                                </span>
+                                                <span class="message">
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                </span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+
+
+
+
+
+
+                   
+
+
+
+                    <!----------------------------------------------->
+
+                    <div class="col-md-12" style="">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Stock</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <ul class="list-unstyled msg_list">
+                                   @foreach (var name in Model)
+                                   
+                                {
+                                       if(name.TransactionAccount.type_!="Goods Account")
+                                       {
+                                           continue;
+                                       }
+                                    
+                                    int weight = 0;
+                                    if (Int32.TryParse(@name.TransactionAccount.WEIGHT, out weight))
+                                    {
+                                        value = (String.Format("{0:0,0}", weight));
+                                    }
+                                    else
+                                    {
+                                        value = @name.TransactionAccount.WEIGHT;
+                                    }
+
+
+                                        <li>
+                                            <a href="~/Admin/PinAccountDetail/@name.TransactionAccount.id/">
+
+                                                <span>
+                                                    <span><strong>@name.TransactionAccount.name</strong> </span>
+                                                    <div class="clearfix"></div>
+                                                    <span class="time">Current Weight(KG) : @value </span>
+                                                    
+                                                </span>
+                                                <span class="message">
+                                                    @if (name.TransactionAccount.id == 118)
+                                                    {
+                                                        var balance = (String.Format("{0:0,0}", name.TransactionAccount.balance));
+                                                        <span class="message"> <b> <i> Current Balance  : @balance </i>  </b> </span>
+                                                    }
+                                                    Last Updated : @name.TransactionAccount.updated_at_
+                                                   
+                                                </span>
+                                              
+                                            </a>
+                                          
+                                        </li>
+                                }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+
+                   
+
+
+                    <!----------------------------------------------->
+
+                    
+
+                    <div class="clearfix"></div>
+                </div>
+               
+                <div class="clearfix"></div>
+                <!-- /top tiles -->
+
+                <br />
+                <!-- /footer content -->
+            </div>
+            
+            <!-- /page content -->
+}
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+</body>
+
+</html>

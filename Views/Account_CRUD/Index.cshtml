@@ -1,0 +1,1136 @@
+﻿@model IEnumerable<ranglerz_project.Models.MainAccount>
+           <!--To GET MAX IDS of ACCOUNTS-->
+           @{
+               var mainID = 0;
+               int HeadID = (int)ViewData["max"];
+               var SubHeadID = (int)ViewData["submax"];
+               var transactionID = (int)ViewData["transmax"];
+               int mainCount = 0;
+               int headcount = 0;
+               int subCount = 0;
+               string mainSpan = "1";
+               string headSpan = "2";
+               string subSpan="3";
+               string accDelete = Session["accDelete"].ToString();
+               string accUpdate = Session["accUpdate"].ToString();
+               string accCreate =Session["accCreate"].ToString();
+           }
+
+@{
+
+    ViewBag.Title = "All Accounts";
+}
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentallela Alela! | </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <style>
+
+        .accordion1 {
+            list-style: none;
+            padding: 0;
+        }
+
+            .accordion1 .inner {
+                padding-left: 1em;
+                overflow: hidden;
+                display: none;
+            }
+
+                .accordion1 .inner.show {
+                    /*display: block;*/
+                }
+
+            .accordion1 li {
+                margin: .5em 0;
+                list-style: none;
+            }
+
+                .accordion1 li a.toggle {
+                    width: 100%;
+                    display: block;
+                    background: rgb(42, 63, 84);
+                    border:1px solid #fff;
+                    color: #fefefe;
+                    padding: .75em;
+                    border-radius: 0.15em;
+                    transition: background .3s ease;
+                }
+
+                    .accordion1 li a.toggle:hover {
+                        background: rgba(0, 0, 0, 0.9);
+                    }
+               .btn-success {
+
+                    margin-top:2%;   
+               }
+    </style>
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Accounts</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+                        <!--FIRST LOOP FOR MAIN ACCOUNT-->
+
+           @foreach (var main in Model.Where(x=>x.is_active=="Y"))
+           {
+               mainCount++;
+            <div class="col-md-10">
+                <ul class="accordion1">
+                    <li class="accordionli">
+                        <a class="toggle" href="javascript:void(0);">@mainCount - <span id="@main.main_id@mainSpan"> @main.name </span> <span class="fa fa-chevron-down pull-right"></span></a>
+
+                      
+
+                        <ul class="inner">
+
+                            <!--Second LOOP FOR HEAD ACCOUNTS-->
+                            @{headcount = 0;}
+
+                            @foreach (var head in main.HeadAccounts.Where(x=>x.is_active=="Y"))
+                            {
+                                headcount++;
+                                <div class="col-md-10">
+                                    <li>
+                                        <a href="#" class="toggle">@mainCount.@headcount -  <span id="@head.head_id@headSpan"> @head.name </span> <span class="fa fa-chevron-down pull-right"></span> </a>
+
+                                        <ul class="inner">
+
+
+                                            <!--Third LOOP FOR SUB HEAD ACCOUNTS-->
+                                            @{subCount = 0;}
+
+                                                                                        @foreach (var sub in head.SubHeadAccounts.Where(x=>x.is_active =="Y"))
+                                            {
+                                                subCount++;
+                                                                                            <div class="col-md-10">
+                                                                                                <li>
+                                                                                                    <a href="#" class="toggle">@mainCount.@headcount.@subCount -<span id="@sub.sub_head_id@subSpan"> @sub.name </span><span class="fa fa-chevron-down pull-right"></span></a>
+                                                                                                   
+                                                                                                    
+                                                                                                    <div class="inner">
+
+                                                                                                        @foreach (var tr in sub.TransactionAccounts.Where(x=>x.is_active=="Y"))
+                                                                                                        {
+                                                                                                            <div class="col-md-10" style="background-color:#ff0000;color:#fff;padding:5px; margin:2px 0 3px;">@tr.name</div>
+
+                                                                                                            if (accDelete == "Y")
+                                                                                                            {
+                                                                                                                <a href="~/Account_CRUD/DeleteTransactionAccount/@tr.id/" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
+                                                                                                            }
+
+                                                                                                            if (accUpdate == "Y")
+                                                                                                            {
+                                                                                                                <a href="~/Account_CRUD/EditTransactionAccount/@tr.id/">Edit</a>
+                                                                                                            }
+
+                                                                                                            
+                                                                                                <div class="clearfix"></div>
+                                                                                         
+                                                                                                        }
+
+                                                                                                        <div class="clearfix"></div>  
+
+                                                                                                        <a href="~/Account_CRUD/CreatePostTrans/@sub.sub_head_id/" class="btn btn-success modalLink3" data-id="@sub.sub_head_id" data-toggle="modal" data-target=".bs-example-modal-lg3">Transaction Account</a>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            </div>
+                                                                                            <div class="col-md-2" style=" line-height:30px;margin-top: 10px;">
+                                                                                                @if (accDelete == "Y")
+                                                                                                {
+                                                                                                    <a href="~/Account_CRUD/DeleteSub/@sub.sub_head_id/" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
+                                                                                                }
+                                                                                                
+
+                                                                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                                @if(accUpdate=="Y")
+                                                                                                { 
+                                                                                                <a href="" onclick="edit_sub(@sub.sub_head_id);" class="modalLink7" data-toggle="modal" data-id="@sub.sub_head_id" data-target=".bs-example-modal-lg7">Edit</a>
+                                                                                                }
+                                                                                                    </div>
+
+                                                @*<a class="btn btn-success" href="~/Account_CRUD/DeleteSub/@sub.sub_head_id/">DELETE of Acount with id @sub.sub_head_id</a>*@
+
+                                                }
+
+                                                <!--Third LOOP END-->
+                                            @if(accCreate=="Y")
+                                            { 
+                                                <a href="~/Account_CRUD/createPostSubHead/@head.head_id/" class="btn btn-success modalLink2" data-id="@head.head_id" data-toggle="modal" data-target=".bs-example-modal-lg2">Create Sub Head Account</a>
+                                            }
+    </ul>
+
+                                    </li>
+                                </div>
+                                <div class="col-md-2" style=" line-height:30px;margin-top: 10px;">
+                                    @if (accDelete == "Y")
+                                    {
+                                        <a href="~/Account_CRUD/DeleteHead/@head.head_id/" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
+                                    }
+                                     
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    @if(accUpdate=="Y")
+                                    { 
+                                    
+                                        <a href="" onclick="edit_head(@head.head_id);" class="modalLink6" data-toggle="modal" data-id="@head.head_id" data-target=".bs-example-modal-lg6">Edit</a>
+                                    }
+                                        </div>
+                                        
+
+                            }
+                            <div class="clearfix"></div> 
+
+                                <!--2nd LOOP END-->
+                            @if(accCreate=="Y")
+                            { 
+                                <a href="~/Account_CRUD/createPostHead/@main.main_id/" class="btn btn-success modalLink" data-id="@main.main_id" data-toggle="modal" data-target=".bs-example-modal-lg1">Create Head Account</a>
+                            }
+</ul>
+
+                       
+
+
+
+                    </li>
+
+                </ul>
+            </div>
+               
+               <div class="col-md-2" style=" line-height:30px;margin-top: 10px;">
+                   @if (accDelete == "Y")
+                   {
+                    <a href="~/Account_CRUD/Delete/@main.main_id/" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
+
+                   } &nbsp;&nbsp;&nbsp;&nbsp;
+            
+
+                        
+                         
+                             @if(accUpdate=="Y")
+                             { 
+
+                   <a href="" onclick="edit_main(@main.main_id);" class="modalLink5" data-toggle="modal" data-id="@main.main_id"  data-target=".bs-example-modal-lg5">Edit</a>
+                         }
+                             </div>
+                             
+                        
+               
+               
+               mainID = @main.main_id + 1;
+                            
+                        }
+                        <!--1ST LOOP END-->
+                        
+                        <div class="clearfix"></div>  
+                        @if(accCreate=="Y")
+                        { 
+                        <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Create Main Account</a>
+    
+                        }
+                    </div>
+                            
+                </div>
+            </div>                                                                                                                                      
+           
+            <div class="right_col" role="main">
+
+                                                                                                                                           
+
+                <br />
+                
+            </div>
+          
+
+        </div>
+
+    </div>
+
+    <!--For Main Account Pop UP-->
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Create Main Account</h4>
+                </div>
+            
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                
+                                <div class="x_content">
+                                    <br>
+                                    <form action="~/Account_CRUD/CreatePost/" class="form-horizontal form-label-left" method="post">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                                Account Code <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" readonly name="code" value="@mainID"  class="form-control col-md-7 col-xs-12" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                                Account Name <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text"  name="name" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="modal-footer">
+
+                     
+                    </div>
+
+                
+
+            </div>
+        </div>
+    </div>
+
+    <!--For Head Account Pop UP-->
+
+    <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg1">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Create Head Account</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="@Url.Action("CreatePostHead", "Account_CRUD", new { @class = "hiddenid" })" method="post" class="form-horizontal form-label-left">
+            
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Account Code <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly name="code" value="@HeadID" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Account Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+ 
+                       
+                        @Html.Hidden("id", "", new { @class = "hiddenid" })
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--For Sub Head Account Pop UP-->
+
+
+    <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg2">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Create Sub Head Account</h4>
+                </div>
+                <div class="modal-body">
+    
+                    <form action="@Url.Action("CreatePostSubHead", "Account_CRUD", new { @class = "hiddenid" })" method="post" class="form-horizontal form-label-left">
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Account Code <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly name="code" value="@SubHeadID" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Account Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+                        @Html.Hidden("id", "", new { @class = "hiddenid2" })
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+              
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--End SUB HEAD Account Pop UP-->
+
+
+
+    <!--Start Transaction Pop Up-->
+
+    <div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg3">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Transaction Acount</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form action="@Url.Action("CreatePostTrans", "Account_CRUD", new { @class = "hiddenid4" })" method="post" class="form-horizontal form-label-left">
+
+                        @*<div class="form-group">
+
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                 Code <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly name="code" value="@transactionID" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                 Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" required class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                               OB <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                               
+                                <select name="OB">
+                                
+                                    <option value="Cr.">Cr.</option>
+                                    <option value="Deb.">Deb.</option>
+                                  
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Amount <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="amount" required class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Type <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select name="Type">
+                               
+                                    <option value="Vendor">Vendor</option>
+                                    <option value="Client">Client</option>
+                                    <option value="Bank">Bank</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Liability">Liability</option>
+                                    <option value="Asset">Asset</option>
+                                    <option value="Expense">Expense</option>
+                                    <option value="Capital">Capital</option>
+                                    <option value="Transit">Transit</option>
+                                    <option value="Sundry">Sundry</option>
+                                    <option value="Income">Income</option>
+                                    <option value="Salary">Salary</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Date <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="date" name="date" required class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Weight(KG) <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="weight" required class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+                        @Html.Hidden("id", "", new { @class = "hiddenid4" })
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--END Transaction-->
+
+    <!--Start EDIT FOR MAIN ACCOUNT EDIT POPUP-->
+
+
+    <div class="modal fade bs-example-modal-lg5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg5">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">UPDATE MAIN ACCOUNT</h4>
+                </div>
+                <div class="modal-body">
+                   
+                        <form id="editformfaq" action="@Url.Action("Edit", "Account_CRUD", new { @class = "hiddenid" })" method="post" class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                    Account Code <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" readonly name="code" id="code" class="form-control col-md-7 col-xs-12">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                    Account Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="name" id="nam" class="form-control col-md-7 col-xs-12">
+
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+
+
+                            @Html.Hidden("id", "", new { @class = "hiddenid" })
+                        </form>
+
+                </div>
+                <div class="modal-footer">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--END EDIT MAIN ACCOUNT POPUP-->
+
+
+    <!--Start HEAD ACCOUNT EDIT POPUP-->
+
+
+
+    <div class="modal fade bs-example-modal-lg6" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg6">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">UPDATE HEAD ACCOUNT</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="editformfq" action="@Url.Action("EditHeadAcc", "Account_CRUD", new { @class = "hiddenid" })" method="post" class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Account Code <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly name="code" id="codehead" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Account Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" id="namehead" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+
+                        @Html.Hidden("id", "", new { @class = "hiddenid" })
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--Start SUBHEAD ACCOUNT EDIT POPUP-->
+
+
+
+    <div class="modal fade bs-example-modal-lg7" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg7">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">UPDATE SUB HEAD ACCOUNT</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="editformfqa" action="@Url.Action("EditSubHeadAcc", "Account_CRUD", new { @class = "hiddenid" })" method="post" class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                Account Code <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" readonly name="code" id="codesubhead" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Account Name <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="name" id="namesubhead" class="form-control col-md-7 col-xs-12">
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+
+                        @Html.Hidden("id", "", new { @class = "hiddenid" })
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--END EDIT HEAD ACCOUNT POPUP-->
+
+
+
+
+
+    <div class="modal fade bs-example-modal-lg78" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Add goods Account</h4>
+                </div>
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br>
+                            <form action="~/SaleVoucher/addGood/" class="form-horizontal form-label-left" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                        Name <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" name="name"  class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="transactionAccount" required class="form-control chzn-select col-md-7 col-xs-12">
+                                        <option value="">Please select any </option>
+                                        @foreach (var tr in ViewBag.myList)
+                                        {
+                                            <option value="@tr.name">@tr.name </option>
+                                        }
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="goodType" required class="form-control chzn-select col-md-7 col-xs-12">
+                                        <option value="">Please select any </option>
+                                        @foreach (var tr in ViewBag.typeList)
+                                        {
+                                            <option value="@tr.type">@tr.type </option>
+                                        }
+
+                                    </select>
+                                </div>
+
+
+
+                                
+
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="~/Scripts/jsAccounts/index.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <!--For Head Account Pop UP-->
+    <script>
+
+
+
+        $(".modalLink").click(function (){
+           var passedID = $(this).data('id');
+        $('#id').val(passedID);
+        $(".modal-body .hiddenid").val(passedID);
+        });
+
+     
+    </script>
+
+    
+
+    <!--For Sub Head Account Pop UP-->
+
+    <script>
+
+
+
+    $(".modalLink2").click(function () {
+        var passedID = $(this).data('id');
+        $('#id').val(passedID);
+        $(".modal-body .hiddenid2").val(passedID);
+    });
+
+
+    </script>
+
+
+    <!--For Transaction -->
+
+    <script>
+
+
+
+        $(".modalLink3").click(function () {
+            var passedID = $(this).data('id');
+            $('#id').val(passedID);
+            $(".modal-body .hiddenid4").val(passedID);
+        });
+
+
+    </script>
+       
+
+    <!--For EDIT MAIN ACCOUNT-->
+     <script>
+
+
+
+    $(".modalLink5").click(function () {
+        var passedID = $(this).data('id');
+        $('#id').val(passedID);
+        $(".modal-body .hiddenid").val(passedID);
+    });
+
+    </script>
+
+    <script>
+        function edit_main(id)
+    {
+
+
+    var a = id;
+    $("#code").val(a);
+ 
+    var a = id;
+    a = $("span[id=" + a + "1]").text();
+    //alert(a);
+    $("#nam").val(a);
+
+    }
+
+    </script>
+   
+
+    <!--HEAD ACCOUNT EDIT-->
+
+    <script>
+
+
+
+    $(".modalLink6").click(function () {
+        var passedID = $(this).data('id');
+        $('#id').val(passedID);
+        $(".modal-body .hiddenid").val(passedID);
+    });
+
+    </script>
+
+
+
+    <script>
+    function edit_head(id) {
+
+
+        var a = id;
+     
+        $("#codehead").val(a);
+
+        var a = id;
+        a = $("span[id=" + a + "2]").text();
+        $("#namehead").val(a);
+
+    }
+
+    </script>
+
+
+    <!--SUBHEAD ACCOUNT EDIT-->
+
+    <script>
+
+
+
+        $(".modalLink7").click(function () {
+            var passedID = $(this).data('id');
+            $('#id').val(passedID);
+            $(".modal-body .hiddenid").val(passedID);
+        });
+
+    </script>
+
+
+
+    <script>
+        function edit_sub(id) {
+
+
+            var a = id;
+
+            $("#codesubhead").val(a);
+
+            var a = id;
+            a = $("span[id=" + a + "3]").text();
+            $("#namesubhead").val(a);
+
+        }
+
+    </script>
+
+
+
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!---->
+
+
+
+
+
+
+</body>
+
+</html>

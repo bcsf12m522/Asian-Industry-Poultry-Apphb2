@@ -1,0 +1,79 @@
+﻿@model ranglerz_project.Models.Admin
+@{
+    ViewBag.Title = "Logged in";
+   
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link href="~/Content/green.css" rel="stylesheet">
+
+
+    <script src="js/jquery.min.js"></script>
+
+
+</head>
+
+<body style="background:#F7F7F7;">
+
+    <div class="">
+        <a class="hiddenanchor" id="toregister"></a>
+        <a class="hiddenanchor" id="tologin"></a>
+
+        <div id="wrapper">
+            <div id="login" class="animate form">
+                <section class="login_content">
+
+                    <form action="@Url.Action("checkLogin", "Home")" method="post" >
+
+                        <h1>Welcome To Asian Industries</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Username" name="username" required />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Password" name="password" required />
+                        </div>
+                        <div>
+                            <label style="margin-right:20px;"> <input type="radio" value="Admin" name="Permission"  checked />Admin </label>
+                            <label>  <input type="radio" value="User" name="Permission"  /> User </label>
+                        </div>
+                        <div>
+                            <br />
+                            <input style="width:100px; height:40px; border-radius:5px; margin-left:120px; padding-top:5px; text-align:center" type="submit" class="form-control" value="Login"  required />
+                          
+                        </div>
+                        <div class="clearfix"></div>
+                        
+                    </form>
+                    <!-- form -->
+                </section>
+                <!-- content -->
+            </div>
+       </div>
+         
+         
+
+</body>
+
+</html>

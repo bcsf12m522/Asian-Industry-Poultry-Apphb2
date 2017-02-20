@@ -1,0 +1,337 @@
+﻿@model ranglerz_project.Models.TransactionAccount
+
+@{
+
+    ViewBag.Title = "Reports";
+    var sesion = Session["name"].ToString();
+   
+    var balance =Convert.ToInt32(Model.parent);
+    var totalDebit = 0;
+    var totalCredit = 0;
+    var totalBalance = 0;
+    string values = null;
+    string debCommas = null;
+    string crCommas = null;
+    string totalBalanceCommas = null;
+    string totalCreditCommas = null;
+    string totaldebitCommas = null;
+    int allReportsEdit = Convert.ToInt32(Session["all_reports_edit"]);
+
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Asian Industry | View User </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+            <!-- top navigation -->
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                             @Model.name Report 
+                            </h3>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                    
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2><strong>Opening Balance(Rs.):</strong>@Model.parent</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+
+
+
+                                                <th>Date </th>
+                                                <th>Type </th>
+                                                <th>Code </th>
+                                                <th>Description </th>
+                                                <th>Dr </th>
+                                                <th>Cr </th>
+
+                                                <th>Balance </th>
+                                                <th>Action</th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                         
+                                           
+                                                @foreach (var t in Model.Transactions.Where(x => x.is_active=="Y").OrderBy(x => x.created_at).ToList())
+                                                {
+                                                    //result1 = DateTime.Compare(ViewBag.start, t.created_at);
+                                                    //result2 = DateTime.Compare(ViewBag.end, t.created_at);
+                                                    debCommas = (String.Format("{0:0,0}", t.dr));
+                                                    crCommas = (String.Format("{0:0,0}", t.cr));
+
+                                                    if (t.extra == "Sale" && Model.main_id != 12)
+                                                    {
+                                                        continue;
+                                                    }
+
+                                                    if (t.cr == 0 && t.dr == 0)
+                                                    {
+                                                        continue;
+                                                    }
+                                                    if (t.is_active != "Y")
+                                                    {
+                                                        continue;
+                                                    }
+                                                      
+                                                        
+
+                                                            <tr class="even pointer">
+
+
+                                                                <td>@t.created_at.ToShortDateString()</td>
+
+
+
+
+                                                                <td>@t.voucher_type</td>
+                                                                <td>@t.voucher_code</td>
+                                                                <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
+
+                                                                <td>@crCommas</td>
+                                                                <td>@debCommas</td>
+
+                                                                @{
+
+
+                                                            if (t.cr > 0)
+                                                            {
+                                                                balance = balance + t.cr;
+                                                            }
+                                                            else
+                                                            {
+                                                                balance = balance - t.dr;
+                                                            }
+
+                                                            //   var tt = Convert.ToInt64(t.balance);
+                                                            //   var balanceTotal = String.Format("{0:#,##0.00}",tt);
+                                                            values = (String.Format("{0:0,0}", balance));
+                                                                }
+
+                                                                <td>@values</td>
+
+                                                                @{
+                                                            totalBalance = totalBalance + balance;
+                                                            totalCredit = totalCredit + t.cr;
+                                                            totalDebit = totalDebit + t.dr;
+
+
+                                                                }
+
+                                                                <td>
+                                                                    @if (t.description != "WHT" && allReportsEdit == 1)
+                                                                    {
+                                                                        <a href="@Url.Action("Edit","Transactions" , new {id= @t.Id} )">Edit</a>
+                                                                        <a href="@Url.Action("Detail","Transactions" , new {id= @t.Id} )">Detail</a>
+                                                                    }
+                                                                </td>
+
+
+
+
+
+                                                            </tr>
+                                                        
+                                                    
+                                                }
+                                            
+                                        </tbody>
+
+                                    </table>
+                                    @{
+                                        totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                        totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                        totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                    }
+                                    @*<p><strong>Total Balance:&nbsp;&nbsp;</strong>@totalBalanceCommas</p>*@
+                                    <p><strong>Total Debit:&nbsp;&nbsp;&nbsp;</strong>@totalCreditCommas</p>
+                                    <p><strong>Total Credit:&nbsp;&nbsp;&nbsp;</strong>@totaldebitCommas</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+    <script type="text/javascript">
+    function confirm_delete() {
+        return confirm('are you sure?');
+    }
+    </script>
+
+
+    <script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateDefault");
+    </script>
+    <script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateDefault2");
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
