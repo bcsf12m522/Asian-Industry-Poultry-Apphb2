@@ -217,10 +217,61 @@
 
                                         @foreach (var trans in Model.TransactionAccounts)
                                         {
-
+                                            int count = 1;
 
                                             foreach (var t in trans.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                             {
+
+                                                if (count == 1)
+                                                {
+                                                    <tr style="color:#1f70c1" class="even pointer">
+
+
+                                                        <td>Admin</td>
+                                                        <td>@trans.created_at_.ToShortDateString()</td>
+
+
+
+
+                                                        <td>Transaction Account</td>
+                                                        <td>N/A</td>
+                                                        <td>First Oppening Balance </td>
+
+                                                        <td>@trans.dr_</td>
+                                                        <td>@trans.cr_</td>
+
+
+
+
+                                                        @if (trans.parent != null)
+                                                        {
+                                                            <td> @trans.parent</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>0</td>
+                                                        }
+
+
+
+
+
+
+
+
+
+
+                                                        <td>
+                                                            N/A
+                                                        </td>
+
+
+
+                                                    </tr>
+                                                        count = 0;
+                                                }
+
+
 
                                                 result1 = DateTime.Compare(ViewBag.start, Convert.ToDateTime(t.created_at));
                                                 result2 = DateTime.Compare(ViewBag.end, Convert.ToDateTime(t.created_at));
@@ -236,7 +287,7 @@
                                                 {
                                                     continue;
                                                 }
-                                                
+
                                                 if (result1 < 0 || result1 == 0)
                                                 {
 
