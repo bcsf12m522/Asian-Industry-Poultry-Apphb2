@@ -171,7 +171,7 @@
                                             <th>Description </th>
                                             <th>Dr </th>
                                             <th>Cr </th>
-                                            
+
                                             <th>Balance </th>
                                             <th>Action</th>
 
@@ -184,9 +184,58 @@
                                         {
                                             foreach (var trans in sub.TransactionAccounts)
                                             {
+                                                int count = 1;
 
                                                 foreach (var t in trans.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                                 {
+                                                    if (count == 1)
+                                                    {
+                                                        <tr class="even pointer">
+
+
+                                                            <td>Admin</td>
+                                                            <td>@trans.created_at_.ToShortDateString()</td>
+
+
+
+
+                                                            <td>Transaction Account</td>
+                                                            <td>@trans.code</td>
+                                                            <td>First Oppening Balance </td>
+
+                                                            <td>@trans.dr_</td>
+                                                            <td>@trans.cr_</td>
+
+
+
+
+                                                            @if (trans.parent != null)
+                                                            {
+                                                                <td> @trans.parent</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>0</td>
+                                                            }
+
+
+
+
+
+
+
+
+
+
+                                                            <td>
+                                                                N/A
+                                                            </td>
+
+
+
+                                                        </tr>
+                                                            count = 0;
+                                                    }
 
                                                     result1 = DateTime.Compare(ViewBag.start, Convert.ToDateTime(t.created_at));
                                                     result2 = DateTime.Compare(ViewBag.end, Convert.ToDateTime(t.created_at));
@@ -194,7 +243,7 @@
                                                     drCommas = (String.Format("{0:0,0}", t.dr));
 
 
-                                                    if (t.extra == "Sale" && trans.main_id !=12)
+                                                    if (t.extra == "Sale" && trans.main_id != 12)
                                                     {
                                                         continue;
                                                     }
@@ -202,7 +251,7 @@
                                                     {
                                                         continue;
                                                     }
-                                                    
+
                                                     if (result1 < 0 || result1 == 0)
                                                     {
 
@@ -236,7 +285,7 @@
 
                                                                 <td>@crCommas</td>
                                                                 <td>@drCommas</td>
-                                                              
+
                                                                 @{
 
                                                                 if (t.cr > 0)
@@ -318,33 +367,33 @@
     <script src="~/Scripts/js/custom.js"></script>
 
     <script type="text/javascript">
-    function confirm_delete() {
-        return confirm('are you sure?');
-    }
+        function confirm_delete() {
+            return confirm('are you sure?');
+        }
     </script>
 
     <script>
-    function setInputDate(_id) {
-        var _dat = document.querySelector(_id);
-        var hoy = new Date(),
-            d = hoy.getDate(),
-            m = hoy.getMonth() + 1,
-            y = hoy.getFullYear(),
-            data;
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
 
-        if (d < 10) {
-            d = "0" + d;
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
         };
-        if (m < 10) {
-            m = "0" + m;
-        };
 
-        data = y + "-" + m + "-" + d;
-        console.log(data);
-        _dat.value = data;
-    };
-
-    setInputDate("#dateDefault");
+        setInputDate("#dateDefault");
     </script>
     <script>
         function setInputDate(_id) {
@@ -389,4 +438,3 @@
 </body>
 
 </html>
-

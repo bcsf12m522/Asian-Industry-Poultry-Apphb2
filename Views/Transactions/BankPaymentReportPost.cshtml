@@ -161,15 +161,16 @@
                                                 }
 
                                                 <th>Date </th>
-                                                <th>Type </th>
+                                                <th>Type</th>
                                                 <th>Code </th>
                                                 <th>Description </th>
                                                 <th>Cheque Type</th>
                                                 <th>Dr </th>
                                                 <th>Cr </th>
                                                 <th>Balance </th>
+                                         
+                                                @*<th>Cheque#</th>*@
                                                 <th>Action</th>
-
                                             </tr>
                                         </thead>
 
@@ -212,9 +213,9 @@
                                                                 <td>@t.created_at.ToShortDateString()</td>
 
 
-
-
                                                                 <td>@t.voucher_type</td>
+
+                                                                
                                                                 <td>@t.voucher_code</td>
                                                                 <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
                                                                 <td>
@@ -261,6 +262,31 @@
 
                                                                 }
 
+
+                                                                @*@if(t.cheque_number ==null || t.cheque_number =="unknown" || t.cheque_number =="")
+                                                                {
+                                                                    if(t.cheque_no != 1)
+                                                                    {
+                                                                        <td>@t.cheque_no</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>@t.cheque_number</td>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>@t.cheque_number</td>
+                                                                }*@
+
+
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
                                                                 <td>
                                                                 @if(t.description != "WHT")
                                                                 { 
@@ -270,7 +296,7 @@
 
 
 
-
+                                                              
 
                                                             </tr>
                                                         }
