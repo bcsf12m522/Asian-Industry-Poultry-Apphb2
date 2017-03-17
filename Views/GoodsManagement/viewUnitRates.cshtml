@@ -98,12 +98,14 @@
 
                                                     <td class=" ">@v.TransactionAccount.name</td>
                                                     <td class=" ">@v.good </td>
-                                                    <td class=" ">@v.rate</td>
+                                                    <td class=" ">@v.rate.ToString("#.##")</td>
                                                                                                          
                                                  
                                                     <td>
                                                         <a href="~/GoodsManagement/EditUnitRate/@v.Id">Add New Rate</a>
-                       
+                                                        &nbsp;
+                                                        
+                                                        <a href="~/GoodsManagement/DeleteUnitRate/@v.Id">Delete</a>
                                                     </td>
 
 
