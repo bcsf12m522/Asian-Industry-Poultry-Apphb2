@@ -1,5 +1,10 @@
 ﻿@model  ranglerz_project.Models.MainAccount
 @{
+    
+    
+    ranglerz_project.Services.TransactionServices service = new ranglerz_project.Services.TransactionServices();
+    
+    
     ViewBag.Title = "mainReportsMain";
     var sesion = Session["name"].ToString();
     int result1;
@@ -121,7 +126,7 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select name="search" required class="form-control chzn-select col-md-7 col-xs-12">
-                                    <option value="">Please select any </option>
+                                    <option value="@ViewBag.search">@ViewBag.search </option>
                                     @foreach (var tr in ViewBag.MainAccounts)
                                     {
 
@@ -177,7 +182,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>View Reports</h2>
+                                <h2>@ViewBag.search</h2>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -206,16 +211,18 @@
                                                 foreach (var trans in subHead.TransactionAccounts.Where(x => x.is_active == "Y"))
                                                 {
 
+                                                    balance = service.findOpeningBalancebeforeDate(ViewBag.start, trans.name);
+                                                    
                                                     var credit = 0;
                                                     var debit = 0;
-                                                    if (trans.parent != null)
-                                                    {
-                                                        balance = Convert.ToInt32(trans.parent);
-                                                    }
-                                                    else
-                                                    {
-                                                        balance = 0;
-                                                    }
+                                                    //if (trans.parent != null)
+                                                    //{
+                                                    //    balance = Convert.ToInt32(trans.parent);
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    //    balance = 0;
+                                                    //}
 
                                                     foreach (var t in trans.Transactions.Where(x => x.is_active == "Y"))
                                                     {
@@ -252,7 +259,7 @@
 
 
                                                         @{
-                                                    balance = debit - credit + balance;
+                                                    balance = credit - debit + balance;
                                                     totalBalance = totalBalance + balance;
                                                     totalCredit = totalCredit + credit;
                                                     totalDebit = totalDebit + debit;
@@ -260,8 +267,9 @@
 
                                                         <td>@trans.name</td>
                                                         @*<td>@trans.parent</td>*@
-                                                        <td>@debit</td>
+                                                        
                                                         <td>@credit</td>
+                                                        <td>@debit</td>
                                                         <td>@balance</td>
 
 
@@ -279,8 +287,10 @@
                                         <tr style="background-color:#3f5367; color:#fff">
                                             <td>TOTAL</td>
                                             @*<td>0</td>*@
-                                            <td>@totalDebit</td>
+
                                             <td>@totalCredit</td>
+                                            <td>@totalDebit</td>
+                                        
                                             <td>@totalBalance</td>
                                         </tr>
 
