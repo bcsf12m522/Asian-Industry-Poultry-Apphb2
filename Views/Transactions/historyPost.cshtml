@@ -196,7 +196,7 @@
                                     </thead>
                                 </table>*@
 
-                                <form action="@Url.Action("ExportData","Transactions")" method="get">
+                                <form action="@Url.Action("ExportData","Transactions")" method="post">
                                     <div class="x_content">
                                         <table id="example" class="table table-striped responsive-utilities jambo_table">
                                             <thead>
@@ -331,7 +331,7 @@
                                         <input type="hidden" name="search" id="searchingValue" value="@ViewBag.search" />
                                         <input type="hidden" name="dateStart" id="dateStart" value="@ViewBag.start" />
                                         <input type="hidden" name="dateEnd" id="dateEnd" value="@ViewBag.end" />
-                                     
+                                        @*<input type="submit" value="Export" />*@
                                         @{
                                             totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
                                             totaldebitCommas = (String.Format("{0:0,0}", totalDebit));

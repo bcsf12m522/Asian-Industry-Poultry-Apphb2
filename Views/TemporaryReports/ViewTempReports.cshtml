@@ -3,7 +3,7 @@
     ViewBag.Title = "ViewTempReports";
     string values = null;
     string val = null;
-  
+
 }
 
 <head>
@@ -32,15 +32,15 @@
 
 
     <script>
-    function check(link) {
-        if (link.className != "visited") {
-            alert("new");
-            link.className = "visited";
-            return true;
+        function check(link) {
+            if (link.className != "visited") {
+                alert("new");
+                link.className = "visited";
+                return true;
+            }
+            alert("old");
+            return false;
         }
-        alert("old");
-        return false;
-    }
     </script>
 
 
@@ -96,7 +96,7 @@
                                                 <th>Description </th>
                                                 <th>Debit </th>
                                                 <th>Credit </th>
-                                                
+
                                                 <th>Item </th>
                                                 <th>Amount </th>
                                                 <th>Post </th>
@@ -108,227 +108,103 @@
                                         <tbody>
 
 
-                                            @foreach (var v in Model.Where(x => x.is_active == "Y").OrderBy(x => x.created_at))
+                                            @foreach (var v in Model.Where(x => x.is_active == "Y" && x.admin_id != 0 && x.Id % 2 != 0).OrderBy(x => x.created_at))
                                             {
                                                 if (v.Id % 2 != 0 && v.amount != 0)
                                                 {
-                                                    if (v.User1 != null)
+                                                    if (v.User1 == null && v.Admin != null)
                                                     {
-                                                        if (v.User1.amount_limit < v.amount)
-                                                        {
-
-                                                            <tr class="even pointer background" style="background-color:#716937; color:#fff">
 
 
-
-                                                                <td class=" ">@v.created_at.ToShortDateString()</td>
-                                                                <td class=" ">@v.user </td>
-                                                                <td class=" ">
-                                                                    @v.voucher_type
-                                                                </td>
-                                                                <td class=" ">@v.voucher_code</td>
+                                                        <tr class="even pointer background" style="background-color:#716937; color:#fff">
 
 
-                                                                <td class=" ">@v.description</td>
-                                                                <td>@v.to_account</td>
-                                                                <td>@v.from_account</td>
-                                                            
-                                                            
-                                                               
+
+                                                            <td class=" ">@v.created_at.ToShortDateString()</td>
+                                                            <td class=" ">@v.user </td>
+                                                            <td class=" ">
+                                                                @v.voucher_type
+                                                            </td>
+                                                            <td class=" ">@v.voucher_code</td>
 
 
-                                                                @if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
+                                                            <td class=" ">@v.description</td>
+                                                            <td>@v.to_account</td>
+                                                            <td>@v.from_account</td>
+
+
+
+
+
+                                                            @if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
+                                                            {
+                                                                <td>@v.good_.Trim()</td>
+                                                                values = (String.Format("{0:0,0}", v.quantity));
+                                                                <td>@values</td>
+                                                            }
+                                                            else if (v.voucher_type == "PRV")
+                                                            {
+                                                                <td>@v.good_</td>
+                                                                values = (String.Format("{0:0,0}", v.net_weight));
+                                                                <td>@values</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@v.item</td>
+                                                                values = (String.Format("{0:0,0}", v.amount));
+                                                                <td>@values</td>
+                                                            }
+
+
+                                                            <td>
+
+                                                                @if (v.voucher_type == "BV")
                                                                 {
-                                                                    <td>@v.good_.Trim()</td>
-                                                                    values = (String.Format("{0:0,0}", v.quantity));
-                                                                    <td>@values</td>
+                                                                    <a onclick="return check(this);" href="@Url.Action("bankPost","Transactions",new {id =@v.Id})"> OK</a>
                                                                 }
-                                                                else if (v.voucher_type == "PRV")
+                                                                else if (v.voucher_type == "JV")
                                                                 {
-                                                                    <td>@v.good_</td>
-                                                                    values = (String.Format("{0:0,0}", v.net_weight));
-                                                                    <td>@values</td>
-
+                                                                    <a onclick="return check(this);" href="@Url.Action("journalPost","Transactions",new {id =@v.Id})"> OK</a>
+                                                                }
+                                                                else if (v.voucher_type == "BP")
+                                                                {
+                                                                    if (v.description != "WHT")
+                                                                    {
+                                                                        <a href="@Url.Action("bankPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
+                                                                    }
+                                                                }
+                                                                else if (v.voucher_type == "CP")
+                                                                {
+                                                                    <a onclick="return check(this);" href="@Url.Action("cashPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
+                                                                }
+                                                                else if (v.voucher_type == "CR")
+                                                                {
+                                                                    <a onclick="return check(this);" href="@Url.Action("cashReceivedPost", "Transactions", new { id = @v.Id })"> OK</a>
+                                                                }
+                                                                else if (v.voucher_type == "EV")
+                                                                {
+                                                                    <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
+                                                                }
+                                                                else if (v.voucher_type == "PRV" && v.pvr_type == 1)
+                                                                {
+                                                                    <a onclick="return check(this);" href="@Url.Action("Production", "GoodsManagement", new { id = @v.Id })"> OK</a>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <td>@v.item</td>
-                                                                    values = (String.Format("{0:0,0}", v.amount));
-                                                                    <td>@values</td>
+                                                                    <a onclick="return check(this);" style="color:#fff" href="@Url.Action("AddSaleVoucher", "SaleVoucher", new { id = @v.Id })"> OK</a>
                                                                 }
-
-
-                                                                <td>
-
-                                                                    @if (v.voucher_type == "BV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("bankPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "JV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("journalPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "BP")
-                                                                    {
-                                                                        if (v.description != "WHT")
-                                                                        {
-                                                                            <a href="@Url.Action("bankPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                        }
-                                                                    }
-                                                                    else if (v.voucher_type == "CP")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("cashPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "CR")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("cashReceivedPost", "Transactions", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "EV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "PRV" && v.pvr_type == 1)
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("Production", "GoodsManagement", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <a onclick="return check(this);" style="color:#fff" href="@Url.Action("AddSaleVoucher", "SaleVoucher", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    @if (v.description != "WHT")
-                                                                    {
-
-                                                                        <a style="color:#fff" href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
-
-                                                                    }
-
-                                                                </td>
-                                                            </tr>
-
-                                                        }
-
-
-                                                        else
-                                                        {
-
-                                                            <tr class="even pointer background" style="">
-
-
-
-                                                                <td class=" ">@v.created_at.ToShortDateString()</td>
-                                                                <td class=" ">@v.user </td>
-                                                                <td class=" ">
-                                                                    @v.voucher_type
-                                                                </td>
-                                                                <td class=" ">@v.voucher_code</td>
-
-
-                                                                <td class=" ">@v.description</td>
-                                                                <td>@v.to_account</td>
-                                                                <td>@v.from_account</td>
-                                                               
-
-
-                                                                @if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
+                                                            </td>
+                                                            <td>
+                                                                @if (v.description != "WHT")
                                                                 {
-                                                                    <td>@v.good_.Trim()</td>
-                                                                    values = (String.Format("{0:0,0}", v.quantity));
-                                                                    <td>@values</td>
-                                                                }
-                                                                else if (v.voucher_type == "PRV")
-                                                                {
-                                                                    <td>@v.good_</td>
-                                                                    values = (String.Format("{0:0,0}", v.net_weight));
-                                                                    <td>@values</td>
+
+                                                                    <a style="color:#fff" href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
 
                                                                 }
 
-                                                                else
-                                                                {
-                                                                    <td>@v.item</td>
-                                                                    values = (String.Format("{0:0,0}", v.amount));
-                                                                    <td>@values</td>
-                                                                }
-
-
-                                                                <td>
-
-                                                                    @if (v.voucher_type == "BV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("bankPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "JV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("journalPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "BP")
-                                                                    {
-                                                                        if (v.description != "WHT")
-                                                                        {
-                                                                            <a href="@Url.Action("bankPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                        }
-                                                                    }
-                                                                    else if (v.voucher_type == "CP")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("cashPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "CR")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("cashReceivedPost", "Transactions", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "WEV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("weightExpensePost","Transactions", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "EV")
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "PRV" && v.pvr_type == 1)
-                                                                    {
-                                                                        <a onclick="return check(this);" href="@Url.Action("Production", "GoodsManagement", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                    else if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
-                                                                    {
-                                                                        <a onclick="return check(this);" style="background-color:#fff" href="@Url.Action("AddSaleVoucher", "SaleVoucher", new { id = @v.Id })"> OK</a>
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    @if (v.description != "WHT" && v.pvr_type != 4)
-                                                                    {
-
-                                                                        <a href="@Url.Action("Delete","TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
-
-                                                                    }
-
-                                                                </td>
-                                                            </tr>
-                                                        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                            </td>
+                                                        </tr>
 
 
 
@@ -336,101 +212,7 @@
 
 
                                                     }
-                                                    else
-                                                    {
 
-                                                    <tr class="even pointer background" style="">
-
-                                                    
-                                                    
-                                                        <td class=" ">@v.created_at.ToShortDateString()</td>
-                                                        <td class=" ">@v.user </td>
-                                                        <td class=" ">
-                                                            @v.voucher_type
-                                                        </td>
-                                                        <td class=" ">@v.voucher_code</td>
-
-
-                                                        <td class=" ">@v.description</td>
-                                                        <td>@v.from_account</td>
-                                                        <td>@v.to_account</td>
-                                                       
-                                                       
-                                                        @if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
-                                                        {
-                                                            <td>@v.good_.Trim()</td>
-                                                            values = (String.Format("{0:0,0}", v.quantity));
-                                                            <td>@values</td>
-                                                        }
-                                                        else if (v.voucher_type == "PRV")
-                                                        {
-                                                            <td>@v.good_</td>
-                                                            values = (String.Format("{0:0,0}", v.net_weight));
-                                                            <td>@values</td>
-
-                                                        }
-
-                                                        else
-                                                        {
-                                                            <td>@v.item</td>
-                                                            values = (String.Format("{0:0,0}", v.amount));
-                                                            <td>@values</td>
-                                                        }
-                                                       
-
-                                                        <td>
-                                                    
-                                                            @if (v.voucher_type == "BV")
-                                                            {
-                                                                <a onclick="return check(this);" href="@Url.Action("bankPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "JV")
-                                                            {
-                                                                <a onclick="return check(this);" href="@Url.Action("journalPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "BP")
-                                                            {
-                                                                if (v.description != "WHT")
-                                                                {
-                                                                <a href="@Url.Action("bankPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                                }
-                                                            }
-                                                            else if (v.voucher_type == "CP")
-                                                            {
-                                                            <a onclick="return check(this);" href="@Url.Action("cashPaymentPost","Transactions",new {id =@v.Id})"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "CR")
-                                                            {
-                                                            <a onclick="return check(this);" href="@Url.Action("cashReceivedPost", "Transactions", new { id = @v.Id })"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "WEV")
-                                                            {
-                                                                <a onclick="return check(this);" href="@Url.Action("weightExpensePost","Transactions", new { id = @v.Id })"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "EV")
-                                                            {
-                                                            <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "PRV" && v.pvr_type == 1)
-                                                            {
-                                                            <a onclick="return check(this);" href="@Url.Action("Production", "GoodsManagement", new { id = @v.Id })"> OK</a>
-                                                            }
-                                                            else if (v.voucher_type == "SV" || v.voucher_type == "PV" || v.voucher_type == "UPPV" || v.voucher_type == "UPSV")
-                                                            {
-                                                                <a onclick="return check(this);" style="background-color:#fff" href="@Url.Action("AddSaleVoucher", "SaleVoucher", new { id = @v.Id })"> OK</a>
-                                                            }
-                                                         </td>   
-                                                        <td>
-                                                            @if(v.description !="WHT" && v.pvr_type != 4)
-                                                           {
-                                                                
-                                                            <a href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
-                                                            
-                                                           }
-                                                       
-                                                        </td>  
-                                                </tr>
-                                            }
                                                 }
                                             }
 
@@ -438,7 +220,7 @@
                                         </tbody>
 
                                     </table>
-                                 
+
                                 </div>
                             </div>
                         </div>
@@ -460,9 +242,9 @@
     <script src="~/Scripts/js/custom.js"></script>
 
     <script type="text/javascript">
-    function confirm_delete() {
-        return confirm('are you sure?');
-    }
+        function confirm_delete() {
+            return confirm('are you sure?');
+        }
     </script>
     <script>
         $(document).ready(function () {
@@ -475,23 +257,23 @@
 
     </script>
     <script>
-    function clickAndDisable(link) {
-        // disable subsequent clicks
-        link.onclick = function (event) {
-            event.preventDefault();
+        function clickAndDisable(link) {
+            // disable subsequent clicks
+            link.onclick = function (event) {
+                event.preventDefault();
+            }
         }
-    }
     </script>
     <script>
-    function check(link) {
-    if (link.className != "visited") {
-    
-    link.className = "visited";
-    return true;
-    }
-    alert("Already Done");
-    return false;
-    }
+        function check(link) {
+            if (link.className != "visited") {
+
+                link.className = "visited";
+                return true;
+            }
+            alert("Already Done");
+            return false;
+        }
     </script>
 </body>
 
