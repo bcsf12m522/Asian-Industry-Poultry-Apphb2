@@ -189,11 +189,16 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
+                                <div>
                                 <h2>@ViewBag.search</h2>
+                                 </div>
+                                <div class="pull-right">
+                                    <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
+                                </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                <table id="testTable" class="table table-striped responsive-utilities jambo_table">
                                     <thead>
                                         <tr class="headings">
 
@@ -213,7 +218,7 @@
                                         @foreach (var trans in Model.TransactionAccounts.Where(x => x.is_active == "Y"))
                                         {
 
-                                            
+
 
                                             balance = service.findOpeningBalancebeforeDate(ViewBag.start,trans.name);
 
@@ -268,27 +273,27 @@
                                             }
 
 
-                                            <tr>
+                                        <tr>
 
 
 
-                                                @{
+                                            @{
                                             balance = credit - debit + balance;
                                             totalBalance = totalBalance + balance;
                                             totalCredit = totalCredit + credit;
                                             totalDebit = totalDebit + debit;
-                                                }
+                                            }
 
-                                                <td>@trans.name</td>
-                                                @*<td>@trans.parent</td>*@
-                                                <td>@credit</td>
-                                                <td>@debit</td>
-                                             
-                                                <td>@balance</td>
+                                            <td>@trans.name</td>
+                                            @*<td>@trans.parent</td>*@
+                                            <td>@credit</td>
+                                            <td>@debit</td>
+
+                                            <td>@balance</td>
 
 
 
-                                            </tr>
+                                        </tr>
 
 
                                         }
@@ -300,7 +305,7 @@
 
                                             <td>@totalCredit</td>
                                             <td>@totalDebit</td>
-                                           
+
                                             <td>@totalBalance</td>
                                         </tr>
 
@@ -390,7 +395,19 @@
 
 
 
-
+    <script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
 
 
 

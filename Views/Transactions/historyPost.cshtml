@@ -18,6 +18,7 @@
     string totalCreditCommas = null;
     string totaldebitCommas = null;
     int allReportsEdit = Convert.ToInt32 (Session["all_reports_edit"]);
+    int counter = 0;
 
 }
 
@@ -172,6 +173,9 @@
                                     <div>
                                         <h2><strong>Opening Balance(Rs.)&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>@ViewBag.openingBalance</h2>
                                     </div>
+                                    <div class="pull-right">
+                                        <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
+                                    </div>
                                     <div class="clearfix"></div>  
                                 </div>
 
@@ -196,14 +200,14 @@
                                     </thead>
                                 </table>*@
 
-                                <form action="@Url.Action("ExportData","Transactions")" method="post">
+                                @*<form action="@Url.Action("ExportData","Transactions")" method="post">*@
                                     <div class="x_content">
-                                        <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <table id="testTable" class="table table-striped responsive-utilities jambo_table">
                                             <thead>
                                                 <tr id="notShowHeading" class="headings">
 
 
-                                                   
+
                                                     <th>Date </th>
                                                     <th>Type </th>
                                                     <th>Code </th>
@@ -219,14 +223,14 @@
 
                                             <tbody id="loadedID">
                                                 @{
-                                                int count = 0;
-                                                
-                                                int counter = 0;
+                                                    int count = 0;
+
+                                                     counter = 0;
                                                 }
                                                 @foreach (var v in Model.OrderBy(x => x.id))
                                                 {
-                                                  
-                                                    
+
+
                                                     foreach (var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                                     {
                                                         result1 = DateTime.Compare(ViewBag.start, t.created_at);
@@ -254,7 +258,7 @@
 
                                                                 <tr class="even pointer">
 
-                                                                 
+
                                                                     <td>@t.created_at.ToShortDateString()</td>
 
 
@@ -316,10 +320,27 @@
                                                             }
                                                         }
                                                         count = count + 1;
-                                                        }
+                                                    }
                                                 }
 
-                                                @*Export to Excel : @Html.ActionLink("Export to Excel", "ExportData", "Transactions")*@
+
+                                                @{
+                                                    totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                                    totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                                    totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                                }
+
+                                            <tr style="background-color:#3f5367; color:#fff">
+
+                                                <td>Total</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>@totalCreditCommas</td>
+                                                <td>@totaldebitCommas</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
 
 
 
@@ -327,32 +348,36 @@
 
                                             </tbody>
 
+
                                         </table>
+
                                         <input type="hidden" name="search" id="searchingValue" value="@ViewBag.search" />
                                         <input type="hidden" name="dateStart" id="dateStart" value="@ViewBag.start" />
                                         <input type="hidden" name="dateEnd" id="dateEnd" value="@ViewBag.end" />
-                                        @*<input type="submit" value="Export" />*@
-                                        @{
-                                            totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
-                                            totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
-                                            totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
-                                        }
+                                     
+                                 
+                                 
                                        
-                                        <p><strong>Total Debit:&nbsp;&nbsp;&nbsp;</strong>@totalCreditCommas</p>
-                                        <p><strong>Total Credit:&nbsp;&nbsp;&nbsp;</strong>@totaldebitCommas</p>
                                        
-                                        <p id="notShowPrint">
+                                       
+                                        @*<p id="notShowPrint">
                                             <a target="_blank" href="" onclick="printingsomething(@counter);"><strong>PRINT</strong></a>
-                                        </p>
+                                        </p>*@
 
                                     </div>
-                                </form>
+                             
 
 
                             </div>
                         </div>
+                      
 
-                        <br />
+
+                        
+
+
+                     
+
                         <br />
                         <br />
 
@@ -478,7 +503,7 @@
         
         
         
-        window.print();
+      
     }
 
 
@@ -486,6 +511,20 @@
 
 
 
+
+    <script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
 
 
 

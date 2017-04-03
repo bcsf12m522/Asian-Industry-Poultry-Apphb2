@@ -98,9 +98,14 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
+                            <div>
                             <h3>
                                 Trial Balance Report
                             </h3>
+                                </div>
+                            <div class="pull-right">
+                                <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
+                            </div>
                         </div>
 
 
@@ -150,20 +155,20 @@
                             <div class="x_panel">
                                
                                 <div class="x_content">
-                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                    <table id="testTable" class="table table-striped responsive-utilities jambo_table">
                                         <thead>
                                             <tr class="headings">
 
 
 
-                                              
-                                            
-                                           
+
+
+
                                                 <th>Account Name</th>
                                                 <th>Total Debit </th>
                                                 <th>Total Credit </th>
                                                 <th>Balance </th>
-                                           
+
 
                                             </tr>
                                         </thead>
@@ -172,14 +177,14 @@
 
                                             @foreach (var v in Model.OrderBy(x => x.id))
                                             {
-                                              var balance = Convert.ToInt32(v.parent);
-                                              totalCredit = v.dr_;
-                                              totalDebit = v.cr_;
-                                              totalBalance = 0;
-                                                
-                                              
-                        
-                                                foreach (var t in v.Transactions.Where(x => x.is_active=="Y" & x.updated_at <= ViewBag.date).OrderBy(x => x.created_at).ToList())
+                                                var balance = Convert.ToInt32(v.parent);
+                                                totalCredit = v.dr_;
+                                                totalDebit = v.cr_;
+                                                totalBalance = 0;
+
+
+
+                                                foreach (var t in v.Transactions.Where(x => x.is_active == "Y" & x.updated_at <= ViewBag.date).OrderBy(x => x.created_at).ToList())
                                                 {
 
 
@@ -188,34 +193,34 @@
                                                     {
                                                         continue;
                                                     }
-                                                    
+
                                                     if (t.is_active != "Y")
                                                     {
                                                         continue;
                                                     }
-                                                    
-                                                     
-                                                   
-
-                                                            if (t.cr > 0)
-                                                            {
-                                                                balance = balance + t.cr;
-                                                            }
-                                                            else
-                                                            {
-                                                                balance = balance - t.dr;
-                                                            }
-
-                                                                
-
-                                                               
-                                                              
-                                                           
-                                                            totalCredit = totalCredit + t.cr;
-                                                            totalDebit = totalDebit + t.dr;
 
 
-                                                                
+
+
+                                                    if (t.cr > 0)
+                                                    {
+                                                        balance = balance + t.cr;
+                                                    }
+                                                    else
+                                                    {
+                                                        balance = balance - t.dr;
+                                                    }
+
+
+
+
+
+
+                                                    totalCredit = totalCredit + t.cr;
+                                                    totalDebit = totalDebit + t.dr;
+
+
+
 
 
 
@@ -238,6 +243,7 @@
                                         </tbody>
 
                                     </table>
+
                                     @{
                                         totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
                                         totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
@@ -324,7 +330,19 @@
 
 
 
-
+    <script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
 
 
 

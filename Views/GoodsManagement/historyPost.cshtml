@@ -103,6 +103,7 @@
                             <h3>
                               Production Reports
                             </h3>
+
                         </div>
 
 
@@ -151,24 +152,29 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2><strong>View Production Reports:</strong>@ViewBag.search &nbsp;&nbsp;&nbsp;<strong>Opening Balance(Rs.):</strong>@ViewBag.openingBalance</h2>
+                                    <div>
+                                        <h2><strong>View Production Reports:</strong>@ViewBag.search &nbsp;&nbsp;&nbsp;<strong>Opening Balance(Rs.):</strong>@ViewBag.openingBalance</h2>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
+                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                    <table id="testTable" class="table table-striped responsive-utilities jambo_table">
                                         <thead>
                                             <tr class="headings">
 
-                                              
+
                                                 <th>Date </th>
                                                 <th>Type </th>
                                                 <th>Code </th>
                                                 <th>Description </th>
-                                             
-                                            
+
+
                                                 <th>Dr(KG) </th>
                                                 <th>Cr(KG) </th>
-                                     
+
                                                 <th>Quantity(KG)</th>
                                                 @*<th>Action</th>*@
 
@@ -179,7 +185,7 @@
 
                                             @foreach (var v in Model.OrderBy(x => x.id))
                                             {
-                                                foreach (var t in v.Transactions.Where(x=>x.voucher_type=="PRV" & x.is_active =="Y").OrderBy(x => x.created_at).ToList())
+                                                foreach (var t in v.Transactions.Where(x => x.voucher_type == "PRV" & x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                                 {
                                                     result1 = DateTime.Compare(ViewBag.start, t.created_at);
                                                     result2 = DateTime.Compare(ViewBag.end, t.created_at);
@@ -193,7 +199,7 @@
 
                                                             <tr class="even pointer">
 
-                                                                
+
                                                                 <td>@t.created_at.ToShortDateString()</td>
 
 
@@ -205,15 +211,15 @@
 
                                                                 @if (t.cr == 0)
                                                                 {
-                                                                   <td>@crCommas</td>
+                                                                    <td>@crCommas</td>
                                                                 }
                                                                 else
                                                                 {
                                                                     <td>@t.net_weight</td>
-                                                                    
-                                                                   
+
+
                                                                     totalDebit = (int)(totalDebit + t.net_weight);
-                                                                   
+
                                                                 }
 
                                                                 @if (t.dr == 0)
@@ -222,18 +228,18 @@
                                                                 }
                                                                 else
                                                                 {
-                                                                     
-                                                                <td>@t.net_weight</td>
-                                                                
-                                                                   
-                                                                    totalCredit =(int)(totalCredit + t.net_weight);
-                                                                   
-                                                          
+
+                                                                    <td>@t.net_weight</td>
+
+
+                                                                    totalCredit = (int)(totalCredit + t.net_weight);
+
+
                                                                 }
                                                                 @{
-                                                                totalWeight = (int)(totalWeight + t.net_weight);
-                                                                
-                                                          
+                                                            totalWeight = (int)(totalWeight + t.net_weight);
+
+
 
 
                                                                 }
@@ -252,6 +258,7 @@
                                         </tbody>
 
                                     </table>
+
                                     @{ 
                                         totalWeightCommas = (String.Format("{0:,0}", totalWeight));
                                         totalCreditCommas = (String.Format("{0:,0}", totalCredit));
@@ -337,7 +344,19 @@
     </script>
 
 
-
+    <script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
 
 
 

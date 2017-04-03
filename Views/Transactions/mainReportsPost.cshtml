@@ -234,11 +234,17 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2><strong>View Reports:</strong>@ViewBag.search &nbsp;&nbsp;&nbsp;<strong>Opening Balance(Rs.):</strong>@ViewBag.openingBalance</h2>
+                                    <div>
+                                        <h2><strong>View Reports:</strong>@ViewBag.search &nbsp;&nbsp;&nbsp;<strong>Opening Balance(Rs.):</strong>@ViewBag.openingBalance</h2>
+                                    </div>
+                                    <div class="pull-right">
+                                        <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
+                                    </div>    
                                     <div class="clearfix"></div>
                                 </div>
+                               
                                 <div class="x_content">
-                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                    <table id="testTable" class="table table-striped responsive-utilities jambo_table">
                                         <thead>
                                             <tr class="headings">
 
@@ -253,7 +259,7 @@
                                                 <th>Description </th>
                                                 <th>Dr </th>
                                                 <th>Cr </th>
-                                             
+
                                                 <th>Balance </th>
                                                 <th>Action</th>
 
@@ -264,7 +270,7 @@
 
                                             @foreach (var v in Model)
                                             {
-                                                foreach (var t in v.Transactions.Where(x=>x.is_active=="Y").OrderBy(x => x.created_at).ToList())
+                                                foreach (var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                                 {
 
                                                     result1 = DateTime.Compare(ViewBag.start, Convert.ToDateTime(t.created_at));
@@ -319,7 +325,7 @@
 
                                                                 <td>@crCommas</td>
                                                                 <td>@drCommas</td>
-                                                              
+
                                                                 @{
 
                                                                 if (t.cr > 0)
@@ -451,7 +457,19 @@
 
 
 
-
+    <script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+    </script>
 
 
 
