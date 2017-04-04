@@ -211,6 +211,10 @@
                                                                     {
                                                                         <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
                                                                     }
+                                                                    else if (v.voucher_type == "WEV")
+                                                                    {
+                                                                        <a onclick="return check(this);" href="@Url.Action("weightExpensePost","Transactions", new { id = @v.Id })"> OK</a>
+                                                                    }
                                                                     else if (v.voucher_type == "PRV" && v.pvr_type == 1)
                                                                     {
                                                                         <a onclick="return check(this);" href="@Url.Action("Production", "GoodsManagement", new { id = @v.Id })"> OK</a>
@@ -305,6 +309,10 @@
                                                                 else if (v.voucher_type == "EV")
                                                                 {
                                                                     <a onclick="return check(this);" href="@Url.Action("ExpensePost", "ExpenseVoucher", new { id = @v.Id })"> OK</a>
+                                                                }
+                                                                else if (v.voucher_type == "WEV")
+                                                                {
+                                                                    <a onclick="return check(this);" href="@Url.Action("weightExpensePost","Transactions", new { id = @v.Id })"> OK</a>
                                                                 }
                                                                 else if (v.voucher_type == "PRV" && v.pvr_type == 1)
                                                                 {
