@@ -211,20 +211,27 @@
                                         </div>
 
                                     }
+                                    
+
+                                    @{
+
+                                        string creditDate = String.Format("{0:yyyy/MM/dd}", Model.created_at);
+                                        string debitDate = String.Format("{0:yyyy/MM/dd}", ViewBag.debitDate);
+                                    }
 
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Debit Date </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" name="Debitdate" value="@ViewBag.debitDate" required>
+                                            <input id="middle-name" type="date" class="form-control col-md-7 col-xs-12" name="Debitdate" value="@debitDate" required>
                                         </div>
                                     </div>
 
-
+                                    
 
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Credit Date </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.created_at.ToShortDateString()" name="date" required>
+                                            <input id="middle-name" type="date" class="form-control col-md-7 col-xs-12" value="@creditDate" name="date" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
