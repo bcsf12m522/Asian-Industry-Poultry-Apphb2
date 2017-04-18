@@ -1,7 +1,7 @@
 ﻿@model List<ranglerz_project.Models.TransactionAccount>
 
 @{
-    ViewBag.Title = "Purchase Order Voucher";
+    ViewBag.Title = "Sale Order Voucher";
 
 }
 
@@ -119,7 +119,7 @@
 
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Purchase Order Voucher</h3>
+                            <h3>Sale Order Voucher</h3>
                         </div>
 
                     </div>
@@ -129,7 +129,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>New Purchase Order <strong>@ViewBag.Code</strong></h2>
+                                <h2>New Sale Order <strong>@ViewBag.Code</strong></h2>
                                 <div class="clearfix"></div>
                             </div>
                             <form id="demo-form2" onsubmit="return submitResult();" action="@Url.Action("CreateTempOrder","SaleOrder")" method="post" data-parsley-validate class="form-horizontal form-label-left">
@@ -197,7 +197,7 @@
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">No. of Bags </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input class="form-control col-md-7 col-xs-12" type="text" name="bags" onkeypress='validate(event)' required>
+                                            <input  class="form-control col-md-7 col-xs-12" type="text" name="bags" onkeypress='validate(event)' required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -224,7 +224,7 @@
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Approved By </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" name="approved_by" required>
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12"  name="approved_by" required>
                                         </div>
                                     </div>*@
                                     <div class="form-group">
@@ -242,7 +242,7 @@
                                         <input type="submit" name="actionType" value="Add Voucher" class="btn btn-success" />
                                         <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
                                         <input type="hidden" name="code" value="@ViewBag.Code" />
-                                        <input type="hidden" name="type" value="2" />
+                                        <input type="hidden" name="type" value="1" />
 
                                     </div>
                                 </div>

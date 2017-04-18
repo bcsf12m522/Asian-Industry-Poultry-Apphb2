@@ -1,7 +1,7 @@
 ﻿@model List<ranglerz_project.Models.TransactionAccount>
 
 @{
-    
+
     ViewBag.Title = "Reports";
     var sesion = Session["name"].ToString();
     int result1;
@@ -11,13 +11,13 @@
     var totalDebit = 0;
     var totalCredit = 0;
     var totalBalance = 0;
-    string values =null;
+    string values = null;
     string debCommas = null;
     string crCommas = null;
     string totalBalanceCommas = null;
     string totalCreditCommas = null;
     string totaldebitCommas = null;
-    int allReportsEdit = Convert.ToInt32 (Session["all_reports_edit"]);
+    int allReportsEdit = Convert.ToInt32(Session["all_reports_edit"]);
     int counter = 0;
 
 }
@@ -124,14 +124,14 @@
                                             <option value="@ViewBag.search">@ViewBag.search </option>
                                             @foreach (var tr in ViewBag.Mylist)
                                             {
-                                                if(tr.name == ViewBag.search )
+                                                if (tr.name == ViewBag.search)
                                                 {
                                                     continue;
                                                 }
                                                 <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
                                             }
 
-                                            
+
 
                                         </select>
                                         <input type="date" id="dateDefault" name="dateStart" required />
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
-                        
+
 
                             </form>
 
@@ -163,8 +163,8 @@
                                     <div>
                                         <h2 style="margin:4px 350px 4px 350px "><strong>@ViewBag.search</strong></h2>
                                     </div>
-                                          <div class="clearfix"></div> 
-                                     
+                                    <div class="clearfix"></div>
+
                                     <div>
                                         <h2> <strong> First Opening Balance(Rs.)&nbsp;:&nbsp;&nbsp;&nbsp;</strong>@ViewBag.firstOpeningbalance</h2>
                                     </div>
@@ -176,159 +176,159 @@
                                     <div class="pull-right">
                                         <input type="button" id="btnPrint" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table');" value="Export to Excel">
                                     </div>
-                                    <div class="clearfix"></div>  
+                                    <div class="clearfix"></div>
                                 </div>
 
-                               
+
                                 @*<table id="example" class="table table-striped responsive-utilities jambo_table">
-                                    <thead>
-                                        <tr id="ShowHeading" class="headings" style="display:none">
+                                        <thead>
+                                            <tr id="ShowHeading" class="headings" style="display:none">
 
 
 
-                                            <th>Date </th>
-                                            <th>Type </th>
-                                            <th>Code </th>
-                                            <th>Description </th>
-                                            <th>Dr </th>
-                                            <th>Cr </th>
+                                                <th>Date </th>
+                                                <th>Type </th>
+                                                <th>Code </th>
+                                                <th>Description </th>
+                                                <th>Dr </th>
+                                                <th>Cr </th>
 
-                                            <th>Balance </th>
-                                            <th id="notShowAction">Action</th>
+                                                <th>Balance </th>
+                                                <th id="notShowAction">Action</th>
 
-                                        </tr>
-                                    </thead>
-                                </table>*@
+                                            </tr>
+                                        </thead>
+                                    </table>*@
 
                                 @*<form action="@Url.Action("ExportData","Transactions")" method="post">*@
-                                    <div class="x_content">
-                                        <table id="testTable" class="table table-striped responsive-utilities jambo_table">
-                                            <thead>
-                                                <tr id="notShowHeading" class="headings">
+                                <div class="x_content">
+                                    <table id="testTable" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr id="notShowHeading" class="headings">
 
 
 
-                                                    <th>Date </th>
-                                                    <th>Type </th>
-                                                    <th>Code </th>
-                                                    <th>Description </th>
-                                                    <th>Dr </th>
-                                                    <th>Cr </th>
+                                                <th>Date </th>
+                                                <th>Type </th>
+                                                <th>Code </th>
+                                                <th>Description </th>
+                                                <th>Dr </th>
+                                                <th>Cr </th>
 
-                                                    <th>Balance </th>
-                                                    <th id="notShowAction">Action</th>
+                                                <th>Balance </th>
+                                                <th id="notShowAction">Action</th>
 
-                                                </tr>
-                                            </thead>
+                                            </tr>
+                                        </thead>
 
-                                            <tbody id="loadedID">
-                                                @{
-                                                    int count = 0;
+                                        <tbody id="loadedID">
+                                            @{
+                                                int count = 0;
 
-                                                     counter = 0;
-                                                }
-                                                @foreach (var v in Model.OrderBy(x => x.id))
+                                                counter = 0;
+                                            }
+                                            @foreach (var v in Model.OrderBy(x => x.id))
+                                            {
+
+
+                                                foreach (var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
                                                 {
+                                                    result1 = DateTime.Compare(ViewBag.start, t.created_at);
+                                                    result2 = DateTime.Compare(ViewBag.end, t.created_at);
+                                                    debCommas = (String.Format("{0:0,0}", t.dr));
+                                                    crCommas = (String.Format("{0:0,0}", t.cr));
 
-
-                                                    foreach (var t in v.Transactions.Where(x => x.is_active == "Y").OrderBy(x => x.created_at).ToList())
+                                                    if (t.extra == "Sale" && v.main_id != 12)
                                                     {
-                                                        result1 = DateTime.Compare(ViewBag.start, t.created_at);
-                                                        result2 = DateTime.Compare(ViewBag.end, t.created_at);
-                                                        debCommas = (String.Format("{0:0,0}", t.dr));
-                                                        crCommas = (String.Format("{0:0,0}", t.cr));
-
-                                                        if (t.extra == "Sale" && v.main_id != 12)
-                                                        {
-                                                            continue;
-                                                        }
-                                                        if (t.cr == 0 && t.dr == 0)
-                                                        {
-                                                            continue;
-                                                        }
-                                                        if (t.is_active != "Y")
-                                                        {
-                                                            continue;
-                                                        }
-                                                        if (result1 < 0 || result1 == 0)
-                                                        {
-                                                            if (result2 != -1)
-                                                            {
-                                                                counter = counter + 1;
-
-                                                                <tr class="even pointer">
-
-
-                                                                    <td>@t.created_at.ToShortDateString()</td>
-
-
-
-
-                                                                    <td>@t.voucher_type</td>
-                                                                    <td>@t.voucher_code</td>
-                                                                    <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
-
-                                                                    <td>@crCommas</td>
-                                                                    <td>@debCommas</td>
-
-                                                                    @{
-
-
-                                                                if (t.cr > 0)
-                                                                {
-                                                                    balance = balance + t.cr;
-                                                                }
-                                                                else
-                                                                {
-                                                                    balance = balance - t.dr;
-                                                                }
-
-                                                                //   var tt = Convert.ToInt64(t.balance);
-                                                                //   var balanceTotal = String.Format("{0:#,##0.00}",tt);
-                                                                values = (String.Format("{0:0,0}", balance));
-                                                                    }
-
-                                                                    <td>@values</td>
-
-                                                                    @{
-                                                                totalBalance = totalBalance + balance;
-                                                                totalCredit = totalCredit + t.cr;
-                                                                totalDebit = totalDebit + t.dr;
-
-
-                                                                    }
-
-                                                                    <td id="@("notShow"+@counter)">
-                                                                        @if (t.description != "WHT" && allReportsEdit == 1)
-                                                                        {
-
-
-                                                                            <a href="~/Transactions/Edit/@t.Id">Edit</a>
-                                                                            <a href="~/Transactions/Detail/@t.Id">Detail</a>
-                                                                            <a href="javascript:;" onclick="DeleteFunctionCall(@t.Id);">Delete</a>
-
-
-
-                                                                        }
-                                                                    </td>
-
-
-
-
-
-                                                                </tr>
-                                                            }
-                                                        }
-                                                        count = count + 1;
+                                                        continue;
                                                     }
-                                                }
+                                                    if (t.cr == 0 && t.dr == 0)
+                                                    {
+                                                        continue;
+                                                    }
+                                                    if (t.is_active != "Y")
+                                                    {
+                                                        continue;
+                                                    }
+                                                    if (result1 < 0 || result1 == 0)
+                                                    {
+                                                        if (result2 != -1)
+                                                        {
+                                                            counter = counter + 1;
+
+                                                            <tr class="even pointer">
 
 
-                                                @{
-                                                    totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
-                                                    totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
-                                                    totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                                                <td>@t.created_at.ToShortDateString()</td>
+
+
+
+
+                                                                <td>@t.voucher_type</td>
+                                                                <td>@t.voucher_code</td>
+                                                                <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
+
+                                                                <td>@crCommas</td>
+                                                                <td>@debCommas</td>
+
+                                                                @{
+
+
+                                                            if (t.cr > 0)
+                                                            {
+                                                                balance = balance + t.cr;
+                                                            }
+                                                            else
+                                                            {
+                                                                balance = balance - t.dr;
+                                                            }
+
+                                                            //   var tt = Convert.ToInt64(t.balance);
+                                                            //   var balanceTotal = String.Format("{0:#,##0.00}",tt);
+                                                            values = (String.Format("{0:0,0}", balance));
+                                                                }
+
+                                                                <td>@values</td>
+
+                                                                @{
+                                                            totalBalance = totalBalance + balance;
+                                                            totalCredit = totalCredit + t.cr;
+                                                            totalDebit = totalDebit + t.dr;
+
+
+                                                                }
+
+                                                                <td id="@("notShow"+@counter)">
+                                                                    @if (t.description != "WHT" && allReportsEdit == 1)
+                                                                    {
+
+
+                                                                        <a href="~/Transactions/Edit/@t.Id">Edit</a>
+                                                                        <a href="~/Transactions/Detail/@t.Id">Detail</a>
+                                                                        <a href="javascript:;" onclick="DeleteFunctionCall(@t.Id);">Delete</a>
+
+
+
+                                                                    }
+                                                                </td>
+
+
+
+
+
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    count = count + 1;
                                                 }
+                                            }
+
+
+                                            @{
+                                                totalCreditCommas = (String.Format("{0:0,0}", totalCredit));
+                                                totaldebitCommas = (String.Format("{0:0,0}", totalDebit));
+                                                totalBalanceCommas = (String.Format("{0:0,0}", totalBalance));
+                                            }
 
                                             <tr style="background-color:#3f5367; color:#fff">
 
@@ -346,37 +346,37 @@
 
 
 
-                                            </tbody>
+                                        </tbody>
 
 
-                                        </table>
+                                    </table>
 
-                                        <input type="hidden" name="search" id="searchingValue" value="@ViewBag.search" />
-                                        <input type="hidden" name="dateStart" id="dateStart" value="@ViewBag.start" />
-                                        <input type="hidden" name="dateEnd" id="dateEnd" value="@ViewBag.end" />
-                                     
-                                 
-                                 
-                                       
-                                       
-                                       
-                                        @*<p id="notShowPrint">
+                                    <input type="hidden" name="search" id="searchingValue" value="@ViewBag.search" />
+                                    <input type="hidden" name="dateStart" id="dateStart" value="@ViewBag.start" />
+                                    <input type="hidden" name="dateEnd" id="dateEnd" value="@ViewBag.end" />
+
+
+
+
+
+
+                                    @*<p id="notShowPrint">
                                             <a target="_blank" href="" onclick="printingsomething(@counter);"><strong>PRINT</strong></a>
                                         </p>*@
 
-                                    </div>
-                             
+                                </div>
+
 
 
                             </div>
                         </div>
-                      
 
 
-                        
 
 
-                     
+
+
+
 
                         <br />
                         <br />
@@ -389,40 +389,40 @@
         </div>
 
     </div>
-    
+
     <script src="~/Scripts/js/bootstrap.min.js"></script>
 
     <script src="~/Scripts/js/custom.js"></script>
 
     <script type="text/javascript">
-    function confirm_delete() {
-        return confirm('are you sure?');
-    }
+        function confirm_delete() {
+            return confirm('are you sure?');
+        }
     </script>
 
 
     <script>
-    function setInputDate(_id) {
-        var _dat = document.querySelector(_id);
-        var hoy = new Date(),
-            d = hoy.getDate(),
-            m = hoy.getMonth() + 1,
-            y = hoy.getFullYear(),
-            data;
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
 
-        if (d < 10) {
-            d = "0" + d;
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
         };
-        if (m < 10) {
-            m = "0" + m;
-        };
 
-        data = y + "-" + m + "-" + d;
-        console.log(data);
-        _dat.value = data;
-    };
-
-    setInputDate("#dateDefault");
+        setInputDate("#dateDefault");
     </script>
     <script>
         function setInputDate(_id) {
@@ -454,57 +454,55 @@
 
 
 
-    function DeleteFunctionCall(id, name) {
+        function DeleteFunctionCall(id, name) {
 
-        $("body").css("cursor", "progress");
-        var search = document.getElementById('searchingValue');
-        var strt = document.getElementById('dateStart').value;
-        var end = document.getElementById('dateEnd').value;
-        var name = search.value;
+            $("body").css("cursor", "progress");
+            var search = document.getElementById('searchingValue');
+            var strt = document.getElementById('dateStart').value;
+            var end = document.getElementById('dateEnd').value;
+            var name = search.value;
 
-        var url = "/Transactions/Delete/";
-        var vendorslist = "#VendorsDD";
+            var url = "/Transactions/Delete/";
+            var vendorslist = "#VendorsDD";
 
-        $.ajax({
-            url: url,
-            data: { ID: id, SEARCH: name, START: strt, END: end },
-            cache: false,
-            type: "GET",
-            success: function (data) {
-                location.reload;
-                //alert("ok")
-                //$('#loadedID').load();
-              
-                $("body").css("cursor", "default");
-            },
-            error: function (reponse) {
-                alert("error : " + reponse);
+            $.ajax({
+                url: url,
+                data: { ID: id, SEARCH: name, START: strt, END: end },
+                cache: false,
+                type: "GET",
+                success: function (data) {
+                    location.reload;
+                    //alert("ok")
+                    //$('#loadedID').load();
+
+                    $("body").css("cursor", "default");
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+
+            });
+
+
+        }
+
+        function printingsomething(counter) {
+
+            for (i = 1; i <= counter; i++) {
+                document.getElementById("notShow" + i).style.display = "none";
             }
 
-        });
+            document.getElementById("notShowAction").style.display = "none";
+            document.getElementById("notShowPrint").style.display = "none";
+            document.getElementById("notShowSearchDiv").style.display = "none";
+            //document.getElementById("notShowHeading").style.display = "none";
+            //document.getElementById("ShowHeading").style.display = "block";
 
-      
-    }
 
-    function printingsomething(counter)
-    {
-       
-        for(i=1; i<=counter; i++)
-        {
-            document.getElementById("notShow"+i).style.display = "none";
+
+
+
         }
-        
-        document.getElementById("notShowAction").style.display = "none";
-        document.getElementById("notShowPrint").style.display = "none";
-        document.getElementById("notShowSearchDiv").style.display = "none";
-        //document.getElementById("notShowHeading").style.display = "none";
-        //document.getElementById("ShowHeading").style.display = "block";
-        
-        
-        
-        
-      
-    }
 
 
     </script>
@@ -513,17 +511,17 @@
 
 
     <script type="text/javascript">
-    var tableToExcel = (function () {
-        var uri = 'data:application/vnd.ms-excel;base64,'
-          , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-          , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-          , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        return function (table, name) {
-            if (!table.nodeType) table = document.getElementById(table)
-            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-            window.location.href = uri + base64(format(template, ctx))
-        }
-    })()
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+              , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+              , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+              , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
     </script>
 
 
@@ -557,7 +555,7 @@
                         onePageCanvas.setAttribute('width', 900);
                         onePageCanvas.setAttribute('height', 980);
                         var ctx = onePageCanvas.getContext('2d');
-                        // details on this usage of this function: 
+                        // details on this usage of this function:
                         // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
                         ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
 

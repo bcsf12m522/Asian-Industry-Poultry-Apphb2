@@ -68,8 +68,39 @@
 
                     </div>
                     <div class="clearfix"></div>
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" action="" method="get" data-parsley-validate class="form-horizontal form-label-left">
 
-                    <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="order_num" name="search" onchange="getOrdersbynumber()" required class="form-control chzn-select col-md-7 col-xs-12">
+                                        <option value="">Please select any </option>
+                                        @foreach (var tr in Model)
+                                        {
+                                            <option value="@tr.TransactionAccount.id">@tr.TransactionAccount.name </option>
+                                        }
+
+
+                                    </select>
+                                    @*<input type="date" id="dateDefault" name="dateStart" required />
+                        <input type="date" id="dateDefault2" name="dateEnd" required />*@
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                    <input type="button" value="Search by Account" name="submitValue" class="btn btn-success" />
+                                    @*<input type="submit" value="Search And Print" name="submitValue" class="btn btn-success" />*@
+
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+                    <div id="orderNumberBY" class="row">
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
@@ -83,12 +114,15 @@
                                             <tr class="headings">
 
                                                 <th>Date</th>
-                                                <th>SO# </th>
+                                                <th>PO# </th>
                                                 <th>Party Name </th>
                                                 <th>Item </th>
                                                 <th>Broker</th>
                                                 <th>Commision</th>
                                                 <th>Weight</th>
+                                                <th>Rate</th>
+                                                <th>Prepared by</th>
+                                                <th>Approved by</th>
                                                 <th>Status</th>
                                                 @*<th>Action </th>*@
 
@@ -107,7 +141,9 @@
                                                     <td>@v.broker_name </td>
                                                     <td>@v.brokers_commision</td>
                                                     <td>@v.weight</td>
-
+                                                    <td>@v.rate</td>
+                                                    <td>@v.prepared_by</td>
+                                                    <td>@v.approved_by</td>
                                                     @if (v.is_active == "Y")
                                                     {
                                                         <td>Active</td>
@@ -117,8 +153,8 @@
                                                         <td>DeActive</td>
                                                     }
                                                     @*<td>
-                                                        <a href="~/PurchaseOrder/Edit/@v.Id/">Update</a>
-                                                    </td>*@
+                                            <a href="~/PurchaseOrder/Edit/@v.Id/">Update</a>
+                                        </td>*@
 
                                                 </tr>
                                             }
@@ -154,6 +190,37 @@
     function confirm_delete() {
         return confirm('are you sure?');
     }
+    </script>
+
+    <script>
+
+
+
+        function getOrdersbynumber() {
+
+
+            var iD = document.getElementById("order_num").value;
+
+
+            $.ajax({
+
+                url: "/PurchaseOrder/sale_order_by/",
+                data: { id: iD },
+                cache: false,
+                type: "Get",
+                success: function (data) {
+                   
+                    document.getElementById("orderNumberBY").innerHTML = data;
+                },
+                error: function () {
+                    alert("Error");
+                }
+
+            })
+
+        }
+
+
     </script>
 </body>
 

@@ -30,6 +30,12 @@
     int purchaseReports = Convert.ToInt32(Session["purchase_reports"]);
 
 
+    int mainReportss = Convert.ToInt32(Session["mainReportss"]);
+    int multiVoucher = Convert.ToInt32(Session["multiVouchers"]);
+    int unitRatess   = Convert.ToInt32(Session["unitratess"]);
+    int stockReportss= Convert.ToInt32(Session["stockReportss"]);
+    int stockSummarry= Convert.ToInt32(Session["stockSummary"]);
+
     var Base64 = Convert.ToBase64String(@Model.image);
     var imgsrc = string.Format("data:img/gif;base64,{0}", Base64);
     string value = "0";
@@ -259,7 +265,8 @@
                                     </ul>
                                 </li>
 
-
+                               @if(multiVoucher ==1)
+                               { 
                                 <li>
 
                                     <a><i class="fa fa-bar-chart-o"></i> Multi Voucher <span class="fa fa-chevron-down"></span></a>
@@ -281,7 +288,7 @@
 
                                 </li>
 
-
+                               }
                                 <li>
 
                                     <a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
@@ -299,12 +306,14 @@
                                         
                                         }
                                         
+                                        @if(mainReportss ==1)
+                                        { 
 
                                         <li>
                                             <a target="_blank" href="~/Transactions/mainReports/"><i class="fa fa-bar-chart-o"></i>Main Reports</a>
 
                                         </li>
-                                        
+                                        }
                                         @if(saleReports ==1)
                                         {
                                              
@@ -446,10 +455,13 @@
                                 </li>
                                 }
                                 
+                                @if(unitRatess ==1)
+                                { 
+
                                 <li>
                                     <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>Unit Rates </a>
                                 </li>
-
+                                }
                                 <li>
                                     <a href="~/Home/ChangePassword/@Model.Id"><i class="fa fa-bar-chart-o"></i>Change Password</a>
                                 </li>
@@ -457,10 +469,23 @@
                                     <a href="~/Home/PinAccounts/@Model.Id"><i class="fa fa-bar-chart-o"></i>Pin Accounts</a>
                                 </li>
 
+                                @if(stockReportss ==1)
+                                { 
+
                                 <li>
                                     <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
 
                                 </li>
+                                }
+                                
+                                @if (stockSummarry == 1)
+                                {
+
+                                    <li>
+                                        <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Summary</a>
+
+                                    </li>
+                                }
 
                                 <li style="">
                                     <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>

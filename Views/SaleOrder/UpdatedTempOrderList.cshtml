@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ranglerz_project.Models.Temporary_Orders>
+
+<tbody id="UpdatedDIV">
+
+    @foreach (var v in Model)
+    {
+        <tr class="even pointer">
+            <td>@v.created_at_.ToShortDateString()</td>
+            <td>@v.order_number</td>
+            <td>@v.party_name</td>
+            <td>@v.item</td>
+            <td>@v.broker_name </td>
+            <td>@v.brokers_commision</td>
+            <td>@v.weight</td>
+
+            @if (v.is_active == "Y")
+            {
+                <td>Active</td>
+            }
+            else
+            {
+                <td>DeActive</td>
+            }
+            <td>@v.prepared_by</td>
+            <td>
+                @if (v.type == 1)
+                {
+                    <a href="~/SaleOrder/Create/@v.Id/">OK</a>
+                }
+                else if (v.type == 2)
+                {
+                    <a href="~/PurchaseOrder/CreatePurchaseOrder/@v.Id/">OK</a>
+                }
+                &nbsp;&nbsp;
+                <a onclick="deleteOrder(@v.Id)">Delete</a>
+            </td>
+        </tr>
+    }
+
+
+</tbody>

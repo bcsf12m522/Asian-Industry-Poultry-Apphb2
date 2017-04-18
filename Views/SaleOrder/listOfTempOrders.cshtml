@@ -1,8 +1,8 @@
-﻿@model List<ranglerz_project.Models.Sale_Order>
+﻿@model List<ranglerz_project.Models.Temporary_Orders>
 
 
 @{
-    ViewBag.Title = "SaleOrdersList";
+    ViewBag.Title = "TempOrdersList";
 }
 
 
@@ -61,44 +61,14 @@
                     <div class="page-title">
                         <div class="title_left">
                             <h3>
-                                All Sale Orders
+                                Pending Orders
                             </h3>
                         </div>
 
 
                     </div>
                     <div class="clearfix"></div>
-                    <div class="x_content">
-                        <br />
-                        <form id="demo-form2" action="" method="get" data-parsley-validate class="form-horizontal form-label-left">
-
-                            <div class="form-group">
-
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select id="order_num" name="search"  onchange="getOrdersbynumber()" required class="form-control chzn-select col-md-7 col-xs-12">
-                                        <option value="">Please select any </option>
-                                        @foreach (var tr in Model)
-                                        {
-                                            <option value="@tr.TransactionAccount.id">@tr.TransactionAccount.name </option>
-                                        }
-
-
-                                    </select>
-                                    @*<input type="date" id="dateDefault" name="dateStart" required />
-                                    <input type="date" id="dateDefault2" name="dateEnd" required />*@
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-
-                                    <input type="button" value="Search by Account" name="submitValue" class="btn btn-success" />
-                                    @*<input type="submit" value="Search And Print" name="submitValue" class="btn btn-success" />*@
-
-                                </div>
-                            </div>
-                          </form>
-
-
-
-                    </div>
+                    
 
 
 
@@ -107,7 +77,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Sale Orders</h2>
+                                    <h2>Pending Orders</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -122,51 +92,55 @@
                                                 <th>Broker</th>
                                                 <th>Commision</th>
                                                 <th>Weight</th>
-                                                <th>Rate</th>
-                                                <th>Prepared by</th>
-                                                <th>Approved by</th>
                                                 <th>Status</th>
-                                                @*<th>Action </th>*@
+                                                <th>Prepared By</th>
+                                                <th>Action </th>
 
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="UpdatedDIV">
 
                                             @foreach (var v in Model)
                                             {
-                                            <tr class="even pointer">
-                                                <td>@v.created_at_.ToShortDateString()</td>
-                                                <td>@v.so_number</td>
-                                                <td>@v.party_name</td>
-                                                <td>@v.item</td>
-                                                <td>@v.broker_name </td>
-                                                <td>@v.brokers_commision</td>
-                                                <td>@v.weight</td>
-                                                <td>@v.rate</td>
-                                                <td>@v.prepared_by</td>
-                                                <td>@v.approved_by</td>
-                                                @if(v.is_active =="Y")
+                                                <tr class="even pointer">
+                                                    <td>@v.created_at_.ToShortDateString()</td>
+                                                    <td>@v.order_number</td>
+                                                    <td>@v.party_name</td>
+                                                    <td>@v.item</td>
+                                                    <td>@v.broker_name </td>
+                                                    <td>@v.brokers_commision</td>
+                                                    <td>@v.weight</td>
+
+                                                    @if (v.is_active == "Y")
                                                     {
-                                                    <td>Active</td>
+                                                        <td>Active</td>
                                                     }
                                                     else
                                                     {
-                                                    <td>DeActive</td>
+                                                        <td>DeActive</td>
                                                     }
-                                                @*<td>
-                                    <a href="~/SaleOrder/Edit/@v.Id/">Update</a></td>*@
-
-                                            </tr>
+                                                    <td>@v.prepared_by</td>
+                                                    <td>
+                                                        @if (v.type == 1)
+                                                        {
+                                                            <a href="~/SaleOrder/Create/@v.Id/">OK</a>
+                                                        }
+                                                        else if (v.type == 2)
+                                                        {
+                                                            <a href="~/PurchaseOrder/CreatePurchaseOrder/@v.Id/">OK</a>
+                                                        }
+                                                        &nbsp;&nbsp;
+                                                        <a onclick="deleteOrder(@v.Id)">Delete</a>
+                                                    </td>
+                                                </tr>
                                             }
 
 
                                         </tbody>
 
                                     </table>
-                                    <div class="form-group">
-                                        <a href="~/SaleOrder/CreateSaleOrder/" class="btn btn-success">Create</a>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -176,12 +150,7 @@
                         <br />
 
                     </div>
-                    <div id="">
-
-
-
-
-                    </div>
+                    
                 </div>
 
             </div>
@@ -202,10 +171,10 @@
     <script>
         function getOrdersbynumber()
         {
-          
+
 
             var iD = document.getElementById("order_num").value;
-       
+
 
             $.ajax({
 
@@ -215,7 +184,7 @@
                 type: "Get",
                 success: function(data)
                 {
-                
+
                     document.getElementById("orderNumberBY").innerHTML = data;
                 },
                 error: function()
@@ -227,6 +196,31 @@
 
         }
 
+    </script>
+    <script>
+        function deleteOrder(id) {
+
+            var flag = confirm('Are you sure you want to Delete?');
+            if (flag == true) {
+                $.ajax({
+
+                    url: "/SaleOrder/deleteTempOrder/",
+                    data: { id: id },
+                    cache: false,
+                    type: "Get",
+
+                    success: function (data) {
+
+                        document.getElementById('UpdatedDIV').innerHTML = data;
+                    },
+
+                    error: function (response) {
+                        alert("Error");
+                    }
+
+                })
+            }
+        }
     </script>
 
 </body>

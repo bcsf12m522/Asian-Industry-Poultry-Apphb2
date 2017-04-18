@@ -66,6 +66,8 @@
         <AssociationConnector Association="Database1Model.FK_Sale_Order_TransactionAccount" />
         <EntityTypeShape EntityType="Database1Model.Purchase_Order" Width="1.5" PointX="9.75" PointY="35" />
         <AssociationConnector Association="Database1Model.FK_Purchase_Order_TransactionAccount" />
+        <EntityTypeShape EntityType="Database1Model.Temporary_Orders" Width="1.5" PointX="9.75" PointY="40.875" />
+        <AssociationConnector Association="Database1Model.FK_TemporaryOders_Order_TransactionAccount" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -851,7 +851,76 @@
 
                                         </div>
                                     </div>
+                                    
 
+
+
+                                    <div class="clearfix"></div>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> New Permissions</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                        <div id="gender" class="btn-group" style="margin-top:8px;">
+
+                                            @if (Model.Main_Reports == 1)
+                                            {
+                                                <input type="checkbox" name="mainReports" checked value="mainReports"><label> Main Reports </label>
+                                            }
+                                            @if (Model.Main_Reports == 0)
+                                            {
+                                                <input type="checkbox" name="mainReports" value="mainReports"><label>Main Reports </label>
+                                            }
+
+
+
+
+
+                                            @if (Model.Multi_Vouchers == 1)
+                                            {
+                                                <input type="checkbox" name="multiVouchers" checked value="multiVouchers"> <label> Multi Vouchers  </label>
+                                            }
+                                            @if (Model.Multi_Vouchers == 0)
+                                            {
+                                                <input type="checkbox" name="multiVouchers" value="multiVouchers"> <label> Multi Vouchers </label>
+                                            }
+
+
+
+                                            @if (Model.Unit_Rate == 1)
+                                            {
+                                                <input type="checkbox" name="unitRates" checked value="unitRates"> <label>Unit Rate  </label>
+                                            }
+                                            @if (Model.Unit_Rate == 0)
+                                            {
+                                                <input type="checkbox" name="unitRates" value="unitRates"> <label>Unit Rate  </label>
+                                            }
+
+
+
+                                            @if (Model.Stock_Reports == 1)
+                                            {
+                                                <input type="checkbox" name="stockReports" checked value="stockReports"> <label> Stock Reports </label>
+                                            }
+                                            @if (Model.Stock_Reports == 0)
+                                            {
+                                                <input type="checkbox" name="stockReports" value="stockReports"> <label> Stock Reports </label>
+                                            }
+
+
+                                            @if (Model.Stock_summary == 1)
+                                            {
+                                                <input type="checkbox" name="stockSummary" checked value="stockSummary"> <label> Stock Summary </label>
+                                            }
+                                            @if (Model.Stock_summary == 0)
+                                            {
+                                                <input type="checkbox" name="stockSummary" value="stockSummary"> <label> Stock Summary </label>
+                                            }
+
+
+
+
+
+                                        </div>
+                                    </div>
 
 
 

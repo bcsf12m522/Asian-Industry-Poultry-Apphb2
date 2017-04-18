@@ -35,6 +35,13 @@
     int ID = Convert.ToInt32(Session["ID"]);
 
     int trialBalanceReport = Convert.ToInt32(Session["trialBalance"]);
+
+
+    int mainReportss = Convert.ToInt32(Session["mainReportss"]);
+    int multiVoucher = Convert.ToInt32(Session["multiVouchers"]);
+    int unitRatess = Convert.ToInt32(Session["unitratess"]);
+    int stockReportss = Convert.ToInt32(Session["stockReportss"]);
+    int stockSummarry = Convert.ToInt32(Session["stockSummary"]);
     
 }
 
@@ -210,7 +217,8 @@
 
 
 
-
+                    @if(multiVoucher ==1)
+                    { 
 
                     <li>
 
@@ -233,7 +241,7 @@
 
                     </li>
 
-
+                    }
 
 
 
@@ -266,12 +274,13 @@
 
                             }
                             
-
+                            @if(mainReportss ==1)
+                            { 
                             <li>
                                 <a target="_blank" href="~/Transactions/mainReports/"><i class="fa fa-bar-chart-o"></i>Main Reports</a>
 
                             </li>
-
+                            }
                             @if (saleReports == 1)
                             {
 
@@ -416,21 +425,56 @@
                         </li>
                     }
 
+                    @if(unitRatess ==1)
+                    { 
 
                     <li>
                         <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>Unit Rates </a>
                     </li>
+                    }
+                    
+                    @if(stockSummarry ==1)
+                    { 
 
                     <li>
                         <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Summary</a>
 
                     </li>
-
+                    }
+                    @if(stockReportss ==1)
+                    { 
                     <li>
                         <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
 
                     </li>
-          
+                    }
+                    
+                    <li>
+
+                        <a><i class="fa fa-bar-chart-o"></i> Orders <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+
+
+                            <li>
+                                <a target="_blank" href="~/SaleOrder/listOfTempOrders"><i class="fa fa-bar-chart-o"></i>Pending Orders</a>
+                            </li>
+
+
+                            <li>
+                                <a target="_blank" href="~/SaleOrder/"><i class="fa fa-bar-chart-o"></i>Sale Order</a>
+                            </li>
+
+                            <li>
+                                <a target="_blank" href="~/PurchaseOrder/"><i class="fa fa-bar-chart-o"></i>Purchase Order</a>
+                            </li>
+
+
+
+
+                        </ul>
+
+                    </li>
+
                 <li style="">
                     <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
                 </li>
