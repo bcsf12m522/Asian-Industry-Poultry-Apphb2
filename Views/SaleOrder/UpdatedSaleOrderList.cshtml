@@ -1,0 +1,27 @@
+﻿@model List<ranglerz_project.Models.Sale_Order>
+
+<tbody id="updatedTable">
+
+    @foreach (var v in Model)
+    {
+        <tr class="even pointer">
+            <td>@v.created_at_.ToShortDateString()</td>
+            <td>@v.so_number</td>
+            <td>@v.party_name</td>
+            <td>@v.item</td>
+            <td>@v.broker_name </td>
+            <td>@v.brokers_commision</td>
+            <td>@v.weight</td>
+            <td>@v.rate</td>
+            <td>@v.prepared_by</td>
+            <td>@v.approved_by</td>
+            <td><a onclick="deleteOrder(@v.Id)">Delete</a></td>
+          
+            @*<td>
+                <a href="~/SaleOrder/Edit/@v.Id/">Update</a></td>*@
+
+        </tr>
+    }
+
+
+</tbody>

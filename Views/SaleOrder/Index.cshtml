@@ -142,39 +142,33 @@
                                                 <th>Rate</th>
                                                 <th>Prepared by</th>
                                                 <th>Approved by</th>
-                                                <th>Status</th>
+                                                <th>Action</th>
                                                 @*<th>Action </th>*@
 
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="updatedTable">
 
                                             @foreach (var v in Model)
                                             {
-                                            <tr class="even pointer">
-                                                <td>@v.created_at_.ToShortDateString()</td>
-                                                <td>@v.so_number</td>
-                                                <td>@v.party_name</td>
-                                                <td>@v.item</td>
-                                                <td>@v.broker_name </td>
-                                                <td>@v.brokers_commision</td>
-                                                <td>@v.weight</td>
-                                                <td>@v.rate</td>
-                                                <td>@v.prepared_by</td>
-                                                <td>@v.approved_by</td>
-                                                @if(v.is_active =="Y")
-                                                    {
-                                                    <td>Active</td>
-                                                    }
-                                                    else
-                                                    {
-                                                    <td>DeActive</td>
-                                                    }
-                                                @*<td>
-                                    <a href="~/SaleOrder/Edit/@v.Id/">Update</a></td>*@
+                                                <tr class="even pointer">
+                                                    <td>@v.created_at_.ToShortDateString()</td>
+                                                    <td>@v.so_number</td>
+                                                    <td>@v.party_name</td>
+                                                    <td>@v.item</td>
+                                                    <td>@v.broker_name </td>
+                                                    <td>@v.brokers_commision</td>
+                                                    <td>@v.weight</td>
+                                                    <td>@v.rate</td>
+                                                    <td>@v.prepared_by</td>
+                                                    <td>@v.approved_by</td>
+                                                    <td><a onclick="deleteOrder(@v.Id)">Delete</a></td>
+    
+                                                    @*<td>
+                    <a href="~/SaleOrder/Edit/@v.Id/">Update</a></td>*@
 
-                                            </tr>
+                                                </tr>
                                             }
 
 
@@ -222,7 +216,8 @@
           
 
             var iD = document.getElementById("order_num").value;
-       
+            
+
 
             $.ajax({
 
@@ -233,7 +228,7 @@
                 success: function(data)
                 {
                 
-                    document.getElementById("orderNumberBY").innerHTML = data;
+                    document.getElementById("updatedTable").innerHTML = data;
                 },
                 error: function()
                 {
@@ -243,6 +238,43 @@
             })
 
         }
+
+    </script>
+    <script>
+
+        function deleteOrder(Id) {
+          
+            var flag = confirm('Are you sure you want to Delete?');
+
+            if (flag != false) {
+
+                $.ajax({
+
+                    url: "/SaleOrder/deleteSaleOrder/",
+                    data: { id: Id },
+                    cache: false,
+                    type: "Get",
+                    success: function (data) {
+                        document.getElementById('updatedTable').innerHTML = data;
+                    },
+                    error: function (response) {
+                        alert("Error" + response);
+                    }
+
+                })
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
 
     </script>
 

@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "PurchaseOrdersList";
+    ViewBag.Title = "SaleOrdersList";
 }
 
 
@@ -37,18 +37,20 @@
     <script src="~/Scripts/js/jquery.min.js"></script>
 
     <script>
-    //* enchanced select
-    chosen_select = {
-        init: function () {
-            $(".chzn-select").chosen();
-        }
-    };
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
 
-    $(document).ready(function () {
-        // extended select elements
-        chosen_select.init();
-    });
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
     </script>
+
+
 
 
 
@@ -100,7 +102,7 @@
 
                                     </select>
                                     @*<input type="date" id="dateDefault" name="dateStart" required />
-                        <input type="date" id="dateDefault2" name="dateEnd" required />*@
+                                        <input type="date" id="dateDefault2" name="dateEnd" required />*@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
@@ -114,6 +116,8 @@
 
 
                     </div>
+
+
 
                     <div id="orderNumberBY" class="row">
 
@@ -138,13 +142,13 @@
                                                 <th>Rate</th>
                                                 <th>Prepared by</th>
                                                 <th>Approved by</th>
-                                                <th>Status</th>
+                                                <th>Action</th>
                                                 @*<th>Action </th>*@
 
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="updatedTable">
 
                                             @foreach (var v in Model)
                                             {
@@ -159,17 +163,10 @@
                                                     <td>@v.rate</td>
                                                     <td>@v.prepared_by</td>
                                                     <td>@v.approved_by</td>
-                                                    @if (v.is_active == "Y")
-                                                    {
-                                                        <td>Active</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>DeActive</td>
-                                                    }
+                                                    <td><a onclick="deleteOrder(@v.Id)">Delete</a></td>
+
                                                     @*<td>
-                                            <a href="~/PurchaseOrder/Edit/@v.Id/">Update</a>
-                                        </td>*@
+                                                        <a href="~/SaleOrder/Edit/@v.Id/">Update</a></td>*@
 
                                                 </tr>
                                             }
@@ -179,7 +176,7 @@
 
                                     </table>
                                     <div class="form-group">
-                                        <a href="~/PurchaseOrder/Create/" class="btn btn-success">Create</a>
+                                        <a href="~/SaleOrder/CreateSaleOrder/" class="btn btn-success">Create</a>
                                     </div>
                                 </div>
                             </div>
@@ -188,6 +185,12 @@
                         <br />
                         <br />
                         <br />
+
+                    </div>
+                    <div id="">
+
+
+
 
                     </div>
                 </div>
@@ -202,19 +205,17 @@
     <script src="~/Scripts/js/custom.js"></script>
 
     <script type="text/javascript">
-    function confirm_delete() {
-        return confirm('are you sure?');
-    }
+        function confirm_delete() {
+            return confirm('are you sure?');
+        }
     </script>
 
     <script>
-
-
-
         function getOrdersbynumber() {
 
 
             var iD = document.getElementById("order_num").value;
+
 
 
             $.ajax({
@@ -224,8 +225,8 @@
                 cache: false,
                 type: "Get",
                 success: function (data) {
-                   
-                    document.getElementById("orderNumberBY").innerHTML = data;
+
+                    document.getElementById("updatedTable").innerHTML = data;
                 },
                 error: function () {
                     alert("Error");
@@ -235,8 +236,45 @@
 
         }
 
+    </script>
+    <script>
+
+        function deleteOrder(Id) {
+
+            var flag = confirm('Are you sure you want to Delete?');
+
+            if (flag != false) {
+
+                $.ajax({
+
+                    url: "/PurchaseOrder/deletePurchaseOrder/",
+                    data: { id: Id },
+                    cache: false,
+                    type: "Get",
+                    success: function (data) {
+                        document.getElementById('updatedTable').innerHTML = data;
+                    },
+                    error: function (response) {
+                        alert("Error" + response);
+                    }
+
+                })
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
 
     </script>
+
 </body>
 
 </html>
