@@ -85,7 +85,7 @@
 
                     </div>
                     <div class="clearfix"></div>
-                    <div class="x_content">
+                    <div id="Search" class="x_content">
                         <br />
                         <form id="demo-form2" action="" method="get" data-parsley-validate class="form-horizontal form-label-left">
 
@@ -124,7 +124,15 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
+                                    <div class="pull-left">
                                     <h2>Purchase Orders</h2>
+                                    </div>
+                                    <div class="pull-right">
+                                    
+                                            <p><a class="btn btn-success" onclick="printOption()"><strong>Print</strong></a></p>
+                                    
+                                    </div>
+
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -175,9 +183,10 @@
                                         </tbody>
 
                                     </table>
-                                    <div class="form-group">
+                                    <div id="Create" class="form-group">
                                         <a href="~/SaleOrder/CreateSaleOrder/" class="btn btn-success">Create</a>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -266,7 +275,13 @@
         }
 
 
-
+        function printOption()
+        {
+            document.getElementById('Create').style.display = "none";
+            document.getElementById('Search').style.display = "none";
+            window.print();
+            location.reload();
+        }
 
 
 
