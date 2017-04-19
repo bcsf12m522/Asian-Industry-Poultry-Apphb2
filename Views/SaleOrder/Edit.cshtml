@@ -1,0 +1,446 @@
+﻿@model ranglerz_project.Models.Temporary_Orders
+
+@{
+    ViewBag.Title = " Edit Temporary Order";
+
+}
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create New User Account</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+    <script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+    </script>
+
+
+
+
+
+
+
+    <script language="javascript" type="text/javascript">
+
+        //
+        // This function will allow users to insert only numbers in the textboxes.
+        //
+
+        function onlyNumbers(evt) {
+            var e = event || evt; // for trans-browser compatibility
+            var charCode = e.which || e.keyCode;
+
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        //
+        // This function is to calculate all the values of textboxes.
+        //
+
+        function Add() {
+            var a, b, c, d;
+            a = parseInt(document.getElementById("txtFirstValue").value);
+
+            //
+            // If textbox value is null i.e empty, then the below mentioned if condition will
+            // come into picture and make the value to '0' to avoid errors.
+            //
+
+            if (isNaN(a) == true) {
+                a = 0;
+            }
+            var b = parseInt(document.getElementById("txtSecondValue").value);
+            if (isNaN(b) == true) {
+                b = 0;
+            }
+
+
+            document.getElementById("txtTotal").value = a - b
+        }
+    </script>
+
+
+
+
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            @{
+                Html.RenderPartial("_Partial");
+            }
+
+
+            <div class="right_col" role="main">
+                <div class="">
+
+
+
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Sale Order Voucher</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>New Sale Order <strong>@ViewBag.Code</strong></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <form id="demo-form2" onsubmit="return submitResult();" action="@Url.Action("Edit", "SaleOrder", new {id =@Model.Id })" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                <div class="x_content">
+                                    <br />
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Party Name <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="to" name="party_name" required onchange="GetVendors(this.value)" class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="@Model.TransactionAccount.id">@Model.TransactionAccount.name </option>
+                                                @foreach (var tr in  ViewBag.Accounts)
+                                                {
+                                                    <option value="@tr.id">@tr.MainAccount.name -> @tr.name </option>
+                                                }
+
+
+                                            </select>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            Item <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="item" id="VendorsDD" class="form-control  col-md-7 col-xs-12">
+                                                <option @Model.item>@Model.item</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Broker's Name </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" value="@Model.broker_name" name="broker_name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Broker's Commisions </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" value="@Model.brokers_commision" name="commisions" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="weight" value="@Model.weight" onkeypress='validate(event)' required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Rate </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="rate" value="@Model.rate" onkeypress='validate(event)' required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">No. of Bags </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12" type="text" name="bags" onkeypress='validate(event)' value="@Model.bags" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Terms </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="terms" class="form-control  col-md-7 col-xs-12">
+                                                <option value="Ex-Factory">Ex-Factory</option>
+                                                <option value="Delivered">Delivered</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Prepared By </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prepared_by" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Checked By </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="txtTotal" class="form-control col-md-7 col-xs-12" type="text" name="checked_by" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Approved By </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12"  name="approved_by" required>
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Date </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="date" value="@Model.uptdated_at.ToShortDateString()" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                        <input type="submit" name="actionType" value="Add Voucher" class="btn btn-success" />
+                                        <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
+                                        <input type="hidden" name="code" value="@ViewBag.Code" />
+                                        <input type="hidden" name="type" value="1" />
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- top navigation -->
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <!-- top tiles -->
+            <!-- /top tiles -->
+
+            <br />
+            <!-- /footer content -->
+        </div>
+        <!-- /page content -->
+
+    </div>
+
+    </div>
+
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/custom.js"></script>
+
+
+
+
+    <script language="javascript" type="text/javascript">
+
+        //
+        // This function will allow users to insert only numbers in the textboxes.
+        //
+
+        function onlyNumbers(evt) {
+            var e = event || evt; // for trans-browser compatibility
+            var charCode = e.which || e.keyCode;
+
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        //
+        // This function is to calculate all the values of textboxes.
+        //
+
+        function Add() {
+            var a, b, c, d;
+            a = parseInt(document.getElementById("txtFirstValue").value);
+
+            //
+            // If textbox value is null i.e empty, then the below mentioned if condition will
+            // come into picture and make the value to '0' to avoid errors.
+            //
+
+            if (isNaN(a) == true) {
+                a = 0;
+            }
+            var b = parseInt(document.getElementById("txtSecondValue").value);
+            if (isNaN(b) == true) {
+                b = 0;
+            }
+
+
+            document.getElementById("txtTotal").value = a - b
+        }
+
+
+
+
+        @*function showPro(str) {
+        alert(str);
+        $.ajax({
+            url: '@Url.Action("Ajax","SaleVoucher")',
+            contentType: "application/json; charset=utf-8",
+            method: "GET",
+            dataType: "json",
+            data: { 'value': $('#to').val() },
+            cache: false
+        })
+            .success(function (data) {
+                console.log("Success" + data);
+
+            })
+        .error(function (data) {
+
+            console.log("Afsoos" + data);
+
+        });
+
+    }*@
+
+        function GetVendors(_routeId) {
+
+            var url = "/SaleVoucher/AjaxCall/";
+            var vendorslist = "#VendorsDD";
+
+            $.ajax({
+                url: url,
+                data: { RouteID: _routeId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    $("#VendorsDD").html(data);
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        }
+
+
+
+
+
+    </script>
+
+
+
+    <script type="text/javascript">
+        function submitResult() {
+            if (confirm("Are You Sure To Post?") == false) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+    <input id="alwaysFetch" type="hidden" />
+    <script>
+        setTimeout(function () {
+
+            var el = document.getElementById('alwaysFetch');
+            el.value = el.value ? location.reload() : true;
+            alert("Page is Loading Please Wait!!")
+
+        }, 0);
+
+        function validate(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]|\./;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+                alert("Please Enter Only Numeric Value")
+            }
+        }
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>

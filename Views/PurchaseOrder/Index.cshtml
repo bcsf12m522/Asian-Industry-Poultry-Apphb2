@@ -36,6 +36,21 @@
 
     <script src="~/Scripts/js/jquery.min.js"></script>
 
+    <script>
+    //* enchanced select
+    chosen_select = {
+        init: function () {
+            $(".chzn-select").chosen();
+        }
+    };
+
+    $(document).ready(function () {
+        // extended select elements
+        chosen_select.init();
+    });
+    </script>
+
+
 
 </head>
 
@@ -77,9 +92,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select id="order_num" name="search" onchange="getOrdersbynumber()" required class="form-control chzn-select col-md-7 col-xs-12">
                                         <option value="">Please select any </option>
-                                        @foreach (var tr in Model)
+                                        @foreach (var tr in ViewBag.Accounts)
                                         {
-                                            <option value="@tr.TransactionAccount.id">@tr.TransactionAccount.name </option>
+                                            <option value="@tr.id">@tr.name </option>
                                         }
 
 

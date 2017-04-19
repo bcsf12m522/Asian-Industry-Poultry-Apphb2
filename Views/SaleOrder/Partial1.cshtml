@@ -47,6 +47,9 @@
                                                 <th>Broker</th>
                                                 <th>Commision</th>
                                                 <th>Weight</th>
+                                                <th>Rate</th>
+                                                <th>Prepared By</th>
+                                                <th>Approved By</th>
                                                 <th>Status</th>
                                                 @*<th>Action </th>*@
 
@@ -64,6 +67,9 @@
                                                     <td>@v.item</td>
                                                     <td>@v.broker_name </td>
                                                     <td>@v.brokers_commision</td>
+                                                    <td>@v.rate</td>
+                                                    <td>@v.prepared_by</td>
+                                                    <td>@v.approved_by</td>
                                                     <td>@v.weight</td>
 
                                                     @if (v.is_active == "Y")
