@@ -36,6 +36,13 @@
     int stockReportss= Convert.ToInt32(Session["stockReportss"]);
     int stockSummarry= Convert.ToInt32(Session["stockSummary"]);
 
+
+    int pin = Convert.ToInt32(Session["pin"]);
+    int pending = Convert.ToInt32(Session["pending"]);
+    int orders = Convert.ToInt32(Session["orders"]);
+    int wev = Convert.ToInt32(Session["wev"]);
+    
+    
     var Base64 = Convert.ToBase64String(@Model.image);
     var imgsrc = string.Format("data:img/gif;base64,{0}", Base64);
     string value = "0";
@@ -465,10 +472,12 @@
                                 <li>
                                     <a href="~/Home/ChangePassword/@Model.Id"><i class="fa fa-bar-chart-o"></i>Change Password</a>
                                 </li>
+                                @if(pin ==1)
+                                { 
                                 <li>
                                     <a href="~/Home/PinAccounts/@Model.Id"><i class="fa fa-bar-chart-o"></i>Pin Accounts</a>
                                 </li>
-
+                                }
                                 @if(stockReportss ==1)
                                 { 
 
@@ -486,6 +495,41 @@
 
                                     </li>
                                 }
+                                
+
+                                @if (orders == 1)
+                                {
+
+                                    <li>
+
+                                        <a><i class="fa fa-bar-chart-o"></i> Orders <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu" style="display: none">
+
+                                            @if (pending == 1)
+                                            {
+
+                                                <li>
+                                                    <a target="_blank" href="~/SaleOrder/listOfTempOrders"><i class="fa fa-bar-chart-o"></i>Pending Orders</a>
+                                                </li>
+
+                                            }
+                                            <li>
+                                                <a target="_blank" href="~/SaleOrder/"><i class="fa fa-bar-chart-o"></i>Sale Order</a>
+                                            </li>
+
+                                            <li>
+                                                <a target="_blank" href="~/PurchaseOrder/"><i class="fa fa-bar-chart-o"></i>Purchase Order</a>
+                                            </li>
+
+
+
+
+                                        </ul>
+
+                                    </li>
+
+                                }
+
 
                                 <li style="">
                                     <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
@@ -571,7 +615,8 @@
                 <br />
 
 
-
+                @if(homeScreen==1)
+                { 
 
                 <div class="col-md-6" style="margin:30px 230px 30px 230px;">
                     <div class="x_panel">
@@ -609,7 +654,7 @@
                     </div>
                 </div>
 
-
+                }
 
 
 

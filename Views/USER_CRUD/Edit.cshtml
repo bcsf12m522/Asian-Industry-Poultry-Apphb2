@@ -915,6 +915,51 @@
                                                 <input type="checkbox" name="stockSummary" value="stockSummary"> <label> Stock Summary </label>
                                             }
 
+                                     
+
+                                            @if (Model.account_pin== 1)
+                                            {
+                                                <input type="checkbox" name="pin" checked value="mainReports"><label> Pin Accounts</label>
+                                            }
+                                            @if (Model.account_pin == 0)
+                                            {
+                                                <input type="checkbox" name="pin" value="mainReports"><label>Pin Accounts </label>
+                                            }
+
+
+
+
+
+                                            @if (Model.WEV == 1)
+                                            {
+                                                <input type="checkbox" name="wev" checked value="multiVouchers"> <label>weight Expense Reports</label>
+                                            }
+                                            @if (Model.WEV == 0)
+                                            {
+                                                <input type="checkbox" name="wev" value="multiVouchers"> <label> weight Expense Reports</label>
+                                            }
+
+
+
+                                            @if (Model.S_P_Orders == 1)
+                                            {
+                                                <input type="checkbox" name="orders" checked value="unitRates"> <label>Sale/Purchase Orders  </label>
+                                            }
+                                            @if (Model.S_P_Orders == 0)
+                                            {
+                                                <input type="checkbox" name="orders" value="unitRates"> <label>Sale/Purchase Orders  </label>
+                                            }
+
+
+
+                                            @if (Model.S_P_PendingOrders == 1)
+                                            {
+                                                <input type="checkbox" name="pending" checked value="stockReports"> <label> S/P Pending Orders </label>
+                                            }
+                                            @if (Model.S_P_PendingOrders == 0)
+                                            {
+                                                <input type="checkbox" name="pending" value="stockReports"> <label> S/P Pending Orders </label>
+                                            }
 
 
 

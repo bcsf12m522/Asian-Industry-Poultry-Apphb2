@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a32f6aa04a33463fbd7f3a304bcdf04d" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="a32f6aa04a33463fbd7f3a304bcdf04d" Name="Diagram1" ZoomLevel="107">
         <EntityTypeShape EntityType="Database1Model.Admin" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.HeadAccount" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.MainAccount" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.SubHeadAccount" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Database1Model.User" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.User" Width="3.25" PointX="18.125" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="Database1Model.FK_HeadAccount_Main" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_SubHeadAccount_Head" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_SubHeadAccount_Main" ManuallyRouted="false" />

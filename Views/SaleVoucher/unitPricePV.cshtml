@@ -173,6 +173,22 @@
                                             <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="description" required>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <a class="btn btn-primary" onclick="findPurchaseOrder()">Check Purchase Order #</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hide" id="PurchaseOrder">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                            PO# <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="order_num" id="PO" class="form-control  col-md-7 col-xs-12">
+                                                <option>Select any </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
 </div>
                             <div class="form-group">
 
@@ -329,7 +345,27 @@
 
 
 
+    function findPurchaseOrder() {
+        var accountID = document.getElementById("to").value;
+        var item = document.getElementById("VendorsDD").value;
 
+        var url = "/SaleVoucher/FindPurchaseOrder/";
+        var vendorslist = "#PO";
+
+        $.ajax({
+            url: url,
+            data: { Item: item, AccountId: accountID },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#PO").html(data);
+                $("#PurchaseOrder").addClass("show");
+            },
+            error: function (reponse) {
+                alert("error : Please Select Account and Good");
+            }
+        });
+    }
 
 
 
@@ -339,6 +375,16 @@
 
 
     </script>
+
+
+
+
+
+
+
+
+
+
 
 
 </body>

@@ -42,7 +42,12 @@
     int unitRatess = Convert.ToInt32(Session["unitratess"]);
     int stockReportss = Convert.ToInt32(Session["stockReportss"]);
     int stockSummarry = Convert.ToInt32(Session["stockSummary"]);
-    
+
+
+    int pin = Convert.ToInt32(Session["pin"]);
+    int pending = Convert.ToInt32(Session["pending"]);
+    int orders = Convert.ToInt32(Session["orders"]);
+    int wev = Convert.ToInt32(Session["wev"]); 
 }
 
 
@@ -208,10 +213,13 @@
 
                             }
                             
+                            @if(wev ==1)
+                            { 
+                            
                             <li>
                                 <a target="_blank" href="~/Transactions/weightExpense/">Weight Expense Voucher</a>
                             </li>
-
+                            }
                         </ul>
                     </li>
 
@@ -344,6 +352,14 @@
                                 <a href="~/Transactions/TrialBalanceReport/"><i class="fa fa-bar-chart-o"></i> Trial Balance Report</a>
                             </li>
                             }
+                            
+                            @if (stockReportss == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
+
+                                </li>
+                            }
                         </ul>
 
                     </li>
@@ -399,39 +415,63 @@
                     @if (supervision == 1)
                     {
                         <li>
-                            <a target="_blank" href="~/TemporaryReports/ViewTempReports/"><i class="fa fa-bar-chart-o"></i>Super Vision Admins</a>
-                        </li>
+
+                            <a><i class="fa fa-bar-chart-o"></i> Supervisions <span class="fa fa-chevron-down"></span></a>
+
+                            <ul class="nav child_menu" style="display: none">
 
 
-                        <li>
-                            <a target="_blank" href="~/USER_CRUD/Supervision/"><i class="fa fa-bar-chart-o"></i>SuperVision User's Wise</a>
+                                <li>
+                                    <a target="_blank" href="~/TemporaryReports/ViewTempReports/"><i class="fa fa-bar-chart-o"></i>Admins</a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="~/USER_CRUD/Supervision/"><i class="fa fa-bar-chart-o"></i>User's Wise</a>
+                                </li>
+
+                            </ul>
                         </li>
+
 
                     }
+               
 
-                    @if (viewGoodTypes == 1)
-                    {
+                  
 
-                        <li>
-                            <a target="_blank" href="~/GoodsManagement/listGoodTypes/"><i class="fa fa-bar-chart-o"></i>Good Types</a>
-                        </li>
-
-                    }
-
-                    @if (viewGoods == 1)
-                    {
-                        <li>
-                            <a target="_blank" href="~/GoodsManagement/listOfGoods/"><i class="fa fa-bar-chart-o"></i>Goods Management</a>
-                        </li>
-                    }
-
-                    @if(unitRatess ==1)
-                    { 
-
+                  
                     <li>
-                        <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>Unit Rates </a>
+
+                        <a><i class="fa fa-bar-chart-o"></i> Goods Managements <span class="fa fa-chevron-down"></span></a>
+
+                        <ul class="nav child_menu" style="display: none">
+
+
+                            @if (viewGoods == 1)
+                            {
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/listOfGoods/"><i class="fa fa-bar-chart-o"></i>All Goods</a>
+                                </li>
+                            }
+
+                            @if (viewGoodTypes == 1)
+                            {
+
+                                <li>
+                                    <a target="_blank" href="~/GoodsManagement/listGoodTypes/"><i class="fa fa-bar-chart-o"></i>Good Types</a>
+                                </li>
+
+                            }
+
+                            @if (unitRatess == 1)
+                            {
+
+                                <li>
+                                    <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>Unit Rates </a>
+                                </li>
+                            }
+
+                        </ul>
                     </li>
-                    }
                     
                     @if(stockSummarry ==1)
                     { 
@@ -441,25 +481,24 @@
 
                     </li>
                     }
-                    @if(stockReportss ==1)
-                    { 
-                    <li>
-                        <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
-
-                    </li>
-                    }
+                   
                     
+                    @if(orders ==1)
+                    { 
+
                     <li>
 
                         <a><i class="fa fa-bar-chart-o"></i> Orders <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
 
+                            @if(pending ==1)
+                            { 
 
                             <li>
                                 <a target="_blank" href="~/SaleOrder/listOfTempOrders"><i class="fa fa-bar-chart-o"></i>Pending Orders</a>
                             </li>
 
-
+                            }
                             <li>
                                 <a target="_blank" href="~/SaleOrder/"><i class="fa fa-bar-chart-o"></i>Sale Order</a>
                             </li>
@@ -474,7 +513,8 @@
                         </ul>
 
                     </li>
-
+                    
+                    }
                 <li style="">
                     <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
                 </li>
