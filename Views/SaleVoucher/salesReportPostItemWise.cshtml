@@ -17,70 +17,12 @@
 
 
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Asian Industry | View User </title>
-
-    <!-- Bootstrap core CSS -->
-
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom styling plus plugins -->
-    <link href="~/Content/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
-    <link href="~/Content/css/green.css" rel="stylesheet" />
-    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
-
-
-    <script src="~/Scripts/js/jquery.min.js"></script>
-
-
-    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
-    <script src="~/Scripts/chosen.jquery.min.js"></script>
-
-
-
-    <script>
-        //* enchanced select
-        chosen_select = {
-            init: function () {
-                $(".chzn-select").chosen();
-            }
-        };
-
-        $(document).ready(function () {
-            // extended select elements
-            chosen_select.init();
-        });
-    </script>
-
-    <style>
-        tr td {
-            max-width: 300px;
-            height: auto;
-        }
-    </style>
 
 
 
 
 
 
-</head>
-
-
-
-
-<body class="nav-md">
 
 
 
@@ -93,10 +35,8 @@
                 Html.RenderPartial("_Partial");
             }
 
-            <!-- top navigation -->
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div class="right_col" role="main">
+           
+            <div class="right_col col-md-10 pull-right" role="main">
 
                 <div class="page-title">
                     <div class="title_left">
@@ -109,7 +49,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-10 col-sm-10 col-xs-10">
                         <div class="x_panel">
 
                             <div class="x_content">
@@ -123,10 +63,10 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select id="to" name="id" required onchange="GetVendors(this.value)" class="form-control chzn-select col-md-7 col-xs-12">
                                                 <option value="">Please select any </option>
-                                              @foreach (var tr in ViewBag.Mylist)
-                                              {
-                                                <option value="@tr.id">@tr.MainAccount.name -> @tr.name </option>
-                                              }
+                                                @foreach (var tr in ViewBag.Mylist)
+                                                {
+                                                    <option value="@tr.id">@tr.MainAccount.name -> @tr.name </option>
+                                                }
 
 
                                             </select>
@@ -178,13 +118,13 @@
 
 
 
-
+                                </form>
 
                             </div>
 
                             <div class="ln_solid"></div>
 
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -200,7 +140,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table id="" class="table table-striped responsive-utilities jambo_table">
+                                <table id="" class="table-condensed table jambo_table" >
                                     <thead>
                                         <tr class="headings">
 
@@ -248,7 +188,7 @@
                                                 {
                                                     continue;
                                                 }
-                                                if(t.good_ !=@ViewBag.item)
+                                                if (t.good_ != @ViewBag.item)
                                                 {
                                                     continue;
                                                 }
@@ -361,10 +301,10 @@
             </div>
 
         </div>
-        <!-- /page content -->
+      
     </div>
 
-    </div>
+    
     <script src="~/Scripts/js/bootstrap.min.js"></script>
 
     <script src="~/Scripts/js/custom.js"></script>
@@ -487,7 +427,4 @@
 
 
 
-</body>
-
-</html>
 

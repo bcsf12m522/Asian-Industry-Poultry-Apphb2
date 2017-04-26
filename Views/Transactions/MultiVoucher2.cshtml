@@ -8,48 +8,6 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Create New User Account</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom styling plus plugins -->
-    <link href="~/Content/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
-    <link href="~/Content/css/green.css" rel="stylesheet" />
-    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
-
-    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
-    <script src="~/Scripts/chosen.jquery.min.js"></script>
-
-    <script>
-        //* enchanced select
-        chosen_select = {
-            init: function () {
-                $(".chzn-select").chosen();
-            }
-        };
-
-        $(document).ready(function () {
-            // extended select elements
-            chosen_select.init();
-        });
-    </script>
 
 
 
@@ -196,10 +154,10 @@
 
 
 
-</head>
 
 
-<body class="nav-md">
+
+
 
     <div class="container body">
 
@@ -210,7 +168,7 @@
                 Html.RenderPartial("_Partial");
             }
 
-            <div class="right_col" role="main">
+            <div class="right_col col-md-10 pull-right" role="main">
                 <div class="">
 
 
@@ -258,41 +216,41 @@
 
 
                                     @*<div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
-                                                To <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
-                                                    <option value="">Please select any </option>
-                                                    @foreach (var tr in Model)
-                                                    {
-                                                        <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
-                                                    }
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                        To <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+                                            @foreach (var tr in Model)
+                                            {
+                                                <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                            }
 
-                                                </select>
-                                            </div>
-                                        </div>*@
+                                        </select>
+                                    </div>
+                                </div>*@
                                     @*<div class="form-group">
-                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Amount </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="amount" required>
-                                            </div>
-                                        </div>*@
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Amount </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="amount" required>
+                                    </div>
+                                </div>*@
 
 
                                     @*<div class="input_fields_wrap">
-                                            <button class="add_field_button">Add More Fields</button>
-                                            <div>
-                                            <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
-                                                        <option value="">Please select any </option>
-                                                        @foreach (var tr in Model)
-                                                        {
-                                                            <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
-                                                        }
+                                    <button class="add_field_button">Add More Fields</button>
+                                    <div>
+                                    <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Please select any </option>
+                                                @foreach (var tr in Model)
+                                                {
+                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                                }
 
-                                              </select>
-                                            </div>
-                                        </div>*@
+                                      </select>
+                                    </div>
+                                </div>*@
 
 
                                     <div class="form-group">
@@ -490,18 +448,12 @@
 
 
 
-    <!-- top navigation -->
-    <!-- /top navigation -->
-    <!-- page content -->
-    <!-- /page content -->
 
 
 
 
 
-    <script src="~/Scripts/js/bootstrap.min.js"></script>
 
-    <script src="~/Scripts/js/custom.js"></script>
 
 
     <script type="text/javascript">
@@ -517,7 +469,7 @@
     <script>
 
         $(document).ready(function () {
-            alert("yoyoyoyo");
+           
             var max_fields = 10; //maximum input boxes allowed
             var wrapper = $(".input_fields_wrap"); //Fields wrapper
             var add_button = $(".add_field_button"); //Add button ID
@@ -554,11 +506,5 @@
     </script>
 
 
-
-
-
-</body>
-
-</html>
 
 

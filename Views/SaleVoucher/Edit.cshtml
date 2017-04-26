@@ -5,82 +5,9 @@
 }
 
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Create New User Account</title>
-
-    <!-- Bootstrap core CSS -->
-
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom styling plus plugins -->
-    <link href="~/Content/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
-    <link href="~/Content/css/green.css" rel="stylesheet" />
-    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
-
-    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
-    <script src="~/Scripts/chosen.jquery.min.js"></script>
-
-    <script>
-        //* enchanced select
-        chosen_select = {
-            init: function () {
-                $(".chzn-select").chosen();
-            }
-        };
-
-        $(document).ready(function () {
-            // extended select elements
-            chosen_select.init();
-        });
-    </script>
 
 
 
-
-
-
-
-    <script language="javascript" type="text/javascript">
-
-        //
-        // This function will allow users to insert only numbers in the textboxes.
-        //
-
-        function onlyNumbers(evt) {
-            var e = event || evt; // for trans-browser compatibility
-            var charCode = e.which || e.keyCode;
-
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
-                return false;
-            return true;
-        }
-
-        //
-        // This function is to calculate all the values of textboxes.
-        //
-
-    
-    </script>
-
-
-
-
-
-</head>
-
-
-<body class="nav-md">
 
     <div class="container body">
 
@@ -91,7 +18,7 @@
                 Html.RenderPartial("_Partial");
             }
 
-            <div class="right_col" role="main">
+            <div class="right_col col-md-10 pull-right" role="main">
                 <div class="">
 
 
@@ -108,13 +35,13 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
-                            
+
                             <div class="x_content">
                                 <br />
                                 <form id="demo-form2" action="@Url.Action("Edit", "SaleVoucher")" method="post" data-parsley-validate class="form-horizontal form-label-left">
 
 
-                                    
+
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Good </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -125,191 +52,176 @@
 
 
                                     <div class="form-group">
-                                        @if (@Model.voucher_type == "SV" || @Model.voucher_type =="UPSV")
+                                        @if (@Model.voucher_type == "SV" || @Model.voucher_type == "UPSV")
                                         {
                                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">To Client </label>
-                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.to_account" name="to" readonly required>
-                                        </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.to_account" name="to" readonly required>
+                                            </div>
                                         }
                                         else
                                         {
                                             <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">From Vendor </label>
-                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.from_account" name="to" readonly required>
-                                        </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.from_account" name="to" readonly required>
+                                            </div>
                                         }
-                                        
-                                        
+
+
                                     </div>
 
 
 
-                                                                       @* <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
-        To Client <span class="required">*</span>
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
-            <option  value="@Model.to_account">@Model.to_account </option>
+                                    @* <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
+                                    To Client <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
+                                        <option  value="@Model.to_account">@Model.to_account </option>
 
-            @foreach (var tr in ViewBag.Accounts)
-            {
-                if(tr.name != Model.to_account)
-                {
-                <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
-                }
-            }
-
-        </select>
-                                        </div>
-                                    </div>
-                                                                    *@
-
-
-
-
-
-
-
-
-
-
-
-
-                                          
-                                          
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Unit Price  /Good </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.unit_price" type="text" name="unitPrice" required>
-                                                </div>
-                                            </div>
-                                          
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Truck </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.truck" type="text" name="truck" required>
-                                                </div>
-                                            </div>
-                                            @if(Model.voucher_type =="SV" || Model.voucher_type =="UPSV")
-                                            {
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Builty# </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.builty_no_" type="text" name="builty" required>
-                                                </div>
-                                            </div>
-                                            }
-                                            @if (Model.grn =="PV" || Model.voucher_type=="UPPV")
-                                            {
-                                                <div class="form-group">
-                                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">GRN </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.grn" type="text" name="grn" required>
-                                                    </div>
-                                                </div>
-                                            }
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight Load </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="txtFirstValue" onkeyup="javascript:Add();" class="form-control col-md-7 col-xs-12" value="@Model.weight_load" type="text" name="load" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight Empty </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="txtSecondValue" onkeyup="javascript:Add();" class="form-control col-md-7 col-xs-12" value="@Model.weight_empty" type="text" name="empty" required>
-                                                </div>
-                                            </div>
-                                            @if (Model.voucher_type == "SV" || Model.voucher_type == "UPSV")
-                                            {
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight bags </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="bags" value="@Model.bags" required>
-                                                </div>
-                                            </div>
-                                            }
-                                        @if (Model.voucher_type == "PV" || Model.voucher_type == "UPPV")
+                                        @foreach (var tr in ViewBag.Accounts)
                                         {
-                                                <div class="form-group">
-                                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Deduction </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input id="txtThirdValue" onkeyup="javascript:Adding();" class="form-control col-md-7 col-xs-12" type="text" name="deduction" value="@Model.deduction" required>
-                                                    </div>
-                                                </div>
+                                            if(tr.name != Model.to_account)
+                                            {
+                                            <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
                                             }
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Net Weight </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="txtTotal" class="form-control col-md-7 col-xs-12" readonly type="text" value="@Model.net_weight" name="net" required>
-                                                </div>
-                                            </div>
-                                     @if (Model.voucher_type == "SV" || Model.voucher_type == "UPSV")
-                                      { 
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Client's Weight </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input class="form-control col-md-7 col-xs-12"  type="text" value="@Model.client_s_weight" name="clientWeight" required>
-                                                </div>
-                                                
-                                            </div>
-}
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Date </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12"  value="@Model.created_at.ToShortDateString()" name="date" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" value="@Model.description" name="description" required>
-                                                </div>
-                                            </div>
-                                    </div>
+                                        }
+
+                                    </select>
+                                                                    </div>
+                                                                </div>
+                                    *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     <div class="form-group">
-
-
-                                    </div>
-                                    <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-
-                                            <input type="submit" value="Update Voucher" class="btn btn-success" />
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Unit Price  /Good </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.unit_price" type="text" name="unitPrice" required>
                                         </div>
                                     </div>
 
-                                    </form>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Truck </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.truck" type="text" name="truck" required>
+                                        </div>
+                                    </div>
+                                    @if (Model.voucher_type == "SV" || Model.voucher_type == "UPSV")
+                                    {
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Builty# </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.builty_no_" type="text" name="builty" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.grn == "PV" || Model.voucher_type == "UPPV")
+                                    {
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">GRN </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.grn" type="text" name="grn" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight Load </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="txtFirstValue" onkeyup="javascript:Add();" class="form-control col-md-7 col-xs-12" value="@Model.weight_load" type="text" name="load" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight Empty </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="txtSecondValue" onkeyup="javascript:Add();" class="form-control col-md-7 col-xs-12" value="@Model.weight_empty" type="text" name="empty" required>
+                                        </div>
+                                    </div>
+                                    @if (Model.voucher_type == "SV" || Model.voucher_type == "UPSV")
+                                    {
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Weight bags </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="bags" value="@Model.bags" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.voucher_type == "PV" || Model.voucher_type == "UPPV")
+                                    {
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Deduction </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input id="txtThirdValue" onkeyup="javascript:Adding();" class="form-control col-md-7 col-xs-12" type="text" name="deduction" value="@Model.deduction" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Net Weight </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="txtTotal" class="form-control col-md-7 col-xs-12" readonly type="text" value="@Model.net_weight" name="net" required>
+                                        </div>
+                                    </div>
+                                    @if (Model.voucher_type == "SV" || Model.voucher_type == "UPSV")
+                                    {
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Client's Weight </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" type="text" value="@Model.client_s_weight" name="clientWeight" required>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Date </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" value="@Model.created_at.ToShortDateString()" name="date" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" value="@Model.description" name="description" required>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+
+
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                    <input type="submit" value="Update Voucher" class="btn btn-success" />
                                 </div>
                             </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
+            </div>
 
-
-                <!-- top navigation -->
-                <!-- /top navigation -->
-                <!-- page content -->
-                <div class="right_col" role="main">
-
-                    <!-- top tiles -->
-                    <!-- /top tiles -->
-
-                    <br />
-                    <!-- /footer content -->
                 </div>
-                <!-- /page content -->
+
 
             </div>
 
-            </div>
+           
 
-            <script src="~/Scripts/js/bootstrap.min.js"></script>
-
-            <script src="~/Scripts/js/custom.js"></script>
-
+           
 
 
 
@@ -417,7 +329,5 @@
 
 
 
-        </body>
-        </html>
 
 

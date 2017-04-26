@@ -52,17 +52,18 @@
 
 
 
-<div class="col-md-3 left_col">
+<div class="col-md-2 pull-left left_col">
+
     <div class="left_col scroll-view">
 
         <div class="navbar nav_title" style="border: 0;">
             @if (name == "Admin")
             {
-                <a href="~/Admin/index/@ID" target="_blank" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
+            <a href="~/Admin/index/@ID" target="_blank" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
             }
             else
             {
-                <a href="~/Users/index/@ID" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
+            <a href="~/Users/index/@ID" class="site_title"><i class="fa fa-paw"></i> <span>Asian Industry</span></a>
             }
         </div>
         <div class="clearfix"></div>
@@ -70,7 +71,7 @@
         <!-- menu prile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="@Session["image"]"  alt="..." class="img-circle profile_img">
+                <img src="@Session["image"]" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -80,6 +81,8 @@
         <!-- /menu prile quick info -->
 
         <br />
+
+        <div class="clearfix"></div>
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -92,19 +95,19 @@
                         <ul class="nav child_menu" style="display: none">
                             @if (create == "Y")
                             {
-                                <li>
-                                    <a target="_blank" href="~/USER_CRUD/Create/">Add User</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/USER_CRUD/Create/">Add User</a>
+                            </li>
                             }
                             @if (view == "Y")
                             {
-                                <li>
-                                    <a target="_blank" href="~/User_CRUD/viewUsers/">View Users</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/User_CRUD/viewUsers/">View Users</a>
+                            </li>
                             }
                             @if (create == "Y")
                             {
-                                 
+
                             <li>
                                 <a href="~/USER_CRUD/ReportsPermissions/">Add Permissions</a>
                             </li>
@@ -113,10 +116,10 @@
                     </li>
                     @if (accView == "Y")
                     {
-                        <li>
-                            <a target="_blank" href="~/Account_CRUD/Index/"><i class="fa fa-bar-chart-o"></i>Accounts</a>
+                    <li>
+                        <a target="_blank" href="~/Account_CRUD/Index/"><i class="fa fa-bar-chart-o"></i>Accounts</a>
 
-                        </li>
+                    </li>
                     }
 
                     <li>
@@ -127,51 +130,51 @@
                             @if (jv == 1)
                             {
 
-                                <li>
-                                    <a target="_blank" href="~/Transactions/journal/">Journal Voucher</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Transactions/journal/">Journal Voucher</a>
+                            </li>
 
                             }
 
                             @if (br == 1)
                             {
 
-                                <li>
-                                    <a href="~/Transactions/bank/">Bank Recieved</a>
-                                </li>
+                            <li>
+                                <a href="~/Transactions/bank/">Bank Recieved</a>
+                            </li>
 
                             }
 
                             @if (bp == 1)
                             {
 
-                                <li>
-                                    <a href="~/Transactions/bankPayment/">Bank Payment</a>
-                                </li>
+                            <li>
+                                <a href="~/Transactions/bankPayment/">Bank Payment</a>
+                            </li>
 
                             }
 
                             @if (cp == 1)
                             {
 
-                                <li>
-                                    <a href="~/Transactions/cashPayment/">Cash Payment</a>
-                                </li>
+                            <li>
+                                <a href="~/Transactions/cashPayment/">Cash Payment</a>
+                            </li>
 
                             }
 
                             @if (cr == 1)
                             {
-                                <li>
-                                    <a href="~/Transactions/cashReceive/">Cash Receive</a>
-                                </li>
+                            <li>
+                                <a href="~/Transactions/cashReceive/">Cash Receive</a>
+                            </li>
 
                             }
                             @if (sv == 1)
                             {
-                                <li>
-                                    <a href="~/SaleVoucher/">Sale Voucher</a>
-                                </li>
+                            <li>
+                                <a href="~/SaleVoucher/">Sale Voucher</a>
+                            </li>
 
                             }
 
@@ -180,42 +183,42 @@
                             @if (pv == 1)
                             {
 
-                                <li>
-                                    <a href="~/SaleVoucher/purchaseVoucher/">Purchase Voucher</a>
-                                </li>
+                            <li>
+                                <a href="~/SaleVoucher/purchaseVoucher/">Purchase Voucher</a>
+                            </li>
 
                             }
 
                             @if (upsv == 1)
                             {
 
-                                <li>
-                                    <a href="~/SaleVoucher/unitPriceSV/">UnitPriceSV</a>
-                                </li>
+                            <li>
+                                <a href="~/SaleVoucher/unitPriceSV/">UnitPriceSV</a>
+                            </li>
 
                             }
 
                             @if (uppv == 1)
                             {
 
-                                <li>
-                                    <a href="~/SaleVoucher/unitPricePV/">UnitPricePV</a>
-                                </li>
+                            <li>
+                                <a href="~/SaleVoucher/unitPricePV/">UnitPricePV</a>
+                            </li>
 
                             }
 
                             @if (ev == 1)
                             {
 
-                                <li>
-                                    <a target="_blank" href="~/ExpenseVoucher/index/">Expense Voucher</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/ExpenseVoucher/index/">Expense Voucher</a>
+                            </li>
 
                             }
-                            
+
                             @if(wev ==1)
-                            { 
-                            
+                            {
+
                             <li>
                                 <a target="_blank" href="~/Transactions/weightExpense/">Weight Expense Voucher</a>
                             </li>
@@ -226,7 +229,7 @@
 
 
                     @if(multiVoucher ==1)
-                    { 
+                    {
 
                     <li>
 
@@ -235,11 +238,11 @@
 
 
                             <li>
-                                <a target="_blank" href="~/Transactions/MultiVoucher/"><i class="fa fa-bar-chart-o"></i>Multi Debit</a>
+                                <a target="_blank" href="~/Transactions/MultiVoucher/">Multi Debit</a>
                             </li>
 
                             <li>
-                                <a target="_blank" href="~/Transactions/MultiVoucher2/"><i class="fa fa-bar-chart-o"></i>Multi Credit</a>
+                                <a target="_blank" href="~/Transactions/MultiVoucher2/">Multi Credit</a>
                             </li>
 
 
@@ -275,28 +278,28 @@
                             @if (allReports == 1)
                             {
 
-                                <li>
-                                    <a target="_blank" href="~/Transactions/history/"><i class="fa fa-bar-chart-o"></i>Ledgers</a>
+                            <li>
+                                <a target="_blank" href="~/Transactions/history/">Ledgers</a>
 
-                                </li>
+                            </li>
 
                             }
-                            
+
                             @if(mainReportss ==1)
-                            { 
+                            {
                             <li>
-                                <a target="_blank" href="~/Transactions/mainReports/"><i class="fa fa-bar-chart-o"></i>Main Reports</a>
+                                <a target="_blank" href="~/Transactions/mainReports/">Main Reports</a>
 
                             </li>
                             }
                             @if (saleReports == 1)
                             {
 
-                                <li>
+                            <li>
 
-                                    <a target="_blank" href="~/SaleVoucher/salesReport/"><i class="fa fa-bar-chart-o"></i>Sales Report</a>
+                                <a target="_blank" href="~/SaleVoucher/salesReport/">Sales Report</a>
 
-                                </li>
+                            </li>
 
                             }
 
@@ -304,11 +307,11 @@
                             {
 
 
-                                <li style="">
+                            <li style="">
 
-                                    <a target="_blank" href="~/SaleVoucher/salesReportByItem/"><i class="fa fa-bar-chart-o"></i> Sales Report By Item</a>
+                                <a target="_blank" href="~/SaleVoucher/salesReportByItem/"> Sales Report By Item</a>
 
-                                </li>
+                            </li>
 
                             }
 
@@ -316,49 +319,49 @@
                             {
 
 
-                                <li>
-                                    <a target="_blank" href="~/ExpenseVoucher/ExpenseReports/"><i class="fa fa-bar-chart-o"></i>Expense Reports</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/ExpenseVoucher/ExpenseReports/">Expense Reports</a>
+                            </li>
 
                             }
-                            
+
                             @if (bankPamyenetReports == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Transactions/BankPaymentReport/"><i class="fa fa-bar-chart-o"></i>Bank Payment Reports</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Transactions/BankPaymentReport/">Bank Payment Reports</a>
+                            </li>
                             }
-                            
+
                             @if (purchaseReports == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/SaleVoucher/purchaseReport/"><i class="fa fa-bar-chart-o"></i>Purchase Reports</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/SaleVoucher/purchaseReport/">Purchase Reports</a>
+                            </li>
                             }
-                            
+
                             @if (addProduction == 1)
                             {
 
 
-                                <li>
-                                    <a target="_blank" href="~/GoodsManagement/history/"><i class="fa fa-bar-chart-o"></i>Production Reports</a>
-                                </li>
-                            }
-                            
-                            @if (trialBalanceReport ==1)
-                            {
-                                 
                             <li>
-                                <a href="~/Transactions/TrialBalanceReport/"><i class="fa fa-bar-chart-o"></i> Trial Balance Report</a>
+                                <a target="_blank" href="~/GoodsManagement/history/">Production Reports</a>
                             </li>
                             }
-                            
+
+                            @if (trialBalanceReport ==1)
+                            {
+
+                            <li>
+                                <a href="~/Transactions/TrialBalanceReport/">Trial Balance Report</a>
+                            </li>
+                            }
+
                             @if (stockReportss == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Stock/StockReport/"><i class="fa fa-bar-chart-o"></i> Stock Report</a>
+                            <li>
+                                <a target="_blank" href="~/Stock/StockReport/"> Stock Report</a>
 
-                                </li>
+                            </li>
                             }
                         </ul>
 
@@ -371,7 +374,7 @@
 
 
 
-                   
+
 
 
 
@@ -384,107 +387,107 @@
 
                             @if (viewEmployee == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Employee/Index/"><i class="fa fa-bar-chart-o"></i> ALL Employees</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Employee/Index/">ALL Employees</a>
+                            </li>
                             }
 
                             @if (addAttendence == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Employee/AttendenceSearch/1"><i class="fa fa-bar-chart-o"></i>Employees Attendence</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Employee/AttendenceSearch/1">Employees Attendence</a>
+                            </li>
                             }
                             @if (viewAttendence == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Employee/AttendenceSearch/2"><i class="fa fa-bar-chart-o"></i>View Attendence</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Employee/AttendenceSearch/2">View Attendence</a>
+                            </li>
                             }
 
 
                             @if (attendenceReports == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/Employee/AttendenceReports/"><i class="fa fa-bar-chart-o"></i>View Attendence Reports</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/Employee/AttendenceReports/">View Attendence Reports</a>
+                            </li>
                             }
                         </ul>
                     </li>
 
                     @if (supervision == 1)
                     {
-                        <li>
+                    <li>
 
-                            <a><i class="fa fa-bar-chart-o"></i> Supervisions <span class="fa fa-chevron-down"></span></a>
+                        <a><i class="fa fa-bar-chart-o"></i> Supervisions <span class="fa fa-chevron-down"></span></a>
 
-                            <ul class="nav child_menu" style="display: none">
+                        <ul class="nav child_menu" style="display: none">
 
 
-                                <li>
-                                    <a target="_blank" href="~/TemporaryReports/ViewTempReports/"><i class="fa fa-bar-chart-o"></i>Admins</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/TemporaryReports/ViewTempReports/">Admins</a>
+                            </li>
 
-                                <li>
-                                    <a target="_blank" href="~/USER_CRUD/Supervision/"><i class="fa fa-bar-chart-o"></i>User's Wise</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/USER_CRUD/Supervision/">User's Wise</a>
+                            </li>
 
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
 
 
                     }
-               
 
-                  
 
-                  
+
+
+
                     <li>
 
-                        <a><i class="fa fa-bar-chart-o"></i> Goods Managements <span class="fa fa-chevron-down"></span></a>
+                        <a><i class="fa fa-bar-chart-o"></i> Goods <span class="fa fa-chevron-down"></span></a>
 
                         <ul class="nav child_menu" style="display: none">
 
 
                             @if (viewGoods == 1)
                             {
-                                <li>
-                                    <a target="_blank" href="~/GoodsManagement/listOfGoods/"><i class="fa fa-bar-chart-o"></i>All Goods</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/GoodsManagement/listOfGoods/">All Goods</a>
+                            </li>
                             }
 
                             @if (viewGoodTypes == 1)
                             {
 
-                                <li>
-                                    <a target="_blank" href="~/GoodsManagement/listGoodTypes/"><i class="fa fa-bar-chart-o"></i>Good Types</a>
-                                </li>
+                            <li>
+                                <a target="_blank" href="~/GoodsManagement/listGoodTypes/">Good Types</a>
+                            </li>
 
                             }
 
                             @if (unitRatess == 1)
                             {
 
-                                <li>
-                                    <a href="~/GoodsManagement/viewUnitRates/"> <i class="fa fa-bar-chart-o"></i>Unit Rates </a>
-                                </li>
+                            <li>
+                                <a href="~/GoodsManagement/viewUnitRates/">Unit Rates </a>
+                            </li>
                             }
 
                         </ul>
                     </li>
-                    
+
                     @if(stockSummarry ==1)
-                    { 
+                    {
 
                     <li>
                         <a target="_blank" href="~/Stock/index/"><i class="fa fa-bar-chart-o"></i> Stock Summary</a>
 
                     </li>
                     }
-                   
-                    
+
+
                     @if(orders ==1)
-                    { 
+                    {
 
                     <li>
 
@@ -492,19 +495,19 @@
                         <ul class="nav child_menu" style="display: none">
 
                             @if(pending ==1)
-                            { 
+                            {
 
                             <li>
-                                <a target="_blank" href="~/SaleOrder/listOfTempOrders"><i class="fa fa-bar-chart-o"></i>Pending Orders</a>
+                                <a target="_blank" href="~/SaleOrder/listOfTempOrders">Pending Orders</a>
                             </li>
 
                             }
                             <li>
-                                <a target="_blank" href="~/SaleOrder/"><i class="fa fa-bar-chart-o"></i>Sale Order</a>
+                                <a target="_blank" href="~/SaleOrder/">Sale Orders</a>
                             </li>
 
                             <li>
-                                <a target="_blank" href="~/PurchaseOrder/"><i class="fa fa-bar-chart-o"></i>Purchase Order</a>
+                                <a target="_blank" href="~/PurchaseOrder/">Purchase Orders</a>
                             </li>
 
 
@@ -513,19 +516,20 @@
                         </ul>
 
                     </li>
-                    
+
                     }
-                <li style="">
-                    <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
-                </li>
+                    <li style="">
+                        <a href="~/Home/logout/"><i class="fa fa-bar-chart-o"></i> Log out</a>
+                    </li>
+                </ul>
+            </div>
 
-</div>
 
 
-            
 
         </div>
         <!-- /sidebar menu -->
 
     </div>
+
 </div>

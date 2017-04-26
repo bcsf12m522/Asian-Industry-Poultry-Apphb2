@@ -24,68 +24,11 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Asian Industry | View User </title>
-
-    <!-- Bootstrap core CSS -->
-
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom styling plus plugins -->
-    <link href="~/Content/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
-    <link href="~/Content/css/green.css" rel="stylesheet" />
-    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
-
-
-    <script src="~/Scripts/js/jquery.min.js"></script>
-
-
-    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
-    <script src="~/Scripts/chosen.jquery.min.js"></script>
-
-
-
-    <script>
-        //* enchanced select
-        chosen_select = {
-            init: function () {
-                $(".chzn-select").chosen();
-            }
-        };
-
-        $(document).ready(function () {
-            // extended select elements
-            chosen_select.init();
-        });
-    </script>
 
 
 
 
 
-
-
-
-</head>
-
-
-
-
-<body class="nav-md">
 
     <div class="container body">
 
@@ -99,7 +42,7 @@
             <!-- top navigation -->
             <!-- /top navigation -->
             <!-- page content -->
-            <div class="right_col" role="main">
+            <div class="right_col col-md-10 pull-right" role="main">
 
 
 
@@ -190,8 +133,8 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <div>
-                                <h2>@ViewBag.search</h2>
-                                 </div>
+                                    <h2>@ViewBag.search</h2>
+                                </div>
                                 <div class="pull-right">
                                     <input type="button" class="btn btn-success" onclick="tableToExcel('testTable', 'W3C Example Table')" value="Export to Excel">
                                 </div>
@@ -220,7 +163,7 @@
 
 
 
-                                            balance = service.findOpeningBalancebeforeDate(ViewBag.start,trans.name);
+                                            balance = service.findOpeningBalancebeforeDate(ViewBag.start, trans.name);
 
                                             var credit = 0;
                                             var debit = 0;
@@ -273,27 +216,27 @@
                                             }
 
 
-                                        <tr>
+                                            <tr>
 
 
 
-                                            @{
+                                                @{
                                             balance = credit - debit + balance;
                                             totalBalance = totalBalance + balance;
                                             totalCredit = totalCredit + credit;
                                             totalDebit = totalDebit + debit;
-                                            }
+                                                }
 
-                                            <td>@trans.name</td>
-                                            @*<td>@trans.parent</td>*@
-                                            <td>@credit</td>
-                                            <td>@debit</td>
+                                                <td>@trans.name</td>
+                                                @*<td>@trans.parent</td>*@
+                                                <td>@credit</td>
+                                                <td>@debit</td>
 
-                                            <td>@balance</td>
+                                                <td>@balance</td>
 
 
 
-                                        </tr>
+                                            </tr>
 
 
                                         }
@@ -315,7 +258,7 @@
                                     </tbody>
 
                                 </table>
-                               
+
 
                             </div>
                         </div>
@@ -332,17 +275,9 @@
         <!-- /page content -->
     </div>
 
-    </div>
-    <script src="~/Scripts/js/bootstrap.min.js"></script>
+  
 
-    <script src="~/Scripts/js/custom.js"></script>
-
-    <script type="text/javascript">
-    function confirm_delete() {
-        return confirm('are you sure?');
-    }
-    </script>
-
+   
 
     <script>
     function setInputDate(_id) {
@@ -418,6 +353,4 @@
 
 
 
-</body>
 
-</html>
