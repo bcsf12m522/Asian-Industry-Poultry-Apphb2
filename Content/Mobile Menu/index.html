@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+ 	$("#mmenu").hide();
+    $(".mtoggle").click(function() {
+        $("#mmenu").slideToggle(500);
+    });
+});
+</script>
+
+</head>
+<body>
+
+<nav id="mobile">
+
+    <div id="toggle-bar">
+        <strong><a class="mtoggle" href="javascript:;">MAIN MENU</a></strong>
+        <a class="navicon mtoggle" href="javascript:;">MAIN MENU</a>
+    </div>
+    
+    
+
+    <ul id="mmenu" style="display:none;">
+        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">Home</a></li>
+        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">Products</a>
+            <ul>
+                <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">HTML</a></li>
+                <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">CSS</a></li>
+                <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">Javascript</a>
+                    <ul>
+                        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">jQuery</a></li>
+                        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">MooTools</a></li>
+                    </ul>
+            	</li>
+            </ul>
+        </li>
+        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">About</a></li>
+        <li><a href="./Simple jQuery Mobile Menu Demo_files/Simple jQuery Mobile Menu Demo.htm">Contact</a></li>       	
+    </ul>
+
+</nav>
+
+
+
+</body></html>
