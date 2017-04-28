@@ -175,6 +175,7 @@
 
                                         string creditDate = String.Format("{0:yyyy/MM/dd}", Model.created_at);
                                         string debitDate = String.Format("{0:yyyy/MM/dd}", ViewBag.debitDate);
+                                        //string updationDate = String.Format("{0:yyyy/MM/dd}", Model.updated_at);
                                     }
 
                                     <div class="form-group">
@@ -192,6 +193,14 @@
                                             <input id="middle-name" type="date" class="form-control col-md-7 col-xs-12" value="@creditDate" name="date" required>
                                         </div>
                                     </div>
+
+                                    @*<div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Updation Date </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="middle-name" type="date" class="form-control col-md-7 col-xs-12" value="@updationDate" readonly name="updation_date" required>
+                                        </div>
+                                    </div>*@
+
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
