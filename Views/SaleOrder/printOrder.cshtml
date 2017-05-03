@@ -1,0 +1,222 @@
+﻿@model ranglerz_project.Models.Temporary_Orders
+
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 10px auto;
+        position: relative;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .container h2 {
+        margin-bottom: 5px;
+    }
+
+    .date {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .head {
+        width: 300px;
+        height: 40px;
+        border: 1px solid #000000;
+        margin: 10px auto;
+        text-align: center;
+        line-height: 40px;
+        font-weight: bold;
+        box-shadow: 4px 4px 4px #000000;
+    }
+
+    table {
+        width: 100%;
+        margin: 20px 0 0;
+    }
+
+    .terms {
+        width: 450px;
+        margin: 80px auto 40px;
+    }
+
+    .sub {
+        width: 100%;
+        height: 150px;
+        border: 1px solid #000000;
+    }
+
+    .signature {
+        width: 20%;
+        padding: 20px 30px;
+        float: left;
+    }
+
+    .signature2 {
+        width: 20%;
+        padding: 20px 30px;
+        float: right;
+    }
+
+    hr {
+        margin-bottom: 5px;
+    }
+
+    .clearfix {
+        clear: both;
+    }
+
+    .bsig1 {
+        width: 23%;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        float: left;
+    }
+    .mR{
+        margin-right:20px;
+        margin-bottom:10px;
+    }
+</style>
+
+
+
+
+
+    <div class="container">
+        <h1 class="text-center">Asian Industries</h1>
+        <p class="text-center">21-W Madina Town, Canal Road, Faislabad</p>
+        <p id="dateDefault" class="date"></p>
+        @if (@Model.type == 1)
+        {
+            <div class="head">Sale Contract</div>
+        }
+        else
+        {
+            <div class="head">Purchase Contract</div>
+        }
+        <div id="printDiv" >
+            <a class="pull-right mR" onclick="printOrder()"><strong>Print</strong></a>
+        </div>
+        <table cellpadding="0" cellspacing="0" border="1">
+            <tbody>
+                <tr>
+                    <td colspan="7">PO-HO-PO</td>
+                </tr>
+                <tr>
+                    <td>Party</td>
+                    <td colspan="4">@Model.party_name</td>
+                    @if(@Model.type==1)
+                    {
+                        <td>SO No</td>
+                    }
+                    else
+                    {
+                        <td>PO No</td>
+                    }
+                    <td>@Model.order_number</td>
+                </tr>
+                <tr>
+                    <td>Broker</td>
+                    <td colspan="4">@Model.broker_name</td>
+                    <td>Terms</td>
+                    <td>@Model.terms</td>
+                </tr>
+                <tr>
+                    <td>Broker Commision</td>
+                    <td colspan="4">@Model.brokers_commision</td>
+                    <td>Date</td>
+                    <td>@Model.created_at_.ToShortDateString()</td>
+
+                </tr>
+                <tr>
+                    <td class="text-center" width="17%"><b>No</b></td>
+                    <td class="text-center" width="34%"><b>Item Description</b></td>
+                    <td class="text-center" width="15%"><b>Category</b></td>
+                    <td class="text-center" width="8%"><b>Qty/Weight</b></td>
+                    <td class="text-center" width="8%"><b>Bags</b></td>
+                    <td class="text-center" width="8%"><b>Rate</b></td>
+                    <td class="text-center" width="10%"><b>No of Veh</b></td>
+                </tr>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>Sale Order of @Model.party_name with good @Model.item</td>
+                    
+
+                        @if(@Model.type==1)
+                        {
+                            <td class="text-center">SO</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">PO</td>
+                        }
+                    <td class="text-center">@Model.weight</td>
+                    <td class="text-center">@Model.bags</td>
+                    <td class="text-center">@Model.rate</td>
+                    <td class="text-center">N/A</td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+
+        <div class="terms">
+            <h3>Terms & Condition:</h3>
+            <div class="sub"></div>
+        </div>
+
+        <div class="signature">
+            <hr />
+            <p class="text-center">Prepaid By</p>
+        </div>
+        <div class="signature2">
+            <hr />
+            <p class="text-center">Signature Vendor Authority</p>
+        </div>
+
+        <div class="clearfix"></div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+
+        <div class="bsig1">
+            <p>Prepaid By: _____________ </p>
+        </div>
+        <div class="bsig1">
+            <p>Checked By: _____________ </p>
+        </div>
+        <div class="bsig1">
+            <p>Approved By: _____________ </p>
+        </div>
+        <div class="bsig1">
+            <p>Audit By: _____________ </p>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+
+
+    <script>
+
+            var datetime = new Date().toLocaleString().slice(0, 9) + " " + new Date(new Date()).toString().split(' ')[4];
+            document.getElementById("dateDefault").innerHTML = datetime;
+
+            function printOrder()
+            {
+                document.getElementById("printDiv").style.display = "none";
+                window.print();
+            }
+
+    </script>
