@@ -93,8 +93,8 @@
 
 
     <div class="container">
-        <h1 class="text-center">Asian Industries</h1>
-        <p class="text-center">21-W Madina Town, Canal Road, Faislabad</p>
+        <h1 class="text-center">ASIAN INDUSTRIES</h1>
+        @*<p class="text-center">21-W Madina Town, Canal Road, Faislabad</p>*@
         <p id="dateDefault" class="date"></p>
         @if (@Model.type == 1)
         {
@@ -110,26 +110,34 @@
         <table cellpadding="0" cellspacing="0" border="1">
             <tbody>
                 <tr>
-                    <td colspan="7">PO-HO-PO</td>
+                    @if (@Model.type == 1)
+                    {
+                        <td colspan="7">SO-HO-SO</td>
+                    }
+                    else
+                    {
+                        <td colspan="7">PO-HO-PO</td>
+                    }
+                  
                 </tr>
                 <tr>
                     <td>Party</td>
                     <td colspan="4">@Model.party_name</td>
                     @if(@Model.type==1)
                     {
-                        <td>SO No</td>
+                        <td>Order Code</td>
                     }
                     else
                     {
-                        <td>PO No</td>
+                        <td>Order Code</td>
                     }
                     <td>@Model.order_number</td>
                 </tr>
                 <tr>
                     <td>Broker</td>
                     <td colspan="4">@Model.broker_name</td>
-                    <td>Terms</td>
-                    <td>@Model.terms</td>
+                    <td>-</td>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <td>Broker Commision</td>
@@ -149,7 +157,15 @@
                 </tr>
                 <tr>
                     <td class="text-center">1</td>
-                    <td>Sale Order of @Model.party_name with good @Model.item</td>
+                    @if (@Model.type == 1)
+                    {
+                        <td>Sale Order of @Model.party_name with good @Model.item</td>
+                    }
+                    else
+                    {
+                        <td>Purchase Order of @Model.party_name with good @Model.item</td>
+                    }
+               
                     
 
                         @if(@Model.type==1)
@@ -172,7 +188,7 @@
 
         <div class="terms">
             <h3>Terms & Condition:</h3>
-            <div class="sub"></div>
+            <div class="sub"><b>@Model.terms</b>  </div>
         </div>
 
         <div class="signature">

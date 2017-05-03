@@ -3,18 +3,6 @@
     ViewBag.Title = "Journal Voucher";
 }
 
-
-
-
-
- 
-
-
-
-
-
-
-    
     
     <div class="loader"></div>
 
@@ -52,19 +40,19 @@
                             </div>
                             <div class="x_content">
                                 <br />
-                                <form id="demo-form2" onsubmit="return submitResult();" action="@Url.Action("journalPost", "TemporaryReports")" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                <form id="frm" onsubmit="return submitResult();" action="@Url.Action("journalPost", "TemporaryReports")" method="post" data-parsley-validate class="form-horizontal form-label-left">
 
-                                    
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
                                             Debit <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select name="to" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <select name="to" id="debit" onchange="checkCreditDebit()" required class="form-control chzn-select col-md-7 col-xs-12">
                                                 <option value="">Please select any </option>
                                                 @foreach (var tr in Model)
                                                 {
-                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                                    <option  value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
                                                 }
 
                                             </select>
@@ -75,11 +63,11 @@
                                             Credit <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select name="from" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <select name="from" id="credit" onchange="checkCreditDebit()" required class="form-control chzn-select col-md-7 col-xs-12">
                                                 <option value="">Please select any </option>
                                                 @foreach (var tr in Model)
                                                 {
-                                                    <option value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
+                                                    <option id="crrr" value="@tr.name">@tr.MainAccount.name -> @tr.name </option>
                                                 }
 
 
@@ -110,31 +98,30 @@
                                             <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="description" required>
                                         </div>
                                     </div>
-</div>
-                                    <div class="form-group">
-
-
-                                    </div>
-
-
-                           
-
-
-
-
-
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 
-                                            <input type="submit" id="btnSubmit" name="actionType" value="Add Voucher" class="btn btn-success"   />
-                                            <input type="submit"  name="actionType" value="Add and Print" class="btn btn-success" />
+                                            <input type="submit" id="btnSubmit" name="actionType" value="Add Voucher" class="btn btn-success" />
+                                            <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
                                             <input type="hidden" name="voucherCode" value="@ViewBag.Code" />
                                             @*<input type="submit" name="actionType" value="Add Voucher" class="btn btn-success" />*@
-                                                                                      
+
                                         </div>
-                                        
-                                    </div>
+                                </form>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
                             
                             </div> 
                            
@@ -142,7 +129,7 @@
                             </div>
                      
                         </div>
-                    </form>        
+                          
                     </div>
                 </div>
             
@@ -190,9 +177,48 @@
     </script>
     
    
+<script type="text/javascript">
+    $('#frm').bind('submit', function (e) {
+        // Disable the submit button while evaluating if the form should be submitted
+        $('#btnSubmit').prop('disabled', true);
+
+        //var valid = true;
+        var error = '';
+
+        // If the email field is empty validation will fail
+        if ($('[name=email]').val() === '') {
+            valid = true;
+            error = 'Email is required';
+        }
+
+        if (valid) {
+            // Prevent form from submitting if validation failed
+            e.preventDefault();
+
+            // Reactivate the button if the form was not submitted
+            $('#btnSubmit').prop('disabled', false);
+
+            alert(error);
+        }
+    });
+</script>
 
 
 
  
+@*<script>
+   function checkCreditDebit()
+    {
+      
+        var cr = document.getElementById('credit').value;
+        var dr = document.getElementById('debit').value;
 
+        if(cr==dr)
+        {
+            alert("Credit and Debit Account Cannot be Same")
+            
+            
+        }
+    }
+</script>*@
       

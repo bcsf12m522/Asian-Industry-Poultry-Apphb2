@@ -145,6 +145,30 @@
         setInputDate("#dateDefault2");
     </script>
 
+    <script type="text/javascript">
+        $('#demo-form2').bind('submit', function (e) {
+        // Disable the submit button while evaluating if the form should be submitted
+        $('#btnSubmit').prop('disabled', true);
 
+        //var valid = true;
+        var error = '';
+
+        // If the email field is empty validation will fail
+        if ($('[name=email]').val() === '') {
+            valid = true;
+            error = 'Email is required';
+        }
+
+        if (valid) {
+            // Prevent form from submitting if validation failed
+            e.preventDefault();
+
+            // Reactivate the button if the form was not submitted
+            $('#btnSubmit').prop('disabled', false);
+
+            alert(error);
+        }
+    });
+    </script>
 </body>
 </html>

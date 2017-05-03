@@ -103,22 +103,20 @@
                                             <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="description" required>
                                         </div>
                                     </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+
+                                            <input type="submit" id="btnSubmit" name="actionType" value="Add Voucher" class="btn btn-success" />
+                                            <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
+                                            <input type="hidden" name="voucherCode" value="@ViewBag.Code" />
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
-                            <div class="form-group">
-
-
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-
-                                    <input type="submit" name="actionType" value="Add Voucher" class="btn btn-success" />
-                                    <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
-                                    <input type="hidden" name="voucherCode" value="@ViewBag.Code" />
-                                </div>
-                            </div>
-
-                            </form>
+                            
+                           
                         </div>
                     </div>
                 </div>
