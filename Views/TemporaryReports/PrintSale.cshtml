@@ -1,8 +1,6 @@
 ﻿@model ranglerz_project.Models.TemporaryReport
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
+
+
     <title>Table Print</title>
     <style type="text/css">
         .main {
@@ -27,14 +25,39 @@
         a {
             color: red;
         }
+         .upper{
+
+            text-transform:uppercase; 
+
+        }
+        .text-center{
+            text-align:center !important;
+        }
+        .text-left{
+            text-align:left !important;
+        }
     </style>
 
-    <script src="js/jquery.min.js"></script>
+   
 
 
-</head>
-<body>
+
+
     <div class="main">
+        <div class="centerHeader">
+
+            <h1 class="upper text-center">Asian Industries</h1>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="centerHeader">
+
+
+
+
+        </div>
+        <div class="clearfix"></div>
+        <div>&nbsp;</div>
         <table border="2" cellpadding="10" cellspacing="0">
             <thead>
                 @{
@@ -46,37 +69,37 @@
                 <tr>
                     @if (Model.voucher_type == "SV")
                     {
-                        <th colspan="4">[Sale Voucher]</th>
+                        <th class="text-center" colspan="4">[Sale Voucher]</th>
                     }
                     else if (Model.voucher_type == "PV")
                     {
-                        <th colspan="4">[Purchase Voucher]</th>
+                        <th class="text-center" colspan="4">[Purchase Voucher]</th>
                     }
                     else if (Model.voucher_type == "UPSV")
                     {
-                        <th colspan="4">[Unit Price Sale Voucher]</th>
+                        <th class="text-center" colspan="4">[Unit Price Sale Voucher]</th>
                     }
                     else if (Model.voucher_type == "UPPV")
                     {
-                        <th colspan="4">[Unit Price Purchase Voucher]</th>
+                        <th class="text-center" colspan="4">[Unit Price Purchase Voucher]</th>
                     }
 
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="3"><strong>Voucher Code:</strong>@Model.voucher_code</td>
-                    <td align="right"><strong>Date:</strong> @Model.created_at.ToShortDateString()</td>
+                    <td colspan="2"><strong>Voucher Code:</strong>@Model.voucher_code</td>
+                    <td colspan="2" align="left"><strong>Date:</strong> @Model.created_at.ToShortDateString()</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><strong>Particular</strong>: @Model.description</td>
+                    <td colspan="2"><strong>Particular</strong>: @Model.description</td>
                     @if(@Model.cheque_no != null)
                     {
-                    <td align="right">Chq # @Model.cheque_no</td>
+                    <td colspan="2" align="left">Chq # @Model.cheque_no</td>
                     }
                     else
                     {
-                        <td align="right">Chq # NULL</td>
+                        <td colspan="2" align="left">Chq # N/A</td>
                     }
                 </tr>
                 <tr>
@@ -98,7 +121,7 @@
                     <td align="center">@Model.net_weight</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="right"><strong>Total:</strong></td>
+                    <td colspan="2" align="right"><strong>Total</strong></td>
                     <td align="center">@Model.net_weight</td>
                     <td align="center">@Model.net_weight</td>
                 </tr>
@@ -148,12 +171,18 @@
                     <td class="foot">Received By</td>
                 </tr>
             </tbody>
-            <tr>
-                <td><a target="_blank" href="" onclick="window.print();">Print</a></td>
+            <tr id="printOption">
+                <td><a target="_blank" href="" onclick="printing();">Print</a></td>
             </tr>
 
         </table>
 
     </div>
-</body>
-</html>
+
+
+<script>
+    function printing() {
+        document.getElementById('printOption').style.display = "none";
+        window.print();
+    }
+</script>

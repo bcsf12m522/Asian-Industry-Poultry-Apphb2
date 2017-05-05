@@ -1,9 +1,6 @@
 ﻿@model ranglerz_project.Models.TemporaryReport
-<!doctype html>
-<html>
-<head>
 
-    <meta charset="utf-8">
+
     <title>Table Print</title>
     <style type="text/css">
         .main {
@@ -33,55 +30,24 @@
         h1{
             margin-bottom:3px;
         }
+        .upper{
+
+            text-transform:uppercase; 
+
+        }
+        .text-center{
+            text-align:center !important;
+        }
+        .text-left{
+            text-align:left !important;
+        }
     </style>
 
-        <script src="js/jquery.min.js"></script>
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript">
-        // this function is based on code found:
-        // http://www.filamentgroup.com/lab/jquery_plugin_for_requesting_ajax_like_file_downloads/
-        // to easily make a form and POST it
-        var download = function (url, data, method) {
-            //url and data options required
-            if (url && data) {
-                jQuery('<form style="display: none" id="dr_submission" action="' + url
-                       + '" method="' + (method || 'post') + '">'
-                       + '</form>').appendTo('body');
-                //credentials
-                jQuery('form#dr_submission').append('<textarea name="user_credentials"></textarea>');
-                jQuery('form#dr_submission textarea[name=user_credentials]').val(data.user_credentials);
 
-                //doc values
-                for (var key in data.doc) {
-                    jQuery('form#dr_submission').append('<textarea name="doc[' + key + ']"></textarea>');
-                    jQuery('form#dr_submission textarea[name="doc[' + key + ']"]').val(data.doc[key]);
-                }
-
-                //submit the form
-                if (confirm("press ok")) { jQuery('form#dr_submission').submit().remove(); }
-            };
-        };
-
-        // setup the string represeting the html we want to submit
-        var content = 'This is a sample PDF created using jQuery. Find more examples of what you can do with DocRaptor <a href="https://docraptor.com/">https://docraptor.com/</a> or contact support@docraptor.com with any questions.';
-
-        var data = {
-            doc: {
-                test: true,
-                type: 'pdf',
-                document_content: content
-            },
-            user_credentials: "YOUR_API_KEY_HERE"
-        };
-
-        var call_download = function () {
-            // this drops a form on the page and submits, which will result in a download dialog popping up
-            download("http://docraptor.com/docs", data);
-        };
-    </script>
+    
 
 
 
@@ -107,13 +73,12 @@
 
 
 
-</head>
-<body>
+
     <div class="main">
 
         <div class="centerHeader">
 
-        <h1>Asian Industries</h1>
+        <h1 class="upper">Asian Industries</h1>
 
         </div>
         <div class="clearfix"></div>
@@ -134,49 +99,49 @@
             }
           
             <thead>
-                <tr>
-                    @if(Model.voucher_type == "JV")
-                    { 
-                    <th colspan="4">[Journal Voucher]</th>
+                <tr class="">
+                    @if (Model.voucher_type == "JV")
+                    {
+                        <th class="text-center" colspan="4">[Journal Voucher]</th>
                     }
                     else if (Model.voucher_type == "BV")
                     {
-                        <th colspan="4">[Bank Received Voucher]</th>
+                        <th class="text-center" colspan="4">[Bank Received Voucher]</th>
                     }
                     else if (Model.voucher_type == "BP")
                     {
-                        <th colspan="4">[Bank Payment Voucher]</th>
+                        <th class="text-center" colspan="4">[Bank Payment Voucher]</th>
                     }
                     else if (Model.voucher_type == "CP")
                     {
-                        <th colspan="4">[Cash Payment Voucher]</th>
+                        <th class="text-center" colspan="4">[Cash Payment Voucher]</th>
                     }
                     else if (Model.voucher_type == "CR")
                     {
-                        <th colspan="4">[Cash Recieved Voucher]</th>
+                        <th class="text-center" colspan="4">[Cash Recieved Voucher]</th>
                     }
                     else
                     {
-                        <th colspan="4">[Expense Voucher]</th>
+                        <th class="text-center" colspan="4">[Expense Voucher]</th>
                     }
                     
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="3"><strong>Voucher Code:</strong>@Model.voucher_code</td>
-                    <td align="right"><strong>Date:</strong> @Model.created_at.ToShortDateString()</td>
+                    <td colspan="2"><strong>Voucher Code:</strong>@Model.voucher_code</td>
+                    <td colspan="2" align="left"><strong>Date:</strong> @Model.created_at.ToShortDateString()</td>
                 </tr>
                 <tr>
-                    <td colspan="3"><strong>Particular</strong>: @Model.description</td>
+                    <td colspan="2"><strong>Particular</strong>: @Model.description</td>
                   @if (@Model.cheque_no != null)
                   {
-                    <td align="right">Chq # @Model.cheque_number</td>
+                    <td colspan="2" class="text-left" align="right">Chq # @Model.cheque_number</td>
             
                   }
                   else
                   {
-                    <td align="right">Chq # NULL</td>
+                    <td colspan="2" class="text-left" align="right">Chq # N/A</td>
                   }
                 </tr>
                 <tr>
@@ -198,19 +163,19 @@
                     <td align="center">@Debit</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="right"><strong>Total:</strong></td>
+                    <td colspan="2" align="right"><strong>Total</strong></td>
                     <td align="center">@Debit</td>
                     <td align="center">@Debit</td>
                 </tr>
                 <tr>
                     @if(@Model.voucher_type=="BP")
                     { 
-                    <td colspan="2"><strong>In Words:</strong>  @ViewBag.amount</td>
-                    <td colspan="2"><strong>Tax (Rs.):</strong>  @Model.tax</td>
+                    <td colspan="2"><strong>In Words:</strong>  @ViewBag.amount only-</td>
+                    <td colspan="2"><strong>Tax (Rs.):</strong>  @Model.tax only-</td>
                     }
                     else
                     {
-                    <td colspan="4"><strong>In Words:</strong>@ViewBag.amount</td>
+                    <td colspan="4"><strong>In Words:</strong>@ViewBag.amount only-</td>
                     }
                 </tr>
             </tbody>
@@ -224,12 +189,18 @@
                     <td class="foot">Received By</td>
                 </tr>
             </tbody>
-            <tr>
-                <td><a target ="_blank" href="" onclick="window.print();">Print</a></td>
+            <tr id="printOption">
+                <td><a target ="_blank" href="" onclick="printing();">Print</a></td>
             </tr>
         
         </table>
           
     </div>
-</body>
-</html>
+
+<script>
+    function printing()
+    {
+        document.getElementById('printOption').style.display = "none";
+        window.print();
+    }
+</script>
