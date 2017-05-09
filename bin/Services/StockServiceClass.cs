@@ -65,5 +65,57 @@ namespace ranglerz_project.Services
             }
             return listRouteReport;
         }
+
+
+        public int findOpeningWeightBeforeDate(string enddate, string searching)
+        {
+            int counsss = 0;
+            DateTime date = Convert.ToDateTime(enddate);
+            TransactionAccount account = db.TransactionAccounts.Where(x => x.name == searching & x.is_active == "Y").First();
+            List<Transaction> transactions = account.Transactions.Where(x => x.created_at < date & x.is_active == "Y").ToList();
+            int weight = Convert.ToInt32(account.opening_weight);
+            int balance = weight;
+            int totalBalance = 0;
+            foreach (var t in transactions)
+            {
+                if (t.net_weight != null)
+                {
+
+                    if (t.extra == "Sale" && account.main_id != 12 || t.net_weight == null)
+                    {
+                        continue;
+                    }
+
+                    if (t.is_active != "Y")
+                    {
+                        continue;
+                    }
+                    if (account.id == 118 && t.voucher_type == "PRV")
+                    {
+                        continue;
+                    }
+
+                    if (t.voucher_type == "SV" || t.voucher_type == "UPSV")
+                    {
+                        balance = (int)(balance - t.net_weight);
+                    }
+                    else if (t.voucher_type == "PRV" && t.Id % 2 == 1)
+                    {
+                        balance = (int)(balance - t.net_weight);
+                    }
+                    else if (t.voucher_type == "WEV" && t.Id % 2 == 1)
+                    {
+                        balance = (int)(balance - t.net_weight);
+                    }
+                    else
+                    {
+                        balance = (int)(balance + t.net_weight);
+                    }
+
+                    totalBalance = totalBalance + balance;
+                }
+            }
+            return balance;
+        }
     }
 }

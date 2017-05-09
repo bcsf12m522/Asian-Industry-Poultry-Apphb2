@@ -48,7 +48,7 @@ namespace ranglerz_project.Controllers
             List<TransactionAccount> accounts = service.findTransactionAccounts(search);
             var weight = service.findAccountWeight(search);
             ViewBag.openingBalance = weight;
-            ViewBag.openingweight = service.findOpeningWeightBeforeDate(dateStart, search);
+            ViewBag.openingweight = stockService.findOpeningWeightBeforeDate(dateStart, search);
             List<TransactionAccount> allaccounts = service.AllStockAccounts();
             ViewBag.start = Convert.ToDateTime(dateStart);
             ViewBag.end = Convert.ToDateTime(dateEnd);
