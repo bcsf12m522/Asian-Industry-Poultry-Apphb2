@@ -18,13 +18,14 @@ namespace ranglerz_project.Controllers
         TransactionServices service = new TransactionServices();
         Database1Entities1 db = new Database1Entities1();
         StockServiceClass stockService = new StockServiceClass();
+        Sale_Order so = new Sale_Order();
         public ActionResult Index()
         {
             //foreach (var trans in service.allTransactionaccounts())
             //{
             //    trans.code = "0" + trans.main_id + "00" + trans.head_id + "000" + trans.sub_head_id + "0000" + trans.id;
             //}
-            
+            //not 
             service.save();
 
             return View(service.allTransactionaccounts());
@@ -46,9 +47,8 @@ namespace ranglerz_project.Controllers
             ViewBag.search = search;
             List<TransactionAccount> accounts = service.findTransactionAccounts(search);
             var weight = service.findAccountWeight(search);
-            var weighttssss = weight;
-            ViewBag.openingBalance = weighttssss;
-            ViewBag.openingweight = service.findOpeningWeightBeforeDates(dateStart, search);
+            ViewBag.openingBalance = weight;
+            ViewBag.openingweight = service.findOpeningWeightBeforeDate(dateStart, search);
             List<TransactionAccount> allaccounts = service.AllStockAccounts();
             ViewBag.start = Convert.ToDateTime(dateStart);
             ViewBag.end = Convert.ToDateTime(dateEnd);
