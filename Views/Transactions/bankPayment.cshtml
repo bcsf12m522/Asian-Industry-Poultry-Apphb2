@@ -44,7 +44,7 @@
                                 <br />
                                 <form id="demo-form2" onsubmit="return submitResult();" action="@Url.Action("bankPaymentPost", "TemporaryReports")" method="post" data-parsley-validate class="form-horizontal form-label-left">
 
-                                    
+
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
                                             Debit <span class="required">*</span>
@@ -108,7 +108,7 @@
                                     <div class="form-group">
                                         <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Debit Date </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="dateDefault"  class="form-control col-md-7 col-xs-12" type="date" value="" name="Debitdate" max="2017-12-31" min="2017-01-01" required>
+                                            <input id="dateDefault" class="form-control col-md-7 col-xs-12" type="date" value="" name="Debitdate" max="2017-12-31" min="2017-01-01" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -123,23 +123,46 @@
                                             <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="description" required>
                                         </div>
                                     </div>
-</div>
-                            <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            Purpose of Payment <span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="party" required class="form-control chzn-select col-md-7 col-xs-12">
+                                                <option value="">Select Any </option>
+                                                <option value="Waste Material Cash Parties ">Waste Material Cash Parties </option>
+                                                <option value="Waste Material Contract Parties">Waste Material Contract Parties </option>
+                                                <option value="BBM Parties">BBM Parties </option>
+                                                <option value="Civil Work Payment">Civil Work Payment </option>
+                                                <option value="Machinery Payment">Machinery Payment </option>
+                                                <option value="Vehicles Rep & Maint">Vehicles Rep & Maint </option>
+                                                <option value="Route Expenses">Route Expenses </option>
+                                                <option value="Other Vendors">Other Vendors </option>
+                                                <option value="Other Cash Payments">Other Cash Payments </option>
 
 
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 
-                                    <input type="submit" id="btnSubmit" name="actionType" value="Add Voucher" class="btn btn-success" />
-                                    <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
-                                    <input type="hidden" name="voucherCode" value="@ViewBag.Code" />
+                                            </select>
+                                        </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 
+                                                <input type="submit" id="btnSubmit" name="actionType" value="Add Voucher" class="btn btn-success" />
+                                                <input type="submit" name="actionType" value="Add and Print" class="btn btn-success" />
+                                                <input type="hidden" name="voucherCode" value="@ViewBag.Code" />
+
+                                            </div>
+                                        </div>
+
+                                </form>
                                 </div>
                             </div>
+                            
+             
 
-                            </form>
                         </div>
                     </div>
                 </div>
