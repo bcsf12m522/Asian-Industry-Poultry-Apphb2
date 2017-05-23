@@ -179,10 +179,29 @@
 
     </div>
 
+<input type="hidden" value="@Model.voucher_type" id="voucherCode" />
 
 <script>
     function printing() {
+
+        var code = document.getElementById('voucherCode').value;
+        document.getElementById('printOption').style.display = "none";
+        alert(code);
         document.getElementById('printOption').style.display = "none";
         window.print();
+        if (code == 'SV') {
+            location.href = '/SaleVoucher/Index/';
+        }
+        else if (code == 'PV') {
+            location.href = '/SaleVoucher/purchaseVoucher/';
+        }
+
+        else if (code == 'UPSV') {
+            location.href = '/SaleVoucher/unitPriceSV/';
+        }
+        else if (code == 'UPPV') {
+            location.href = '/SaleVoucher/unitPricePV/';
+        }
+       
     }
 </script>

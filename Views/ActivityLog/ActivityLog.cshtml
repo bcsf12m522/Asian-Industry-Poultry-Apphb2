@@ -1,0 +1,52 @@
+﻿@model List<ranglerz_project.Models.Users_Log>
+ 
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="pull-left">
+                    <h2>Activity Log</h2>
+                </div>
+                
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="example" class="table table-striped responsive-utilities jambo_table">
+                    <thead>
+                        <tr class="headings">
+
+                            <th>DateTime</th>
+                            <th>Module </th>
+                            <th>Action </th>
+                            
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="updatedTable">
+
+                        @foreach (var v in Model)
+                        {
+                            <tr class="even pointer">
+                                <td>@v.created_at</td>
+                                <td>@v.module</td>
+                                <td>@v.action_perform</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+      

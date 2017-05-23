@@ -1,0 +1,238 @@
+﻿@model List<ranglerz_project.Models.User>
+
+@{
+    ViewBag.Title = "Reports";
+}
+
+
+<style>
+    .hideClass{
+        display:none;
+    }
+    .showClass{
+        display:block;
+    }
+</style>
+
+<link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+<script src="~/Scripts/jquery-1.8.3.min.js"></script>
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+
+<script>
+        //* enchanced select
+        chosen_select = {
+            init: function () {
+                $(".chzn-select").chosen();
+            }
+        };
+
+        $(document).ready(function () {
+            // extended select elements
+            chosen_select.init();
+        });
+</script>
+
+
+
+
+
+<div class="container body">
+
+
+    <div class="main_container" id="mainContent">
+
+        @{
+            Html.RenderPartial("_Partial");
+        }
+
+
+        <div class="right_col col-md-10 pull-right" role="main">
+
+
+
+
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>User's Activity </h3>
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <br />
+                            <form id="demo-form2"  data-parsley-validate class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="search" id="search" onchange="log();" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+                                            @foreach (var tr in Model)
+                                            {
+                                                <option value="@tr.Id">@tr.name </option>
+                                            }
+
+
+                                        </select>
+                                        <input type="date" id="dateStart" name="dateStart" required />
+                                        <input type="date" id="dateEnd" name="dateEnd" required />
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                        <input type="submit" value="Search" name="submitValue" class="btn btn-success" />
+                                        @*<input type="submit" value="Search And Print" name="submitValue" class="btn btn-success" />*@
+
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+
+                        <div id="PrintButton"  class="pull-right hideClass">
+
+                            <p><a class="btn btn-success" onclick="printOption()"><strong>Print</strong></a></p>
+
+                        </div>
+                       
+                        <div class="ln_solid"></div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div id="updateDiv" class="row">
+
+           
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <div id="updateDivForPrint" class="row">
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+<script src="~/Scripts/js/bootstrap.min.js"></script>
+
+<script src="~/Scripts/js/custom.js"></script>
+
+<script>
+        function setInputDate(_id) {
+            var _dat = document.querySelector(_id);
+            var hoy = new Date(),
+                d = hoy.getDate(),
+                m = hoy.getMonth() + 1,
+                y = hoy.getFullYear(),
+                data;
+
+            if (d < 10) {
+                d = "0" + d;
+            };
+            if (m < 10) {
+                m = "0" + m;
+            };
+
+            data = y + "-" + m + "-" + d;
+            console.log(data);
+            _dat.value = data;
+        };
+
+        setInputDate("#dateStart");
+</script>
+
+<script>
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+
+    setInputDate("#dateEnd");
+</script>
+
+<script>
+    function log() {
+       
+        var dateStart = document.getElementById('dateStart').value;
+        var dateEnd = document.getElementById('dateEnd').value;
+        var name = document.getElementById('search').value;
+
+        $.ajax({
+
+            url: '/ActivityLog/userLog/',
+            data: { user: name, start: dateStart, end: dateEnd },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+
+              
+               
+                document.getElementById('updateDiv').innerHTML = data;
+               
+                document.getElementById('updateDivForPrint').innerHTML = data;
+                document.getElementById('updateDivForPrint').style.display = 'none';
+                $('#PrintButton').addClass('showClass');
+            },
+            error: function (response) {
+
+            
+            }
+
+        })
+    }
+
+    function printOption()
+    {
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('updateDivForPrint').style.display = 'block';
+     
+        
+        window.print();
+
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('updateDivForPrint').style.display = 'none';
+    }
+
+</script>
+
+
+
+
+

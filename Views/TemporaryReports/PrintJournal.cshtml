@@ -197,10 +197,40 @@
           
     </div>
 
+            <input type="hidden" value="@Model.voucher_type" id="voucherCode" />
+
 <script>
     function printing()
     {
+        var code = document.getElementById('voucherCode').value;
+ 
+       
         document.getElementById('printOption').style.display = "none";
         window.print();
+        if (code == 'JV')
+        {
+            location.href = '/Transactions/journal/';
+        }
+        else if (code == 'BV') {
+            location.href = '/Transactions/bank/';
+        }
+        
+        else if (code == 'BP') {
+            location.href = '/Transactions/bankPayment/';
+        }
+        else if (code == 'CP') {
+            location.href = '/Transactions/cashPayment/';
+        }
+        else if (code == 'CR') {
+            location.href = '/Transactions/cashReceive/';
+        }
+        else if (code == 'EV') {
+            location.href = '/ExpenseVoucher/Index/';
+        }
+        else if (code == 'WEV') {
+            location.href = '/Transactions/weightExpense/';
+        }
+       
+
     }
 </script>
