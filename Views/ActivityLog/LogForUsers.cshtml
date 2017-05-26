@@ -1,16 +1,17 @@
 ﻿@model List<ranglerz_project.Models.User>
 
 @{
-    ViewBag.Title = "Activity Log";
+    ViewBag.Title = "User Log";
 }
 
 
 <style>
-    .hideClass{
-        display:none;
+    .hideClass {
+        display: none;
     }
-    .showClass{
-        display:block;
+
+    .showClass {
+        display: block;
     }
 </style>
 
@@ -66,26 +67,19 @@
 
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2"  data-parsley-validate class="form-horizontal form-label-left">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                                 <div class="form-group">
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="search" id="search" onchange="log();" required class="form-control chzn-select col-md-7 col-xs-12">
-                                            <option value="">Please select any </option>
-                                            @foreach (var tr in Model)
-                                            {
-                                                <option value="@tr.Id">@tr.name </option>
-                                            }
 
-
-                                        </select>
                                         <input type="date" id="dateStart" name="dateStart" required />
                                         <input type="date" id="dateEnd" name="dateEnd" required />
+                                        <input type="hidden" id="search" value="@ViewBag.UserId" />
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @*<input type="submit" value="Search" name="submitValue" class="btn btn-success" />*@
+                                        <input type="button" value="Search" name="submitValue" class="btn btn-success" onclick="log();" />
                                         @*<input type="submit" value="Search And Print" name="submitValue" class="btn btn-success" />*@
 
                                     </div>
@@ -96,12 +90,12 @@
                             </form>
                         </div>
 
-                        <div id="PrintButton"  class="pull-right hideClass">
+                        <div id="PrintButton" class="pull-right hideClass">
 
                             <p><a class="btn btn-success" onclick="printOption()"><strong>Print</strong></a></p>
 
                         </div>
-                       
+
                         <div class="ln_solid"></div>
 
 
@@ -119,7 +113,7 @@
 
             <div id="updateDiv" class="row">
 
-           
+
 
             </div>
 
@@ -199,23 +193,23 @@
 
         $('#Loader').removeClass('hideClass');
         $('#Loader').addClass('showClass');
-       
+
         var dateStart = document.getElementById('dateStart').value;
         var dateEnd = document.getElementById('dateEnd').value;
         var name = document.getElementById('search').value;
 
         $.ajax({
 
-            url: '/ActivityLog/userLog/',
+            url: '/ActivityLog/LogForUsersPost/',
             data: { user: name, start: dateStart, end: dateEnd },
             cache: false,
             type: "Get",
             success: function (data) {
 
-              
-               
+
+
                 document.getElementById('updateDiv').innerHTML = data;
-               
+
                 document.getElementById('updateDivForPrint').innerHTML = data;
                 document.getElementById('updateDivForPrint').style.display = 'none';
                 $('#PrintButton').addClass('showClass');
@@ -229,7 +223,7 @@
 
                 $('#Loader').removeClass('showClass');
                 $('#Loader').addClass('hideClass');
-            
+
             }
 
         })
@@ -239,8 +233,8 @@
     {
         document.getElementById('mainContent').style.display = 'none';
         document.getElementById('updateDivForPrint').style.display = 'block';
-     
-        
+
+
         window.print();
 
         document.getElementById('mainContent').style.display = 'block';

@@ -1,16 +1,17 @@
-﻿@model List<ranglerz_project.Models.User>
+﻿
 
 @{
-    ViewBag.Title = "Activity Log";
+    ViewBag.Title = "Voucher Log";
 }
 
 
 <style>
-    .hideClass{
-        display:none;
+    .hideClass {
+        display: none;
     }
-    .showClass{
-        display:block;
+
+    .showClass {
+        display: block;
     }
 </style>
 
@@ -46,37 +47,48 @@
             Html.RenderPartial("_Partial");
         }
 
+        
 
         <div class="right_col col-md-10 pull-right" role="main">
 
+            
 
 
 
             <div class="page-title">
                 <div class="title_left">
-                    <h3>User's Activity </h3>
+                    <h3>Voucher Log </h3>
                 </div>
 
             </div>
 
             <div class="clearfix"></div>
+
+            
+
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
 
                         <div class="x_content">
                             <br />
-                            <form id="demo-form2"  data-parsley-validate class="form-horizontal form-label-left">
+                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                                 <div class="form-group">
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select name="search" id="search" onchange="log();" required class="form-control chzn-select col-md-7 col-xs-12">
                                             <option value="">Please select any </option>
-                                            @foreach (var tr in Model)
-                                            {
-                                                <option value="@tr.Id">@tr.name </option>
-                                            }
+                                            <option value="JV">Journal</option>
+                                            <option value="BV">Bank Recieved</option>
+                                            <option value="BP">Bank Payment</option>
+                                            <option value="CR">Cash Recieved</option>
+                                            <option value="CP">Cash Payment</option>
+                                            <option value="SV">Sale</option>
+                                            <option value="PV">Purchase</option>
+                                            <option value="UPSV">Unit Price Sale</option>
+                                            <option value="UPPV">Unit Price Purchase</option>
+                                            <option value="EV">Expense</option> 
 
 
                                         </select>
@@ -96,12 +108,12 @@
                             </form>
                         </div>
 
-                        <div id="PrintButton"  class="pull-right hideClass">
+                        <div id="PrintButton" class="pull-right hideClass">
 
                             <p><a class="btn btn-success" onclick="printOption()"><strong>Print</strong></a></p>
 
                         </div>
-                       
+
                         <div class="ln_solid"></div>
 
 
@@ -117,9 +129,10 @@
                 <div class="col-md-5"></div>
             </div>
 
+
             <div id="updateDiv" class="row">
 
-           
+
 
             </div>
 
@@ -195,41 +208,38 @@
 
 <script>
     function log() {
-
-
         $('#Loader').removeClass('hideClass');
         $('#Loader').addClass('showClass');
-       
         var dateStart = document.getElementById('dateStart').value;
         var dateEnd = document.getElementById('dateEnd').value;
         var name = document.getElementById('search').value;
 
         $.ajax({
 
-            url: '/ActivityLog/userLog/',
-            data: { user: name, start: dateStart, end: dateEnd },
+            url: '/ActivityLog/voucherLogPost/',
+            data: { voucher: name, start: dateStart, end: dateEnd },
             cache: false,
             type: "Get",
             success: function (data) {
 
-              
-               
+
+
                 document.getElementById('updateDiv').innerHTML = data;
-               
+
                 document.getElementById('updateDivForPrint').innerHTML = data;
                 document.getElementById('updateDivForPrint').style.display = 'none';
                 $('#PrintButton').addClass('showClass');
 
-
                 $('#Loader').removeClass('showClass');
                 $('#Loader').addClass('hideClass');
+                
 
             },
             error: function (response) {
 
                 $('#Loader').removeClass('showClass');
                 $('#Loader').addClass('hideClass');
-            
+
             }
 
         })
@@ -239,8 +249,8 @@
     {
         document.getElementById('mainContent').style.display = 'none';
         document.getElementById('updateDivForPrint').style.display = 'block';
-     
-        
+
+
         window.print();
 
         document.getElementById('mainContent').style.display = 'block';

@@ -1,0 +1,59 @@
+﻿@model List<ranglerz_project.Models.Transaction>
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <div class="pull-left">
+                <h2>Voucher Log</h2>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table id="example" class="table table-striped responsive-utilities jambo_table">
+                <thead>
+                    <tr class="headings">
+
+                        <th>Date</th>
+                        <th>Voucher Type</th>
+                        <th>voucher Code</th>
+                        <td>Username</td>
+                        <td>Supervised</td>
+                        <td>Debit/Acc</td>
+                        <td>Credit/Acc</td>
+                        <td>Amount</td>
+                    </tr>
+                </thead>
+
+                <tbody id="updatedTable">
+
+                    @foreach (var v in Model)
+                    {
+                        <tr class="even pointer">
+                            <td>@v.created_at.ToShortDateString()</td>
+                            <td>@v.voucher_type</td>
+                            <td>@v.voucher_code</td>
+                            <td>@v.User.name</td>
+                            <td>@v.supervisor</td>
+                            <td>@v.from_account</td>
+                            <td>@v.to_account</td>
+                            <td>@v.dr</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
