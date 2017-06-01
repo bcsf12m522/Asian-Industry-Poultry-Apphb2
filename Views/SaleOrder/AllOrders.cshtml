@@ -48,17 +48,87 @@
                         <div id="Search" class="form-group">
 
 
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Sale Order Party Wise</label>
+                                        <select id="saleParty" name="search" onchange="saleOrderByParty()" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
 
-                                <input type="button" value="Sale Orders" onclick="SaleOrders()" name="submitValue" class="btn btn-success" />
-                                <input type="button" value="Purchase Orders" onclick="PurchaseOrders()" name="submitValue" class="btn btn-success" />
+                                            @foreach (var tr in ViewBag.Accounts)
+                                    {
+                                                <option value="@tr.id">@tr.name </option>
+                                    }
 
 
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sale Order Item Wise</label>
+                                        <select id="saleItem" name="search" onchange="saleOrderByItem()" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+
+                                            @foreach (var tr in ViewBag.Items)
+                                            {
+                                                <option value="@tr.good_Name">@tr.good_Name </option>
+                                            }
+
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+
+
+                                    <div class="form-group">
+                                        <label>Purchase Order Party Wise</label>
+                                        <select id="purchaseParty" name="search" onchange="purchaseOrderByParty()" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+
+                                            @foreach (var tr in ViewBag.Accounts)
+                                            {
+                                                <option value="@tr.id">@tr.name </option>
+                                            }
+
+
+                                        </select>
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label>Purchase Order Item Wise</label>
+                                        <select id="purchaseItem" name="search" onchange="purchaseOrderByItem()" required class="form-control chzn-select col-md-7 col-xs-12">
+                                            <option value="">Please select any </option>
+
+                                            @foreach (var tr in ViewBag.Items)
+                                            {
+                                                <option value="@tr.good_Name">@tr.good_Name </option>
+                                            }
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-6">
+                                    <input type="button" value="All Sale Orders" onclick="SaleOrders()" name="submitValue" class="btn btn-success" />
+                                </div>
+                                <div class="col-md-6">
+                                <input type="button" value="All Purchase Orders" onclick="PurchaseOrders()" name="submitValue" class="btn btn-success" />
+                                </div>
                             </div>
                         </div>
                     </form>
 
-
+                    
 
                 </div>
 
@@ -126,17 +196,118 @@
 
     }
 
+    function saleOrderByParty()
+    {
+        $("#loader").addClass("show");
+        var AccountName = document.getElementById('saleParty').value;
+        $.ajax({
+
+            url: "/SaleOrder/SaleOrderByParty/",
+            data:{id:AccountName},
+            cache: false,
+            type: "Get",
+            success: function(data)
+            {
+                 
+                document.getElementById("updatedDiv").innerHTML = data;
+                $("#loader").removeClass("show");
+                $("#loader").addClass("hide");
+            },
+            error: function()
+            {
+                alert("Error");
+            }
+
+        })
+
+    }
+
+    function saleOrderByItem() {
+        $("#loader").addClass("show");
+        var itemName = document.getElementById('saleItem').value;
+        $.ajax({
+
+            url: "/SaleOrder/SaleOrderByItem/",
+            data:{item : itemName },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+
+                document.getElementById("updatedDiv").innerHTML = data;
+                $("#loader").removeClass("show");
+                $("#loader").addClass("hide");
+            },
+            error: function () {
+                alert("Error");
+            }
+
+        })
+
+    }
+
+
+
+
+
+
     function PurchaseOrders() {
 
         $("#loader").addClass("show");
 
         $.ajax({
 
-            url:"/PurchaseOrder/AllPurchaseOrders/",
+            url: "/PurchaseOrder/AllPurchaseOrders/",
+
             cache: false,
             type: "Get",
             success: function (data) {
                
+                document.getElementById("updatedDiv").innerHTML = data;
+                $("#loader").removeClass("show");
+                $("#loader").addClass("hide");
+            },
+            error: function () {
+                alert("Error");
+            }
+
+        })
+
+    }
+
+    function purchaseOrderByParty() {
+        $("#loader").addClass("show");
+        var AccountName = document.getElementById('purchaseParty').value;
+        $.ajax({
+
+            url: "/purchaseOrder/purchaseOrderByParty/",
+            data: { id: AccountName },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+
+                document.getElementById("updatedDiv").innerHTML = data;
+                $("#loader").removeClass("show");
+                $("#loader").addClass("hide");
+            },
+            error: function () {
+                alert("Error");
+            }
+
+        })
+
+    }
+
+    function purchaseOrderByItem() {
+        $("#loader").addClass("show");
+        var itemName = document.getElementById('purchaseItem').value;
+        $.ajax({
+
+            url: "/purchaseOrder/purchaseOrderByItem/",
+            data: { item: itemName },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+
                 document.getElementById("updatedDiv").innerHTML = data;
                 $("#loader").removeClass("show");
                 $("#loader").addClass("hide");
