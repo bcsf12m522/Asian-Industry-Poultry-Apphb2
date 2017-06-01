@@ -1,0 +1,76 @@
+﻿@model List<ranglerz_project.Models.Sale_Order>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+
+    <div class="x_panel">
+
+        <div class="x_title">
+            <div class="pull-left">
+                <h2>Sale Orders</h2>
+            </div>
+            <div class="pull-right">
+
+                <p><a class="btn btn-success" onclick="printOption()"><strong>Print</strong></a></p>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table id="" class="table table-striped responsive-utilities jambo_table">
+                <thead>
+                    <tr class="headings">
+
+                        <th>Date</th>
+                        <th>SO# </th>
+                        <th>Party Name </th>
+                        <th>Item </th>
+                        <th>Broker</th>
+                        <th>Commision</th>
+                        <th>Weight</th>
+                        <th>Rate</th>
+                        <th>Prepared by</th>
+                        <th>Approved by</th>
+                        <th>Status</th>
+
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var v in Model)
+                    {
+                        <tr class="even pointer">
+
+
+                            <td>@v.created_at_.ToShortDateString()</td>
+                            <td>@v.so_number</td>
+                            <td>@v.party_name</td>
+                            <td>@v.item</td>
+                            <td>@v.broker_name </td>
+                            <td>@v.brokers_commision</td>
+                            <td>@v.weight</td>
+                            <td>@v.rate</td>
+                            <td>@v.prepared_by</td>
+                            <td>@v.approved_by</td>
+                            @if(v.is_active=="Y")
+                            { 
+                            <td>Active</td>
+                            }
+                            else
+                            {
+                                <td>DeActive</td>
+                            }
+
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+            <div class="x_content">
+            </div>
+    </div>
+</div>
+</div>
