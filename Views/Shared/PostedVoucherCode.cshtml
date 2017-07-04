@@ -1,0 +1,85 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="~/Content/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-jvectormap-2.0.1.css" />
+    <link href="~/Content/css/green.css" rel="stylesheet" />
+    <link href="~/Content/css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/css/chosen.css" media="all" />
+
+
+    <script src="~/Scripts/js/jquery.min.js"></script>
+
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+
+</head>
+
+
+<div class="container body">
+
+
+    <div class="main_container">
+
+        @{
+            Html.RenderPartial("_Partial");
+        }
+
+
+
+
+        <div class="right_col col-md-10 pull-right" style="margin-top:5px ;min-height:900px" role="main">
+
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="text-transform:uppercase; font-weight:600"> @ViewBag.ACTION_NAME Voucher</h3>
+                    </div>
+
+                </div>
+          
+            <div class="clearfix"></div>
+            <div class="row" style="margin-top:140px">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div style="border:2px solid #2a3f54; border-radius:6px 4px ; padding-left:55px" class="x_content">
+                            <br />
+
+                            <h2>Voucher Has Been Posted :<strong> @ViewBag.VOUCHER_CODE</strong> </h2>
+                            <span style="font-size:18px">Want to Add New Voucher ? </span>
+                            <a class="btn btn-success" href="@Url.Action(ViewBag.ACTION_NAME, ViewBag.CONTROLLER)">ADD NEW</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+
+            </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script src="~/Scripts/js/bootstrap.min.js"></script>
+
+<script src="~/Scripts/js/custom.js"></script>
