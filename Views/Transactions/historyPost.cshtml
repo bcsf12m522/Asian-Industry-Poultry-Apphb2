@@ -48,6 +48,11 @@
             // extended select elements
             chosen_select.init();
         });
+
+        function abc() {
+            alert("sasdadsadas");
+        }
+
     </script>
 
 
@@ -179,20 +184,22 @@
                                 @*<form action="@Url.Action("ExportData","Transactions")" method="post">*@
                                 <div class="x_content">
                                     <table id="testTable" class="table table-striped responsive-utilities jambo_table">
-                                        <thead>
+                                        <thead style="font-weight:bo">
                                             <tr id="notShowHeading" class="headings">
 
 
-
-                                                <th>Date </th>
+                                                
+                                                <th style="width:85px">Date </th>
                                              
                                                 <th>Code </th>
+                                                <th>Cheque No</th>
                                                 <th>Description </th>
                                                 <th>Dr </th>
                                                 <th>Cr </th>
 
                                                 <th>Balance </th>
                                                 <th id="notShowAction">Action</th>
+                                                
 
                                             </tr>
                                         </thead>
@@ -242,6 +249,14 @@
 
                                                           
                                                                 <td>@t.voucher_code</td>
+                                                               
+                                                                @if(t.voucher_type=="BP"){
+                                                                    <td>@t.cheque_number</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>None</td>
+                                                                }
                                                                 <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
 
                                                                 <td>@crCommas</td>
@@ -287,6 +302,7 @@
 
                                                                     }
                                                                 </td>
+                                                                
 
 
 
@@ -310,8 +326,9 @@
 
                                                 <td>Total</td>
                                                 <td>-</td>
-                                         
                                                 <td>-</td>
+                                         
+                                                <td class="center-margin">-</td>
                                                 <td>@totalCreditCommas</td>
                                                 <td>@totaldebitCommas</td>
                                                 <td>-</td>
@@ -365,7 +382,7 @@
         </div>
 
     </div>
-
+</body>
     <script src="~/Scripts/js/bootstrap.min.js"></script>
 
     <script src="~/Scripts/js/custom.js"></script>
@@ -558,22 +575,3 @@
             });
         }
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -110,11 +110,11 @@
                                                     <th>User Name</th>
                                                 }
 
-                                                <th>Date </th>
+                                                <th style="width:85px">Date </th>
                                                 <th>Type</th>
                                                 <th>Code </th>
                                                 <th>Description </th>
-                                                <th>Cheque Type</th>
+                                                <th>Cheque No</th>
                                                 <th>Dr </th>
                                                 <th>Cr </th>
                                                 <th>Balance </th>
@@ -168,7 +168,11 @@
                                                                 
                                                                 <td>@t.voucher_code</td>
                                                                 <td>@t.description <strong> From :</strong>  @t.from_account <strong>To :</strong>   @t.to_account </td>
-                                                                <td>
+                                                                
+                                                                <td>@t.cheque_number</td>
+
+                                                                <!-- CHEQUE TYPE REMOVED & HEQUE NUMBER ADDED by JUNAID SHEIKH-->
+                                                                @*<td>
                                                                     @if(t.cross != null)
                                                                     {
                                                                         @t.cross;
@@ -181,7 +185,8 @@
                                                                     {
                                                                         @t.extra;
                                                                     }
-                                                                </td>
+                                                                </td>*@
+                                                                <!-- CHEQUE TYPE REMOVED & HEQUE NUMBER ADDED by JUNAID SHEIKH-->
                                                                 <td>@crCommas</td>
                                                                 <td>@debCommas</td>
                                                                 
