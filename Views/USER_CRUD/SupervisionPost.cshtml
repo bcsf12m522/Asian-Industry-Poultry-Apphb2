@@ -78,6 +78,8 @@
 
                     <div class="row">
 
+                        <input id="delete_id" type="text" hidden/>
+
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
@@ -85,7 +87,7 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <table id="example" class="table table-striped table-condensed responsive-utilities jambo_table">
+                                    <table id="ateeqexample" class="table table-striped table-condensed responsive-utilities jambo_table">
                                         <thead>
                                             <tr class="headings">
 
@@ -119,7 +121,7 @@
 
 
 
-                                                            <td class=" ">@v.created_at.ToShortDateString()</td>
+                                                            <td class="" style="width:85px">@v.created_at.ToShortDateString()</td>
                                                             <td class=" ">@v.user </td>
                                                             <td class=" ">
                                                                 @v.voucher_type
@@ -202,7 +204,8 @@
                                                                 @if (v.description != "WHT")
                                                                 {
 
-                                                                    <a style="color:#fff" href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
+                                                                    @*<a style="color:#fff" href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>*@
+                                                                    <a style="color:#3f5367" onclick="delete_click(@v.Id)">Delete</a>
 
                                                                 }
 
@@ -218,7 +221,7 @@
 
 
 
-                                                            <td class=" ">@v.created_at.ToShortDateString()</td>
+                                                            <td class="" style="width:85px">@v.created_at.ToShortDateString()</td>
                                                             <td class=" ">@v.user </td>
                                                             <td class=" ">
                                                                 @v.voucher_type
@@ -301,7 +304,8 @@
                                                                 @if (v.description != "WHT" && v.pvr_type != 4)
                                                                 {
 
-                                                                    <a href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>
+                                                                    @*<a href="@Url.Action("Delete", "TemporaryReports", new { id = @v.Id })" onclick="return confirm('Are you sure you want to Delete?')"> Delete</a>*@
+                                                                    <a style="color:#3f5367" onclick="delete_click(@v.Id)">Delete</a>
 
                                                                 }
 
@@ -335,6 +339,98 @@
     </div>
   
 
+
+@*---------------------------MODAL FOR DELETE REASON----------------------------------------*@
+<div class="modal fade" id="asd" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" onclick="close_modal()"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Reason for Deleting
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Reason</label>
+                        <input type="email" class="form-control"
+                               id="delete_reason" name="Reason" placeholder="Reason" />
+                    </div>
+
+                    <div class="col-md-4" style="margin-bottom:20px"></div>
+                    <button type="submit" class="btn btn-primary" onclick="click_submit_delete()">Submit</button>
+                </form>
+
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+@*---------------------------MODAL FOR DELETE REASON----------------------------------------*@
+
+
+<script>
+
+
+    function delete_click(id) {
+
+
+        var del = confirm("Are you sure you want to delete this record?");
+        alert(id);
+        if (del == true) {
+            //alert("record deleted");
+            $("#asd").addClass("in").show("slow");
+            $("#delete_id").val(id);
+        }
+    }
+
+    function click_submit_delete() {
+
+
+        var iddd = $("#delete_id").val();
+
+        alert("iddd" + iddd);
+
+        var reason_name = $("#delete_reason").val();
+        alert("reason_name" + reason_name);
+
+        $.ajax({
+
+            url: "/TemporaryReports/Delete_with_Reason/",
+            data: { id: iddd, reason: reason_name },
+            cache: false,
+            type: "Get",
+            success: function (data) {
+                location.reload();
+                //alert(data);
+
+            },
+            error: function (response) {
+                alert("Error" + response);
+            }
+
+        })
+
+    }
+
+</script>
+
+
     <script type="text/javascript">
     function confirm_delete() {
         return confirm('are you sure?');
@@ -362,6 +458,11 @@
     return false;
     }
     </script>
+<script>
+    $(document).ready(function () {
+        $('#ateeqexample').dataTable();
 
+    });
+</script>
 
 

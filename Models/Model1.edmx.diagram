@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a32f6aa04a33463fbd7f3a304bcdf04d" Name="Diagram1" ZoomLevel="106">
+      <Diagram DiagramId="a32f6aa04a33463fbd7f3a304bcdf04d" Name="Diagram1" ZoomLevel="69">
         <EntityTypeShape EntityType="Database1Model.Admin" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.HeadAccount" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.MainAccount" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
@@ -31,7 +31,7 @@
         <AssociationConnector Association="Database1Model.FK_ExpenseTransactions_ToTable_2" />
         <AssociationConnector Association="Database1Model.FK_ExpenseTransactions_ToTable_3" />
         <AssociationConnector Association="Database1Model.FK_ExpenseTransactions_ToTable_4" />
-        <EntityTypeShape EntityType="Database1Model.TemporaryReport" Width="1.5" PointX="15.75" PointY="1.25" />
+        <EntityTypeShape EntityType="Database1Model.TemporaryReport" Width="2.125" PointX="15.125" PointY="1.25" />
         <AssociationConnector Association="Database1Model.FK_TempReport_Admin" />
         <AssociationConnector Association="Database1Model.FK_TempReport_ToTable" />
         <AssociationConnector Association="Database1Model.FK_TempReport_Users" />
